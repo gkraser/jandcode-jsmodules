@@ -1,4 +1,4 @@
-let jcMods = require("./jc-modules")
+let jcModules = require("./jc-modules")
 
 /**
  * Базовый конфиг для webpack.
@@ -7,18 +7,18 @@ let jcMods = require("./jc-modules")
 let webpackBaseConfig = {
     resolve: {
         modules: [
-            ...jcMods.resolvePaths
+            ...jcModules.resolvePaths
         ],
         alias: {
-            ...jcMods.modulesPaths
+            ...jcModules.modulesPaths
         }
     },
     resolveLoader: {
         modules: [
-            ...jcMods.resolvePaths
+            ...jcModules.resolvePaths
         ],
         alias: {
-            ...jcMods.modulesPaths
+            ...jcModules.modulesPaths
         }
     }
 }

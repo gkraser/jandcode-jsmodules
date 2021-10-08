@@ -11,7 +11,7 @@ module.exports = b.build()
 let path = require('path')
 let fs = require('fs')
 let webpackMerge = require('webpack-merge')
-let VirtualModulesPlugin = require('webpack-virtual-modules');
+let VirtualModulesPlugin = require('webpack-virtual-modules')
 
 let webpackBase = require('./webpack-base')
 let addons = require('./addons')
