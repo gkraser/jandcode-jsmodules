@@ -3,57 +3,29 @@ const webpack = require('webpack');
 
 let jcTools = require("@jandcode/tools")
 let {merge} = require('webpack-merge')
-let VirtualModulesPlugin = require('webpack-virtual-modules');
-let jcVueLoader = require.resolve('../src/vue-loader')
+let stdConfig = require("@jandcode/tools/webpack/std-config")
 
 /**
  * Создание конфигурации для указанной точки входа из wp-data
  */
 function wpConfig(entry) {
-    let virtualModules = new VirtualModulesPlugin()
+
+    let basedir = path.resolve(__dirname, 'wp-data')
 
     let appConfig = {
         mode: 'development',
         devtool: false,
-        context: path.resolve(__dirname, 'wp-data'),
         entry: {
             main: './' + entry,
         },
         output: {
-            path: path.resolve(__dirname, '../temp/wp-out', entry),
-            filename: "[name].bundle.js",
-            chunkFilename: "[name].chunk.js",
+            path: path.resolve(basedir, '../../temp/wp-out', entry),
         },
-        module: {
-            rules: [
-                {
-                    test: /\.css$/i,
-                    use: [
-                        'css-loader'
-                    ],
-                },
-                {
-                    test: /\.less/i,
-                    use: [
-                        'css-loader',
-                        'less-loader'
-                    ],
-                },
-                {
-                    test: /\.vue$/,
-                    use: [
-                        jcVueLoader
-                    ]
-                },
-
-            ],
-        },
-        plugins: [
-            virtualModules
-        ],
     }
 
-    return merge(jcTools.webpackBaseConfig, appConfig)
+    return merge(stdConfig({
+        basedir: basedir
+    }), appConfig)
 }
 
 /**
