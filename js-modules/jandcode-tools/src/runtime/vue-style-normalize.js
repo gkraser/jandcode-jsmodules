@@ -8,10 +8,19 @@ module.exports = function vueStyleNormalize(
     scriptExports,
     styles,
 ) {
+    console.info("Normalise for ",styles);
+
     if (!styles) {
         return
     }
     let stylesArr = cssUtils.normCssArray(styles)
+    if (scriptExports.__file) {
+        for (let style of stylesArr){
+            style.moduleId = scriptExports.__file
+        }
+    }
+
+    console.info("stylesArr ",stylesArr);
 
     function fnStylesBeforeCreate() {
         for (let st of stylesArr) {
@@ -23,9 +32,10 @@ module.exports = function vueStyleNormalize(
     scriptExports.beforeCreate = existing
         ? [].concat(existing, fnStylesBeforeCreate)
         : [fnStylesBeforeCreate]
+    scriptExports.__styles_jc = stylesArr
 
 
-    for (let style of styles){
+    for (let style of stylesArr){
         console.info("normalise for ",style);
     }
     
