@@ -34,7 +34,7 @@ module.exports = function(source) {
 
     if (importStyles.length > 0) {
         // удаляем старые импорты стилей
-        source = source.replace(regexImportStyle, "")
+        source = source.replace(regexImportStyle, "//$&")
         // делаем импорты стилей и инжектим их
         let src = [`require('${vueStyleNormalizeImport}')(__exports__,[`]
         for (let st of importStyles) {
