@@ -2,9 +2,10 @@ let jcModules = require("./jc-modules")
 
 /**
  * Базовый конфиг для webpack.
- * Подключает все resolve для всех модулей, который сгенерил jc
+ * Подключает все resolve для всех модулей, который сгенерил jc.
+ * Обязателен к применения в проектах.
  */
-let webpackBaseConfig = {
+module.exports = {
     resolve: {
         modules: [
             ...jcModules.resolvePaths
@@ -23,7 +24,4 @@ let webpackBaseConfig = {
     }
 }
 
-module.exports = {
-    webpackBaseConfig,
-}
 

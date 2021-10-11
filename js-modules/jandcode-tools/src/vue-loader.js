@@ -4,6 +4,7 @@
     Вызывает стандартный vue-loader, а затем делает style inject для jandcode.
     Когда style inject появится в оригинальном vue-loader, может быть удален.
 
+    Имя файла должно быть vue-loader.js, иначе его не видит vue-плагин!
  */
 
 let origVueLoader = require('vue-loader').default
