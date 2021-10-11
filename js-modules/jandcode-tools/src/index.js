@@ -9,11 +9,8 @@ let webpackBuilder = require("./webpack-builder")
 let Tst_WpbPlugin = require("./wpb-plugin-tst")
 let Theme_WpbPlugin = require("./wpb-plugin-theme")
 
-let jcVueLoader = require.resolve('./vue-loader')
-
 module.exports = {
     jcModules,
-    jcVueLoader,
     ...webpackBase,
     ...moduleUtils,
     ...moduleRegistry,

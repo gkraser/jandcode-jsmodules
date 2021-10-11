@@ -15,7 +15,6 @@ let VirtualModulesPlugin = require('webpack-virtual-modules')
 
 let webpackBase = require('./webpack-base')
 let addons = require('./addons')
-let jcVueLoader = require.resolve('./vue-loader')
 let gen = require('./gen')
 
 
