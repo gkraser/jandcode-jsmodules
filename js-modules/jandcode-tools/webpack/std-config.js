@@ -34,7 +34,9 @@ module.exports = function(options) {
         devtool: isProd ? false : 'eval-source-map',
         context: basedir,
         entry: {
-            main: './src/index.js',
+            main: {
+                import: ['./src/index.js']
+            },
         },
         output: {
             path: path.resolve(basedir, '_gen/public'),
