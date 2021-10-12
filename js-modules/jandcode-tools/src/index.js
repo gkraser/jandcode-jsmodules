@@ -1,9 +1,9 @@
 //
 let jcModules = require("./jc-modules")
 let webpackBaseConfig = require("./webpack-base-config")
-let jcVueLoader = require.resolve('./vue-loader.')
-let fileUtils = require.resolve('./file-utils')
-let moduleUtils = require.resolve('./module-utils')
+let jcVueLoader = require.resolve('./vue-loader')
+let fileUtils = require('./file-utils')
+let moduleUtils = require('./module-utils')
 
 module.exports = {
     jcModules,
