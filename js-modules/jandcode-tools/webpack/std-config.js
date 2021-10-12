@@ -87,7 +87,13 @@ module.exports = function(options) {
                             }
                         }
                     ]
-                }
+                },
+                {
+                    test: /.dyn.js$/,
+                    use: [
+                        'val-loader',
+                    ],
+                },
             ],
         },
         plugins: [
