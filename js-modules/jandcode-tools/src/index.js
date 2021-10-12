@@ -4,6 +4,7 @@ let webpackBaseConfig = require("./webpack-base-config")
 let jcVueLoader = require.resolve('./vue-loader')
 let fileUtils = require('./file-utils')
 let moduleUtils = require('./module-utils')
+let svgUtils = require('./svg-utils')
 
 module.exports = {
     jcModules,
@@ -11,4 +12,5 @@ module.exports = {
     jcVueLoader,
     ...fileUtils,
     ...moduleUtils,
+    svgUtils,
 }
