@@ -1,7 +1,5 @@
 let webpackConfig = require("./webpack.config")
 
-process.env.CHROME_BIN = "W:/pf/chrome/chrome.exe"
-
 let testFiles = './src/_tst/**/*.test.js'
 
 module.exports = (config) => {
