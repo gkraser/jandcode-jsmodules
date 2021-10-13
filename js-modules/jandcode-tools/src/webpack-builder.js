@@ -34,7 +34,6 @@ class WebpackBuilderPlugin {
      * @return {Object} конфигурация webpack, которая будет объеденена со строящейся
      */
     buildConfig(builder) {
-        return null
     }
 
     /**

@@ -1,0 +1,25 @@
+{
+  "name": "@jandcode/apx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "karma start --single-run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "optionalDependencies": {
+    "@jandcode/base": "^1.0.0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.11.2",
+    "quasar": "^2.1.2",
+    "vue": "^3.2.20",
+    "@fontsource/roboto": "^4.5.1",
+    "@fontsource/roboto-condensed": "^4.5.0",
+    "@fontsource/roboto-mono": "^4.5.0",
+    "path-to-regexp": "^6.2.0"
+  }
+}

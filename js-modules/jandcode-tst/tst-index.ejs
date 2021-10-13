@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <%= htmlWebpackPlugin.tags.headTags %>
+  </head>
+  <body>
+    <div id="jc-app"></div>
+    <%= htmlWebpackPlugin.tags.bodyTags %>
+    <script>
+        <%= webpackConfig.output.library.name %>.run()
+    </script>
+  </body>
+</html>
