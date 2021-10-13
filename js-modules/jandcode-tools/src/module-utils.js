@@ -4,6 +4,7 @@
 
 let path = require('path')
 let fs = require('fs')
+let globby = require('globby')
 let fileUtils = require('./file-utils')
 
 
@@ -75,6 +76,44 @@ function splitPath(filePath) {
     }
 }
 
+/**
+ * Генерация модуля js с набором динамических модулей.
+ * Динамический модуль - это сопостовление имени внутри модуля абсолютному имени файла.
+ * Такие модули импортируются через динамический импорт
+ * с помощью @jandcode/base moduleRegistry
+ *
+ * @param masks набор масок js-файлов в формате module-utils/splitPath
+ */
+function genDynModules({masks}) {
+    if (!Array.isArray(masks)) {
+        throw new Error("'masks' must be array")
+    }
+    let jsFiles = {}
+    let dirs = {}
+    for (let mask of masks) {
+        let mp = splitPath(mask)
+        let files = globby.sync(mp.filePath, {cwd: mp.modulePath, absolute: true})
+        for (let file of files) {
+            let dir = path.resolve(path.dirname(file))
+            dirs[dir] = 1
+            let nm = mp.moduleName + "/" + fileUtils.normSlash(path.relative(mp.modulePath, file))
+            jsFiles[nm] = file
+        }
+    }
+    let code = []
+    code.push(`let a = require('@jandcode/base').moduleRegistry.addModule`)
+    for (let nm in jsFiles) {
+        let f = jsFiles[nm]
+        code.push(`a(${JSON.stringify(nm)},()=>import(${JSON.stringify(f)}))`)
+    }
+    return {
+        cacheable: true,
+        code: code.join("\n"),
+        contextDependencies: Object.keys(dirs)
+    }
+}
+
 module.exports = {
     splitPath,
+    genDynModules,
 }

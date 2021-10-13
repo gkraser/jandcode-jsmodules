@@ -16,12 +16,12 @@ export default {
 
 <style>
 .comp1 {
-  color: green;
+    color: green;
 }
 </style>
 
 <style lang="less">
 .comp1-1 {
-  color: green;
+    color: green;
 }
 </style>

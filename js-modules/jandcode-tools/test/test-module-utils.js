@@ -10,13 +10,27 @@ describe(__filename, function() {
         console.info(p, '->', a);
     }
 
-    it('test1', async function() {
+    it('splitPath1', async function() {
         splitTest("vue/b")
         splitTest("vue")
         splitTest("@jandcode/tools/**/*/*.js")
         splitTest("@jandcode/tools")
         splitTest(path.resolve(__dirname, "./src/**/*.js"))
         splitTest(path.resolve(__dirname, ".."))
+    });
+
+
+    it('genDynModules1', async function() {
+        let a
+
+        a = m.genDynModules({
+            masks: [
+                path.resolve(__dirname, "../src/**/*.js")
+            ]
+        })
+
+        console.info(a);
+        console.info(a.code);
     });
 
 

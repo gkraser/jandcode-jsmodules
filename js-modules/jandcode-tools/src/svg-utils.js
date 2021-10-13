@@ -39,7 +39,7 @@ function genSvgIconsJs({masks}) {
         cacheable: true,
         code: code,
         contextDependencies: Object.keys(dirs)
-    };
+    }
 }
 
 module.exports = {
