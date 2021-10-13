@@ -5,6 +5,7 @@ let jcVueLoader = require.resolve('./vue-loader')
 let fileUtils = require('./file-utils')
 let moduleUtils = require('./module-utils')
 let svgUtils = require('./svg-utils')
+let webpackBuilder = require('./webpack-builder')
 
 module.exports = {
     jcModules,
@@ -13,4 +14,5 @@ module.exports = {
     ...fileUtils,
     ...moduleUtils,
     svgUtils,
+    ...webpackBuilder,
 }
