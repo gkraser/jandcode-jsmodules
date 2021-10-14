@@ -14,8 +14,10 @@ class WpbTstPlugin extends wpb.WebpackBuilderPlugin {
 
     constructor(options) {
         super(options)
-        if (!this.masks) {
-            this.masks = []
+        //
+        this.masks = []
+        if (this.options.masks) {
+            this.masks.push(...this.options.masks)
         }
     }
 

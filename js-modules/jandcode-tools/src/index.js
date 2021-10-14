@@ -6,6 +6,7 @@ let fileUtils = require('./file-utils')
 let moduleUtils = require('./module-utils')
 let svgUtils = require('./svg-utils')
 let webpackBuilder = require('./webpack-builder')
+let WpbTstPlugin = require('./wpb-tst-plugin')
 
 module.exports = {
     jcModules,
@@ -15,4 +16,5 @@ module.exports = {
     ...moduleUtils,
     svgUtils,
     ...webpackBuilder,
+    WpbTstPlugin,
 }
