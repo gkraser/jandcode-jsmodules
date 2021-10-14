@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.3.4",
+    "chance": "^1.1.8",
     "clean-css-loader": "^4.1.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.4.0",
@@ -32,6 +33,7 @@
     "vue-loader": "^16.8.1",
     "webpack": "^5.58.1",
     "webpack-cli": "^4.9.0",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.8.0",
+    "webpack-notifier": "^1.14.1"
   }
 }

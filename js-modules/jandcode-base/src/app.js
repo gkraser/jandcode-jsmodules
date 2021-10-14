@@ -23,8 +23,9 @@ export class App {
     constructor() {
         this.__runned = false
         this.__services = []
-        this.services = {}
         this.__stage = STAGE_NOT_RUNNED
+        //
+        this.services = {}
     }
 
     /**

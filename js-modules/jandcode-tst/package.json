@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "optionalDependencies": {
-    "@jandcode/base": "^1.0.0"
+    "@jandcode/apx": "^1.0.0"
   }
 }

@@ -5,14 +5,19 @@ import * as vue from 'vue'
 import {jcBase} from './vendor'
 import TstApp from './components/TstApp'
 import {runModule} from './run-module'
-import './mocha-support'
 
 //
-
 jcBase.cfg.setDefault({
     tst: {}
 })
 
+export * from './mocha'
+
+//////
+
+/**
+ * Запуск среды тестирования или конкретного модуля в контексте среды тестирования
+ */
 export async function run() {
 
     // параметры страницы
@@ -21,7 +26,7 @@ export async function run() {
     if (pageParams.module) {
         // указан модуль - запускаем его
         console.info("tst module param", pageParams.module);
-        runModule(pageParams.module)
+        await runModule(pageParams.module)
     } else {
         // модуль не указан - показываем стартовую запускалку
         console.info("tst NO module param");

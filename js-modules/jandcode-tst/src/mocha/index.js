@@ -4,11 +4,12 @@
 
  */
 
-import {jcBase} from './vendor'
+import {jcBase} from '../vendor'
 import mocha from 'mocha/mocha'
 import chai from 'chai/chai'
 import mochaCss from 'mocha/mocha.css'
-import mochaCssFix from './css/mocha-fix.css'
+import mochaCssFix from './mocha-fix.css'
+import Chance from 'chance'
 
 // css
 jcBase.applyCss(mochaCss)
@@ -44,5 +45,6 @@ export {
     mocha,
     chai,
     assert,
+    Chance,
 }
 

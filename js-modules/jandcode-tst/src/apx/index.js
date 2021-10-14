@@ -1,9 +1,7 @@
 /* Поддержка unit-тестирования для приложений apx
 ----------------------------------------------------------------------------- */
 
-export * from 'jandcode.core.jsa.base/test'
-import {Vue, jsaBase} from '../index'
-import Chance from 'chance'
+import {jcBase} from '../vendor'
 export * from './rnd-utils'
 
 import styleCss from './style.css'
@@ -17,13 +15,9 @@ Jc.requireCss(styleCss)
  */
 export let defaultPause = 250
 
-export {
-    Chance
-}
-
 //////
 
-class TestAppService extends jsaBase.AppService {
+class TestAppService extends jcBase.AppService {
 
     onCreate() {
         // удаляем обработчик ошибок
@@ -52,16 +46,16 @@ function init() {
     before(function() {
         initEnv()
         //
-        jsaBase.app.registerService(TestAppService)
+        jcBase.app.registerService(TestAppService)
     })
 
     beforeEach(function() {
         cleanBody()
         showBody()
         // пересоздание приложения
-        jsaBase.App.recreateApp()
+        jcBase.app.recreateApp()
         // и запуск его заново
-        jsaBase.app.run(() => {
+        jcBase.app.run(() => {
         })
     });
 }
@@ -143,7 +137,7 @@ export function pause(msec) {
  * @return {Vue|*} отрендеренный компонент
  */
 export function vueMount(Comp, params) {
-    if (jsaBase.isString(Comp)) {
+    if (jcBase.isString(Comp)) {
         Comp = {
             template: Comp
         }

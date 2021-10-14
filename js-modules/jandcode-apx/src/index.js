@@ -4,10 +4,7 @@ UI приложение и интерфейс, основанный на vue+qua
 
 ----------------------------------------------------------------------------- */
 
-import './vendor'
-
-import * as vue from './vue'
-
-export {
-    vue,
-}
+export {jcBase, Vue, Quasar, app} from './vendor'
+export * from './utils'
+export * from './vue'
+export * from './quasar'

@@ -17,6 +17,7 @@ let webpackMerge = require('webpack-merge')
 let {VueLoaderPlugin} = require('vue-loader')
 let webpackBaseConfig = require("./webpack-base-config")
 let jcVueLoader = require.resolve('./vue-loader')
+var WebpackNotifierPlugin = require('webpack-notifier')
 
 /**
  * Базовый плагин для WebpackBuilder
@@ -194,6 +195,18 @@ class WebpackBuilder {
             new webpack.ProgressPlugin(),
         ]
 
+        if (!isProd) {
+            plugins.push(
+                new WebpackNotifierPlugin({
+                    skipFirstNotification: true,
+                    contentImage: {
+                        error: require.resolve('../assets/error.png'),
+                    }
+                }),
+            )
+        }
+
+
         let config = {
             mode: isProd ? 'production' : 'development',
             devtool: isProd ? false : 'eval-source-map',
@@ -224,7 +237,7 @@ class WebpackBuilder {
             resolve: {
                 extensions: ['...', '.vue'],
                 alias: {
-                    'vue$': 'vue/dist/vue.esm-bundler.js'
+                    'vue$': 'vue/dist/vue.esm-bundler.js',
                 }
             },
             module: {
