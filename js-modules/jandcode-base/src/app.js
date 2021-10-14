@@ -34,10 +34,10 @@ export class App {
     static recreateApp() {
         if (app.isRunned()) {
             for (let svc of app.__services) {
-                svc.onAfterRun(app)
+                svc.onStop(app)
             }
             for (let cb of __registredCallback) {
-                cb.onAfterRun(app)
+                cb.onStop(app)
             }
             app = new App()
         }
