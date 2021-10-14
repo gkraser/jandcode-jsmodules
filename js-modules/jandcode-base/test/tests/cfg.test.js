@@ -1,6 +1,6 @@
 import {assert} from 'chai'
-import * as m from '../../cfg'
-import * as cnv from '../../cnv'
+import * as m from '../../src/cfg'
+import * as cnv from '../../src/cnv'
 
 describe("utils/cfg", function() {
 

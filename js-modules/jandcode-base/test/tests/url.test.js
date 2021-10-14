@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import * as m from '../../url'
+import * as m from '../../src/url'
 
 describe("utils/url", function() {
 

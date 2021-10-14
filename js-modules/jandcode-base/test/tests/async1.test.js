@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import * as m from '../../base'
+import * as m from '../../src/base'
 
 // асинхронные тесты
 

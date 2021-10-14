@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import * as m from '../../cnv'
+import * as m from '../../src/cnv'
 
 
 describe("utils/cnv", function() {
