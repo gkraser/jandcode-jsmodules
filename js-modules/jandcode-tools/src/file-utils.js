@@ -47,8 +47,24 @@ function loadJson(fn) {
     return JSON.parse(rawdata.toString());
 }
 
+/**
+ * Запись текста в файл
+ * @param filename куда, если не существует каталога для файло, он будет создан
+ * @param text текст
+ */
+function saveFile(filename, text) {
+    if (!filename || filename === '') {
+        throw new Error("filename not defined")
+    }
+    filename = path.resolve(filename)
+    let outDir = path.dirname(filename)
+    fs.mkdirSync(outDir, {recursive: true})
+    fs.writeFileSync(filename, text)
+}
+
 module.exports = {
     normSlash,
     findUp,
     loadJson,
+    saveFile,
 }

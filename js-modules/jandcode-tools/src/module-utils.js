@@ -113,7 +113,27 @@ function genDynModules({masks}) {
     }
 }
 
+/**
+ * Генерирует файл с именем filename, который будет обрабатыватся val-loader и возвращать
+ * вызов genDynModules
+ *
+ * @param masks см. genDynModules
+ * @param filename в какой файл писать 
+ */
+function genDynModulesMainFile({masks, filename}) {
+    let text = `//
+let jcTools = require("@jandcode/tools")
+module.exports = (options, loaderContext) => {
+    return jcTools.genDynModules({
+        masks: ${JSON.stringify(masks, null, 12)}
+    })
+}
+`
+    fileUtils.saveFile(filename, text)
+}
+
 module.exports = {
     splitPath,
     genDynModules,
+    genDynModulesMainFile,
 }
