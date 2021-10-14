@@ -12,6 +12,7 @@ jcBase.cfg.setDefault({
 })
 
 export * from './mocha'
+export * from './apx'
 
 //////
 

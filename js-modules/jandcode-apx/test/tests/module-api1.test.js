@@ -1,11 +1,10 @@
-import {apx} from './vendor'
-
-// import * as m from '../../js'
+import {apx, tst} from './vendor'
 
 describe(module.id, function() {
 
     it("1", function() {
-        console.info(apx);
+        console.info("apx", apx);
+        console.info("tst", tst);
     })
 
 })

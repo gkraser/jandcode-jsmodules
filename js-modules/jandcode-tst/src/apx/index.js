@@ -2,12 +2,13 @@
 ----------------------------------------------------------------------------- */
 
 import {jcBase} from '../vendor'
+
 export * from './rnd-utils'
 
 import styleCss from './style.css'
 
 // css
-Jc.requireCss(styleCss)
+jcBase.applyCss(styleCss)
 
 /**
  * Пауза по умолчанию
@@ -25,16 +26,16 @@ class TestAppService extends jcBase.AppService {
             return "errorHandlersService" != it.getName()
         })
 
+        // todo настройка обработчиков ошибки для vue
+        // Vue.config.errorHandler = function(err, vm, info) {
+        //     console.error(`[Vue error]: ${err}${info}`)
+        //     throw new Error(err)
+        // }
         //
-        Vue.config.errorHandler = function(err, vm, info) {
-            console.error(`[Vue error]: ${err}${info}`)
-            throw new Error(err)
-        }
-
-        Vue.config.warnHandler = function(err, vm, info) {
-            console.error(`[Vue warn]: ${err}${info}`)
-            throw new Error(err)
-        }
+        // Vue.config.warnHandler = function(err, vm, info) {
+        //     console.error(`[Vue warn]: ${err}${info}`)
+        //     throw new Error(err)
+        // }
     }
 
 }
@@ -53,7 +54,7 @@ function init() {
         cleanBody()
         showBody()
         // пересоздание приложения
-        jcBase.app.recreateApp()
+        jcBase.App.recreateApp()
         // и запуск его заново
         jcBase.app.run(() => {
         })
@@ -136,7 +137,7 @@ export function pause(msec) {
  * @param params.propsData свойства, которые будут переданы при рендеринге
  * @return {Vue|*} отрендеренный компонент
  */
-export function vueMount(Comp, params) {
+export function vueMount(Comp, params) { //todo vueMount вряд ли работает
     if (jcBase.isString(Comp)) {
         Comp = {
             template: Comp
