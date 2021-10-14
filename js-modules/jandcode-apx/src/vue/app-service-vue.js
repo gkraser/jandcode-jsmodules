@@ -9,35 +9,43 @@ export class VueService extends jcBase.AppService {
 
     constructor(app) {
         super(app)
-        //
-        this._initers = [..._initers]
+        // личные initers сервиса
+        this._initers = []
     }
 
-    onCreate() {
-        // создаем фейковое приложение, потомучто без этого quasar не будет работать
-        let vueApp = Vue.createApp()
-        this.executeVueIniters(vueApp)
+    onInit() {
+        // создаем фейковое приложение, потому-что без этого quasar не будет работать
+        this.createVueApp()
     }
 
     /**
-     * Выполнить все инициализаторы для указанного vue-приложения
-     * @param vueApp vue-приложение
-     * @param comp корневой компонент, может отсутствовать
+     * Зарегистрировать инициализатор vue-приложения (см. функцию {@link initVueApp}).
+     * Этот инициализатор будет выполнен после глобально зарегистрированных.
+     * Ввводится для использования внутри других сервисов.
      */
-    executeVueIniters(vueApp, comp) {
+    initVueApp(cb) {
+        this._initers.push(cb)
+    }
+
+    /**
+     * Создать проинициализированный экземпляр vue-приложения
+     * @param comp
+     * @return {*}
+     */
+    createVueApp(comp) {
+        let vueApp = Vue.createApp(comp)
+        // сначала глобальные
+        for (let cb of _initers) {
+            cb(vueApp, comp)
+        }
+        // потом личные
         for (let cb of this._initers) {
             cb(vueApp, comp)
         }
+        //
+        return vueApp
     }
 
-}
-
-function getVueService() {
-    let vueSvc = jcBase.app.services["vueService"]
-    if (!vueSvc) {
-        throw new Error("Not registred VueService")
-    }
-    return vueSvc
 }
 
 /**
@@ -46,10 +54,7 @@ function getVueService() {
  * @return {*}
  */
 export function createVueApp(comp) {
-    let vueApp = Vue.createApp(comp)
-    let vueSvc = getVueService()
-    vueSvc.executeVueIniters(vueApp, comp)
-    return vueApp
+    return jcBase.app.service("vueService").createVueApp(comp)
 }
 
 /**

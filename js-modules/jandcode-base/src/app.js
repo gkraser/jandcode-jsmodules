@@ -70,6 +70,19 @@ export class App {
     }
 
     /**
+     * Возвращает сервис по имени.
+     * @param serviceName имя сервиса
+     * @return {*} ошибка, если сервис не найден
+     */
+    service(serviceName) {
+        let svc = this.services[serviceName]
+        if (!svc) {
+            throw new Error("Servive not found: " + serviceName)
+        }
+        return svc
+    }
+
+    /**
      * Регистрация функции, которая выполнится после onCreate всех сервисов.
      * Вызывать нужно до запуска приложения.
      * @param callback {Function} app передается первым параметром
