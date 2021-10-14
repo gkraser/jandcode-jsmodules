@@ -1,6 +1,6 @@
 let webpackConfig = require("./webpack.config")
 
-let testFiles = './test/**/*.test.js'
+let testFiles = './test/unittest/**/*.test.js'
 
 module.exports = (config) => {
     config.set({
