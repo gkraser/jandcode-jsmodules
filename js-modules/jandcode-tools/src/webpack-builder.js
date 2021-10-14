@@ -192,7 +192,7 @@ class WebpackBuilder {
                 __VUE_PROD_DEVTOOLS__: false,
             }),
             new VueLoaderPlugin(),
-            new webpack.ProgressPlugin(),
+            // пока запретим // new webpack.ProgressPlugin(),
         ]
 
         if (!isProd) {

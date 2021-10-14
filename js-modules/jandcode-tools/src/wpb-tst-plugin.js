@@ -42,6 +42,7 @@ class WpbTstPlugin extends wpb.WebpackBuilderPlugin {
                     template: require.resolve('@jandcode/tools/template/run-app-index.ejs'),
                     inject: false,
                     scriptLoading: 'blocking',
+                    cache: true,
                     chunks: ['tst']
                 })
             ]
