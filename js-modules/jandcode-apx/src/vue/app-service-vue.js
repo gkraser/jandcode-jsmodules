@@ -7,8 +7,13 @@ let _initers = []
 
 export class VueService extends jcBase.AppService {
 
-    onCreate() {
+    constructor(app) {
+        super(app)
+        //
         this._initers = [..._initers]
+    }
+
+    onCreate() {
         // создаем фейковое приложение, потомучто без этого quasar не будет работать
         let vueApp = Vue.createApp()
         this.executeVueIniters(vueApp)
@@ -21,7 +26,7 @@ export class VueService extends jcBase.AppService {
      */
     executeVueIniters(vueApp, comp) {
         for (let cb of this._initers) {
-            cb(vueApp)
+            cb(vueApp, comp)
         }
     }
 
@@ -51,6 +56,7 @@ export function createVueApp(comp) {
  * Зарегистрировать инициализатор vue-приложения.
  * @param {Function} cb функция, параметры:
  * vueApp - экземпляр vue-приложения
+ * comp - корневой компонент, может отсутствовать
  */
 export function initVueApp(cb) {
     _initers.push(cb)

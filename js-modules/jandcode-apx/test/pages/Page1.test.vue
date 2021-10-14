@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import {defineComponent} from 'vue'
+
 export default defineComponent({
     props: {},
     data() {
@@ -17,7 +18,7 @@ export default defineComponent({
 
 <style lang="less">
 .comp {
-    color: green;      
+    color: green;
 }
 </style>
 

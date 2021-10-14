@@ -1,7 +1,11 @@
-import {assert} from '../vendor'
+import {assert, apx} from '../vendor'
 import * as m from '../../src/utils/date'
 
 describe(__filename, function() {
+
+    // без этого даты из quasar не работают!
+    let vm = apx.Vue.createApp()
+    vm.use(apx.Quasar.Quasar)
 
     it("toStr", function() {
         let s
