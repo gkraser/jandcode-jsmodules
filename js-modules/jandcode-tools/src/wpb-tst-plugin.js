@@ -1,6 +1,7 @@
 let path = require('path')
 let webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+let HtmlWebpackPlugin = require('html-webpack-plugin')
+let CopyWebpackPlugin = require("copy-webpack-plugin")
 
 let wpb = require('./webpack-builder')
 let moduleUtils = require('./module-utils')
@@ -36,14 +37,19 @@ class WpbTstPlugin extends wpb.WebpackBuilderPlugin {
                 }
             },
             plugins: [
-                new HtmlWebpackPlugin({
-                    title: 'Tst',
-                    filename: 'tst.html',
-                    template: require.resolve('@jandcode/tools/template/run-app-index.ejs'),
-                    inject: false,
-                    scriptLoading: 'blocking',
-                    cache: true,
-                    chunks: ['tst']
+                // new HtmlWebpackPlugin({
+                //     title: 'Tst',
+                //     filename: 'tst.html',
+                //     template: require.resolve('@jandcode/tools/template/run-app-index.ejs'),
+                //     inject: false,
+                //     scriptLoading: 'blocking',
+                //     cache: true,
+                //     chunks: ['tst']
+                // })
+                new CopyWebpackPlugin({
+                    patterns: [
+                        { from: require.resolve('@jandcode/tools/template/tst.html') },
+                    ],
                 })
             ]
         }

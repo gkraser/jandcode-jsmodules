@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.11.2",
-    "quasar": "^2.1.2",
+    "quasar": "^2.1.3",
     "vue": "^3.2.20",
     "@fontsource/roboto": "^4.5.1",
     "@fontsource/roboto-condensed": "^4.5.0",

@@ -1,7 +1,7 @@
 import {tst, apx} from '../vendor'
 import * as m from '../../src/utils/date'
 
-describe(__filename, function() {
+describe(module.id, function() {
 
     // без этого даты из quasar не работают!
     let vm = apx.Vue.createApp()
