@@ -18,6 +18,7 @@ let {VueLoaderPlugin} = require('vue-loader')
 let webpackBaseConfig = require("./webpack-base-config")
 let jcVueLoader = require.resolve('./vue-loader')
 var WebpackNotifierPlugin = require('webpack-notifier')
+let moduleUtils = require("./module-utils")
 
 /**
  * Базовый плагин для WebpackBuilder
@@ -226,6 +227,7 @@ class WebpackBuilder {
                     name: this.libraryName,
                     type: 'var',
                 },
+                devtoolModuleFilenameTemplate: moduleUtils.webpackSourceMapPath,
             },
             optimization: {
                 splitChunks: {},

@@ -118,7 +118,7 @@ function genDynModules({masks}) {
  * вызов genDynModules
  *
  * @param masks см. genDynModules
- * @param filename в какой файл писать 
+ * @param filename в какой файл писать
  */
 function genDynModulesMainFile({masks, filename}) {
     let text = `//
@@ -132,8 +132,63 @@ module.exports = (options, loaderContext) => {
     fileUtils.saveFile(filename, text)
 }
 
+/**
+ * Формирование пути для webpack sourceMap.
+ * Путь будет начинатся с имени модуля.
+ * Информация тут: https://webpack.js.org/configuration/output/#outputdevtoolmodulefilenametemplate
+ * @param info
+ * @return {string}
+ */
+function webpackSourceMapPath(info) {
+    // по умолчанию
+    let resDefault = `webpack://${info.namespace}/${info.resourcePath}?${info.hash}`
+
+    // полное имя
+    let fullName = info.absoluteResourcePath
+    if (!fullName) {
+        return resDefault
+    }
+    let a = fullName.indexOf('|')
+    if (a !== -1) {
+        fullName = fullName.substring(a + 1)
+    }
+    if (fullName.indexOf("data:") !== -1) {
+        return resDefault
+    }
+
+    let query = null
+    a = fullName.indexOf('?')
+    if (a !== -1) {
+        query = fullName.substring(a + 1)
+        fullName = fullName.substring(0, a)
+    }
+
+    // имя модуля
+    let modName
+    try {
+        let modInfo = splitPath(fullName)
+        modName = modInfo.moduleName + "/" + modInfo.filePath
+        if (fullName.indexOf('node_modules') !== -1) {
+            modName = 'node_modules/' + modName
+        }
+    } catch(e) {
+        return resDefault
+    }
+
+    // метки
+    let suff = ''
+    if (query) {
+        if (query.indexOf('vue&') !== -1) {
+            suff += '&' + query
+        }
+    }
+
+    return `webpack://${info.namespace}/${modName}?${info.hash}${suff}`
+}
+
 module.exports = {
     splitPath,
     genDynModules,
     genDynModulesMainFile,
+    webpackSourceMapPath,
 }
