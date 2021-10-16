@@ -2,6 +2,14 @@
 <root>
 
     <toc-root topic="index.md">
+        <toc topic="intro/intro">
+        </toc>
+        <toc title="Модули">
+            <include toc="base/toc.xml"/>
+            <include toc="apx/toc.xml"/>
+            <include toc="tools/toc.xml"/>
+            <include toc="tst/toc.xml"/>
+        </toc>
         <toc topic="./**/*"/>
     </toc-root>
 
