@@ -36,7 +36,7 @@ class MyPlugin extends jcTools.WebpackBuilderPlugin {
         }
     }
 
-    // изменяем построенную конфигурацию
+    //  изменяем построенную конфигурацию
     updateConfig(builder, config) {
         config.devtool = false
     }
