@@ -12,7 +12,7 @@ class P extends ProjectScript {
 
     void onInclude() {
         project.name = "jandcode-jsmodules"
-
+        project.version = include(GitVersion)
         //
         include(RootProject).with {
             modules(
