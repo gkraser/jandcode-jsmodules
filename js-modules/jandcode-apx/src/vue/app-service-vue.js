@@ -15,7 +15,7 @@ export class VueService extends jcBase.AppService {
 
     onInit() {
         // создаем фейковое приложение, потому-что без этого quasar не будет работать
-        this.createVueApp()
+        this.createVueApp({})
     }
 
     /**
@@ -33,6 +33,9 @@ export class VueService extends jcBase.AppService {
      * @return {*}
      */
     createVueApp(comp) {
+        if (!comp) {
+            throw new Error("createVueApp need param: comp")
+        }
         let vueApp = Vue.createApp(comp)
         // сначала глобальные
         for (let cb of _initers) {

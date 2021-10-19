@@ -87,7 +87,7 @@ export class RouteDef {
         this.path = null
 
         /**
-         * Определение фрейма, соответсвующее пути
+         * Определение фрейма, соответствующее пути
          * @type {null}
          */
         this.frame = null

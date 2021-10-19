@@ -1,4 +1,4 @@
-import {jcBase} from './vendor'
+import {jcBase, apx} from './vendor'
 import * as vue from 'vue'
 
 /**
@@ -27,7 +27,7 @@ export async function runModule(moduleName) {
         if (!jcBase.app.isRunned()) {
             // приложение не запущено - запускаем свое
             await jcBase.app.run(() => {
-                let vm = vue.createApp(p)
+                let vm = apx.createVueApp(p)
                 vm.mount(jcBase.dom.getAppElement())
             })
         } else {
