@@ -28,15 +28,17 @@ export class VueService extends jcBase.AppService {
     }
 
     /**
-     * Создать проинициализированный экземпляр vue-приложения
+     * Создать проинициализированный экземпляр vue-приложения.
+     * Параметры как в Vue.createApp.
      * @param comp
+     * @param props
      * @return {*}
      */
-    createVueApp(comp) {
+    createVueApp(comp, props) {
         if (!comp) {
             throw new Error("createVueApp need param: comp")
         }
-        let vueApp = Vue.createApp(comp)
+        let vueApp = Vue.createApp(comp, props)
         // сначала глобальные
         for (let cb of _initers) {
             cb(vueApp, comp)
@@ -56,8 +58,8 @@ export class VueService extends jcBase.AppService {
  * @param comp
  * @return {*}
  */
-export function createVueApp(comp) {
-    return jcBase.app.service("vueService").createVueApp(comp)
+export function createVueApp(comp, props) {
+    return jcBase.app.service("vueService").createVueApp(comp, props)
 }
 
 /**
