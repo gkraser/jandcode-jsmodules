@@ -1,5 +1,5 @@
 import {Vue, jcBase} from '../vendor'
-import {FrameShower} from './fm'
+import {FrameShower} from './shower'
 import {createVueApp} from '../vue'
 
 const {h, resolveComponent} = Vue

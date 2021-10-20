@@ -1,4 +1,4 @@
-import {FrameShower, registerShower, unregisterShower} from './fm'
+import {FrameShower, registerShower, unregisterShower} from './shower'
 import {Vue} from '../vendor'
 
 const {h} = Vue
