@@ -1,5 +1,7 @@
 import {assert} from 'chai'
-import '@jandcode/base'
+import * as m from '../../src/css'
+
+import css1 from './data/css1.css'
 
 describe("css", function() {
 
@@ -13,26 +15,31 @@ describe("css", function() {
         a.forEach(n => n.parentNode.removeChild(n))
     }
 
-    Jc.defineCssPlace('p1')
-    Jc.defineCssPlace('p2')
+    m.defineCssPlace('p1')
+    m.defineCssPlace('p2')
 
     beforeEach(function() {
         clearCss()
     });
 
     it("no places", function() {
-        Jc.applyCss(css('1'))
-        Jc.applyCss(css('2'))
+        m.applyCss(css('1'))
+        m.applyCss(css('2'))
     })
 
     it("places", function() {
-        Jc.applyCss(css('1'))
-        Jc.applyCss(css('2'))
-        Jc.applyCss(css('3'), 'p1')
-        Jc.applyCss(css('4'), 'p1')
-        Jc.applyCss(css('5'), 'p2')
-        Jc.applyCss(css('6'), 'p2')
+        m.applyCss(css('1'))
+        m.applyCss(css('2'))
+        m.applyCss(css('3'), 'p1')
+        m.applyCss(css('4'), 'p1')
+        m.applyCss(css('5'), 'p2')
+        m.applyCss(css('6'), 'p2')
     })
+
+    it('css-loader-1', function() {
+        console.info("css1", css1);
+        assert(m.isCssLoaderExport(css1) === true)
+    });
 
 })
     
