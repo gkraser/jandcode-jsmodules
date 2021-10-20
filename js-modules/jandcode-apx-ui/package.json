@@ -1,5 +1,5 @@
 {
-  "name": "@jandcode/apx",
+  "name": "@jandcode/apx-ui",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
@@ -11,11 +11,12 @@
   "author": "",
   "license": "ISC",
   "optionalDependencies": {
-    "@jandcode/base": "^1.0.0"
+    "@jandcode/apx": "^1.0.0"
   },
   "dependencies": {
-    "quasar": "^2.1.7",
-    "vue": "^3.2.20",
-    "path-to-regexp": "^6.2.0"
+    "@quasar/extras": "^1.11.2",
+    "@fontsource/roboto": "^4.5.1",
+    "@fontsource/roboto-condensed": "^4.5.0",
+    "@fontsource/roboto-mono": "^4.5.0"
   }
 }
