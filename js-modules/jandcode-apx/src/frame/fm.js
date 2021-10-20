@@ -18,16 +18,15 @@ async function resolveFrameComp(options) {
 }
 
 /**
- *
- * @param options
+ * Показать фрейм
+ * @param options параметры
  * @param options.frame фрейм
  * @param options.props свойства, который будут переданы фрейму
  * @param options.shower какой shower использовать, по умолчанию main
  * @return {Promise<FrameWrapper>}
  */
 export async function showFrame(options) {
-    console.info("showFrame", options);
-    // делаем копию
+    // делаем копию опций
     options = Object.assign({}, options)
 
     // получаем shower
@@ -49,19 +48,13 @@ export async function showFrame(options) {
     // инициализаруем фрейм
     //todo call frameInit
 
-    console.info("vueApp", vueApp);
-
-    // монтируем
-    let vueMountEl = jcBase.dom.createTmpElement()
-    let vueInst = vueApp.mount(vueMountEl)
-
     // сохраняем все что нужно
     frameWrapper.vueApp = vueApp
-    frameWrapper.vueInst = vueInst
-    frameWrapper.vueMountEl = vueMountEl
     frameWrapper.shower = shower
 
-    console.info("vueInst", vueInst);
+    // монтируем
+    frameWrapper.vueMountEl = jcBase.dom.createTmpElement()
+    frameWrapper.vueInst = vueApp.mount(frameWrapper.vueMountEl)
 
     // показываем
     await shower.showFrameWrapper(frameWrapper)

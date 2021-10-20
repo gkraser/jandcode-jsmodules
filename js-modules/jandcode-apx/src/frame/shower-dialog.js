@@ -22,31 +22,11 @@ export class FrameShower_dialog extends FrameShower {
 
 }
 
-// Место для фрейма в диалоге
-// let DialogFramePlace = {
-//     props: {
-//         own: Object,
-//     },
-//
-//     render() {
-//         return h('div', {style: {display: 'none'}})
-//     },
-//
-//     mounted() {  //todo
-//         // монтируем фрейм вместо себя
-//         this.$el.parentNode.appendChild(this.own.frameInst.$el)
-//         this.$el.parentNode.removeChild(this.$el)
-//     },
-// }
-
 /**
  * Диалог.
  * Это обертка вокруг q-dialog
  */
 export let Dialog = {
-    // components: {
-    //     DialogFramePlace
-    // },
     props: {
         frameWrapper: Object
     },
@@ -67,11 +47,8 @@ export let Dialog = {
     },
     mounted() {
         this.$nextTick(() => {
-            console.info("dialog refs", this.$refs);
             let framePlaceEl = this.$refs['framePlace']
             let frameBodyEl = this.frameWrapper.vueInst.$el
-            console.info("framePlaceEl", framePlaceEl);
-            console.info("frameBodyEl", frameBodyEl);
             framePlaceEl.parentNode.insertBefore(frameBodyEl, framePlaceEl)
         })
     },
@@ -89,4 +66,3 @@ export let Dialog = {
         }
     }
 }
-
