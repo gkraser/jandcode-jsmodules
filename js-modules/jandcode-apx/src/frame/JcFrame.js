@@ -3,9 +3,8 @@
  */
 export default {
 
-    props:{
-        frameWrapper: {
-        }
+    props: {
+        frameWrapper: {}
     }
 
 }

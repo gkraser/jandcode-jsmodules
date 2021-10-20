@@ -1,4 +1,4 @@
-import {tst, apx} from '../vendor'
+import {tst, apx} from './vendor'
 import * as m from '../../src/utils/date'
 
 describe(module.id, function() {

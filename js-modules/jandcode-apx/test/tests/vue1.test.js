@@ -1,5 +1,3 @@
-import {apx} from './vendor'
-
 import * as m from '../../src/vue/index'
 
 // import * as m from '../../js'

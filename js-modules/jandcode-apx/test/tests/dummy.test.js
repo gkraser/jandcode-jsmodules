@@ -1,8 +1,8 @@
-import {assert} from 'chai/chai'
+//import {tst} from './vendor'
 
-describe("apx/dummy", function() {
+describe(module.id, function() {
 
-    it("nextId", function() {
+    it("dummy1", function() {
     })
 
 })

@@ -66,12 +66,12 @@ export let Dialog = {
         })
     },
     mounted() {
-        this.$nextTick(()=>{
-            console.info("dialog refs",this.$refs);
+        this.$nextTick(() => {
+            console.info("dialog refs", this.$refs);
             let framePlaceEl = this.$refs['framePlace']
             let frameBodyEl = this.frameWrapper.vueInst.$el
-            console.info("framePlaceEl",framePlaceEl);
-            console.info("frameBodyEl",frameBodyEl);
+            console.info("framePlaceEl", framePlaceEl);
+            console.info("frameBodyEl", frameBodyEl);
             framePlaceEl.parentNode.insertBefore(frameBodyEl, framePlaceEl)
         })
     },
