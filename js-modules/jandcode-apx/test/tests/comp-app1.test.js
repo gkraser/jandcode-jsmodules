@@ -11,11 +11,6 @@ describe(module.id, function() {
                 <App>
                 app
                 </App>`,
-            data() {
-                return {
-                    tag1: 'app'
-                }
-            },
         }
         let comp = tst.vueMount(Comp)
     })
