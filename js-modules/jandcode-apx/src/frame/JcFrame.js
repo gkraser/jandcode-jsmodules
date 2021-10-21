@@ -3,6 +3,9 @@
  */
 export default {
 
+    components: {
+    },
+
     props: {
         frameWrapper: {}
     }

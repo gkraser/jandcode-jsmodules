@@ -8,6 +8,7 @@ import {FrameShower_dialog} from './shower-dialog'
 import JcDecor from './JcDecor'
 import JcDecorFrame from './JcDecorFrame'
 import JcDecorApp from './JcDecorApp'
+import JcApp from './JcApp'
 
 import {registerShower} from './shower'
 
@@ -22,4 +23,5 @@ export {
     JcDecor,
     JcDecorFrame,
     JcDecorApp,
+    JcApp,
 }

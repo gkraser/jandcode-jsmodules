@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 
 import {jcBase, apx} from '../vendor'
+import * as mocha from '../mocha'
 
 export * from './rnd-utils'
 
@@ -18,39 +19,30 @@ export let defaultPause = 250
 
 //////
 
-class TestAppService extends jcBase.AppService {
-
-    onCreate() {
-        // удаляем обработчик ошибок
-        this.app.__services = this.app.__services.filter((it) => {
-            return "errorHandlersService" != it.getName()
-        })
-
-        // todo настройка обработчиков ошибки для vue
-        // Vue.config.errorHandler = function(err, vm, info) {
-        //     console.error(`[Vue error]: ${err}${info}`)
-        //     throw new Error(err)
-        // }
-        //
-        // Vue.config.warnHandler = function(err, vm, info) {
-        //     console.error(`[Vue warn]: ${err}${info}`)
-        //     throw new Error(err)
-        // }
-    }
-
-}
-
 /**
  * Инициализация среды тестирования
  */
 function init() {
+
+    let vueWarnHolder = []
+
     before(function() {
         initEnv()
         //
-        jcBase.app.registerService(TestAppService)
+        apx.initVueApp((vueApp) => {
+            vueApp.config.warnHandler = (err, vm, info) => {
+                console.warn(`[tst][Vue warn]:`, err, info, vm);
+                vueWarnHolder.push({
+                    err: err,
+                    info: info,
+                    vm: vm
+                })
+            }
+        })
     })
 
     beforeEach(function() {
+        vueWarnHolder = []
         cleanBody()
         showBody()
         // пересоздание приложения
@@ -58,7 +50,14 @@ function init() {
         // и запуск его заново
         jcBase.app.run(() => {
         })
-    });
+    })
+
+    afterEach(function() {
+        if (vueWarnHolder.length > 0) {
+            mocha.assert.fail(vueWarnHolder[0].err)
+            vueWarnHolder = []
+        }
+    })
 }
 
 function initEnv() {
