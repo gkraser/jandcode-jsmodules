@@ -11,11 +11,19 @@ import JcDecorApp from './JcDecorApp'
 import JcApp from './JcApp'
 
 import {registerShower} from './shower'
+import {initVueApp, registerVueComponents} from '../vue'
+import * as dummyDecor from './dummy-decor'
 
 export * from './fm'
 export * from './shower'
 
 registerShower('dialog', new FrameShower_dialog())
+
+initVueApp((vueApp) => {
+    vueApp.component('jc-decor-app', dummyDecor.DummyDecorApp)
+    vueApp.component('jc-decor-page', dummyDecor.DummyDecorPage)
+    vueApp.component('jc-decor-dialog', dummyDecor.DummyDecorDialog)
+})
 
 export {
     JcFrame,

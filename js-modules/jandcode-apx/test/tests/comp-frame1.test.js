@@ -8,9 +8,9 @@ describe(module.id, function() {
         let Comp = {
             extends: apx.JcFrame,
             template: `
-                <Page>
+                <jc-decor-page>
                 frame page
-                </Page>`,
+                </jc-decor-page>`,
         }
         let comp = tst.vueMount(Comp)
     })
@@ -19,9 +19,9 @@ describe(module.id, function() {
         let Comp = {
             extends: apx.JcFrame,
             template: `
-                <Dialog>
+                <jc-decor-dialog>
                 frame dialog
-                </Dialog>`,
+                </jc-decor-dialog>`,
         }
         let comp = tst.vueMount(Comp)
     })

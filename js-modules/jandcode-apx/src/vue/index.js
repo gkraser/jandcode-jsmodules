@@ -13,7 +13,7 @@ function mergeAsArray(to, from) {
 
 initVueApp((vueApp) => {
     // работает аналогично другим life-cycle hookd
-    vueApp.config.optionMergeStrategies.frameInit = mergeAsArray
+    vueApp.config.optionMergeStrategies.frameInit = mergeAsArray  //todo а надо ли???
 })
 
 export {

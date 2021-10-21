@@ -8,9 +8,9 @@ describe(module.id, function() {
         let Comp = {
             extends: apx.JcApp,
             template: `
-                <App>
+                <jc-decor-app>
                 app
-                </App>`,
+                </jc-decor-app>`,
         }
         let comp = tst.vueMount(Comp)
     })
