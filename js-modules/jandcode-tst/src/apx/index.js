@@ -1,7 +1,7 @@
 /* Поддержка unit-тестирования для приложений apx
 ----------------------------------------------------------------------------- */
 
-import {jcBase} from '../vendor'
+import {jcBase, apx} from '../vendor'
 
 export * from './rnd-utils'
 
@@ -133,57 +133,17 @@ export function pause(msec) {
  * Создание и монтирование vue-компонента.
  * Возвращает экземпляр Vue
  * @param Comp компонент, может быть просто строкой-шаблоном
- * @param params параметры:
- * @param params.propsData свойства, которые будут переданы при рендеринге
- * @return {Vue|*} отрендеренный компонент
+ * @param props значения свойств компонента
+ * @return {Object} отрендеренный компонент
  */
-export function vueMount(Comp, params) { //todo vueMount вряд ли работает
+export function vueMount(Comp, props) {
     if (jcBase.isString(Comp)) {
         Comp = {
             template: Comp
         }
     }
-    params = Object.assign({}, params)
 
-    let CompMixin = {
-        methods: {
-            async setPropsData(props) {
-                for (let pn in props) {
-                    this.$set(this.$parent.propsData, pn, props[pn])
-                }
-                await this.$nextTick()
-            }
-        }
-    }
-
-    let Comp1 = {
-        mixins: [CompMixin, Comp]
-    }
-
-    // функциональный ли?
-    let functional = Comp.functional
-
-    //
-    let vm = new Vue({
-        data() {
-            return {
-                propsData: Object.assign({}, params.propsData),
-            }
-        },
-        render(h) {
-            let z = h(Comp1, {props: this.propsData})
-            if (functional) {
-                return h('div', [
-                    z
-                ])
-            } else {
-                return z
-            }
-        }
-    })
-    vm.$mount()
-
-    //
+    // куда будем монтировать
     let body = getBody()
 
     if (body.childElementCount > 0) {
@@ -194,10 +154,14 @@ export function vueMount(Comp, params) { //todo vueMount вряд ли рабо�
 
     let el = document.createElement('div')
     el.classList.add('tst-vuecomp')
-    el.appendChild(vm.$el)
     body.appendChild(el)
 
-    return vm.$children[0]
+    // создаем и монтируем
+    let vueApp = apx.createVueApp(Comp, props)
+    let vueInst = vueApp.mount(el)
+
+    //
+    return vueInst
 }
 
 //////
