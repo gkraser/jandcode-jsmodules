@@ -9,3 +9,6 @@ export * from './utils'
 export * from './vue'
 export * from './quasar'
 export * from './frame'
+
+// иконки
+import './icons'

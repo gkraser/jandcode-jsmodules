@@ -53,6 +53,8 @@
 <script>
 import {apx} from "../vendor"
 
+//todo пока не доведен до гогического конца
+
 export default {
     name: 'jc-decor-app',
 
