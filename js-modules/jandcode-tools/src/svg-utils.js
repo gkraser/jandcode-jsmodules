@@ -31,6 +31,10 @@ function genSvgIconsJs({masks}) {
     for (let nm in iconFiles) {
         let fn = iconFiles[nm]
         let content = fs.readFileSync(fn).toString()
+        if (content.startsWith("<?x")) {
+            content = content.replace(/<\?xml.*\?>/, '')
+        }
+        content = content.trim()
         //todo svg содержимое как-то минифицировать
         iconFiles[nm] = content
     }
