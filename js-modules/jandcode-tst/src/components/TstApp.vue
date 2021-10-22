@@ -2,18 +2,11 @@
     <div class="tst-app">
         <h1>tst app</h1>
         <div class="tst-app__list-modules">
-
             <table>
                 <tr v-for="it in getModuleNames()">
                     <td><a :href="modRef(it)" target="_blank">{{ it }}</a></td>
                 </tr>
             </table>
-
-            <ul>
-                <li v-for="it in getModuleNames()">
-                    <a :href="modRef(it)" target="_blank">{{ it }}</a>
-                </li>
-            </ul>
         </div>
     </div>
 </template>
