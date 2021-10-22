@@ -1,11 +1,20 @@
 <template>
-    <div>
+    <div class="tst-app">
         <h1>tst app</h1>
-        <ul>
-            <li v-for="it in getModuleNames()">
-                <a :href="modRef(it)">{{ it }}</a>
-            </li>
-        </ul>
+        <div class="tst-app__list-modules">
+
+            <table>
+                <tr v-for="it in getModuleNames()">
+                    <td><a :href="modRef(it)" target="_blank">{{ it }}</a></td>
+                </tr>
+            </table>
+
+            <ul>
+                <li v-for="it in getModuleNames()">
+                    <a :href="modRef(it)" target="_blank">{{ it }}</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -25,7 +34,32 @@ export default defineComponent({
         },
         modRef(mod) {
             return "?module=" + mod
+        },
+        splitPath(p) {
+
         }
     },
 })
 </script>
+
+<style lang="less">
+
+@color-link: navy;
+
+.tst-app {
+
+    a, a:visited {
+        color: @color-link;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    &__list-modules {
+        font-family: monospace;
+    }
+
+}
+</style>

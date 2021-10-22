@@ -1,3 +1,4 @@
+import {tst} from './vendor'
 import * as m from '../../src/vue/index'
 
 // import * as m from '../../js'
@@ -26,6 +27,12 @@ describe(module.id, function() {
         vm.mount(el)
         console.info(vm);
         console.info("log", log);
+    })
+
+    it("not exist component", function() {
+        let vm = m.createVueApp({})
+        let z = vm.component("not-exists")
+        tst.assert.equal(z, undefined)
     })
 
 })

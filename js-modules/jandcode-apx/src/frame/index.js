@@ -20,6 +20,7 @@ export * from './shower'
 registerShower('dialog', new FrameShower_dialog())
 
 initVueApp((vueApp) => {
+    vueApp.component(JcFrameShowerPage.name, JcFrameShowerPage)
     vueApp.component('jc-decor-app', dummyDecor.DummyDecorApp)
     vueApp.component('jc-decor-page', dummyDecor.DummyDecorPage)
     vueApp.component('jc-decor-dialog', dummyDecor.DummyDecorDialog)
