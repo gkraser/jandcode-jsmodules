@@ -17,6 +17,18 @@ async function resolveFrameComp(options) {
     return options.frame
 }
 
+function extractFrameInit(vueApp) {
+    let res = []
+    let comp = vueApp._component
+    if (comp) {
+        let frameInit = comp.frameInit
+        if (frameInit) {
+            res.push(frameInit)
+        }
+    }
+    return res
+}
+
 /**
  * Показать фрейм
  * @param options параметры
@@ -27,37 +39,48 @@ async function resolveFrameComp(options) {
  */
 export async function showFrame(options) {
     // делаем копию опций
-    options = Object.assign({}, options)
+    let opts = Object.assign({}, options)
+    opts.props = Object.assign({}, opts.props)
 
     // получаем shower
-    let shower = getShower(options.shower)
-
-    // получаем компонент
-    let frameComp = await resolveFrameComp(options)
-
-    // формируем свойства
-    let props = Object.assign({}, options.props)
+    let shower = getShower(opts.shower)
 
     // создаем экземпляр frameWrapper и передаем его как не реактивное свойство
     let frameWrapper = new FrameWrapper()
-    props.frameWrapper = Vue.markRaw(frameWrapper)
-
-    // создаем
-    let vueApp = createVueApp(frameComp, props)
-
-    // инициализаруем фрейм
-    //todo call frameInit
-
-    // сохраняем все что нужно
-    frameWrapper.vueApp = vueApp
     frameWrapper.shower = shower
+    opts.props.frameWrapper = Vue.markRaw(frameWrapper)
 
-    // монтируем
-    frameWrapper.vueMountEl = jcBase.dom.createTmpElement()
-    frameWrapper.vueInst = vueApp.mount(frameWrapper.vueMountEl)
+    //todo обработка ошибок и чистка за собой всего вот этого
+    jcBase.waitShow()
+    try {
+        // получаем компонент
+        let frameComp = await resolveFrameComp(opts)
 
-    // показываем
-    await shower.showFrameWrapper(frameWrapper)
+        // создаем
+        let vueApp = createVueApp(frameComp, opts.props)
+
+        // сохраняем все что нужно
+        frameWrapper.vueApp = vueApp
+
+        // инициализаруем фрейм
+        let frameInits = extractFrameInit(vueApp)
+        if (frameInits.length > 0) {
+            // имеются методы frameInit, вызываем их
+            for (let fn of frameInits) {
+                await fn.call(null, frameWrapper)
+            }
+        }
+
+        // монтируем
+        frameWrapper.vueMountEl = jcBase.dom.createTmpElement()
+        frameWrapper.vueInst = vueApp.mount(frameWrapper.vueMountEl)
+
+        // показываем
+        await shower.showFrameWrapper(frameWrapper)
+
+    } finally {
+        jcBase.waitHide()
+    }
 
     // все
     return frameWrapper
