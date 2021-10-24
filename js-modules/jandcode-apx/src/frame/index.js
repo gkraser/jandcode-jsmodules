@@ -1,23 +1,25 @@
 /* Фреймы
 ----------------------------------------------------------------------------- */
 
+import {jcBase} from '../vendor'
+
 import JcFrame from './JcFrame'
 import JcFrameShowerPage from './shower-page'
-import {FrameShower_dialog} from './shower-dialog'
 
 import JcDecor from './JcDecor'
 import JcDecorFrame from './JcDecorFrame'
 import JcDecorApp from './JcDecorApp'
 import JcApp from './JcApp'
 
-import {registerShower} from './shower'
 import {initVueApp, registerVueComponents} from '../vue'
 import * as dummyDecor from './dummy-decor'
+
+import {FrameManagerService} from './fm'
 
 export * from './fm'
 export * from './shower'
 
-registerShower('dialog', new FrameShower_dialog())
+jcBase.app.registerService(FrameManagerService)
 
 initVueApp((vueApp) => {
     vueApp.component(JcFrameShowerPage.name, JcFrameShowerPage)

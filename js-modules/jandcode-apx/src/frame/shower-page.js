@@ -1,5 +1,5 @@
-import {FrameShower, registerShower, unregisterShower} from './shower'
-import {Vue} from '../vendor'
+import {FrameShower} from './shower'
+import {Vue, jcBase} from '../vendor'
 
 const {h} = Vue
 
@@ -64,12 +64,12 @@ export default {
     mounted() {
         this.shower = new FrameShower_page(this)
         this.lastMountedFw = null
-        registerShower(this.name, this.shower)
+        jcBase.app.frameManager.registerShower(this.name, this.shower)
     },
 
     unmounted() {
         this.unmountFrame()
-        unregisterShower(this.name)
+        jcBase.app.frameManager.unregisterShower(this.name)
         this.shower = null
     },
 

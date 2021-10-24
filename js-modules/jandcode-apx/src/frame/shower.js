@@ -1,14 +1,4 @@
 /**
- * Зарегистрированные showers
- */
-let _showers = {}
-
-/**
- * Имя shower по умолчанию
- */
-let _defaultShowerName = 'main'
-
-/**
  * Показывальщик фреймов
  */
 export class FrameShower {
@@ -50,36 +40,4 @@ export class FrameShower {
     destroy() {
     }
 
-}
-
-/**
- * Зарегистрировать shower
- * @param name имя
- * @param {FrameShower} shower экземпляр shower
- */
-export function registerShower(name, shower) {
-    _showers[name] = shower
-}
-
-/**
- * Отменить регистрацию shower
- * @param name имя
- */
-export function unregisterShower(name) {
-    delete _showers[name]
-}
-
-/**
- * Получить shower по имени.
- * @return {FrameShower}
- */
-export function getShower(name) {
-    let res = _showers[name]
-    if (!res) {
-        res = _showers[_defaultShowerName]
-    }
-    if (!res) {
-        throw new Error("Не найден shower: " + name)
-    }
-    return res
 }

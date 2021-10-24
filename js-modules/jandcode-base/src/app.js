@@ -216,6 +216,10 @@ export class App {
 export class AppService {
 
     constructor(app) {
+        /**
+         * Ссылка на приложение
+         * @type {App}
+         */
         this.app = app
     }
 
