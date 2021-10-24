@@ -15,9 +15,17 @@ export class VueService extends jcBase.AppService {
         this._initers = []
     }
 
-    onInit() {
+    onCreate() {
         // создаем фейковое приложение, потому-что без этого quasar не будет работать
         this.createVueApp({})
+
+        /**
+         * см: {@link VueService.initVueApp}
+         * @member App#initVueApp
+         */
+        this.app.initVueApp = (cb) => {
+            this.initVueApp(cb)
+        }
     }
 
     /**

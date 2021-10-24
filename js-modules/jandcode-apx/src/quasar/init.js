@@ -8,6 +8,7 @@ initVueApp((vueApp) => {
     vueApp.use(Quasar.Quasar, {
         plugins: [
             Quasar.Dialog,
+            Quasar.Notify,
         ],
         iconSet: quasarIconSet,
     })
