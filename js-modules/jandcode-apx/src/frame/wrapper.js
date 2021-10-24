@@ -1,16 +1,18 @@
-import {jcBase} from '../vendor'
+import {jcBase, Vue} from '../vendor'
 
 /**
  * Обертка вокруг vue-компонента фрейма.
  */
 export class FrameWrapper {
 
-    constructor() {
+    constructor(options) {
         // уникальный id экземпляра
         this.id = jcBase.nextId("jc-frame-wrapper-")
 
         // опции, который были переданы в showFrame
-        this.options = {}
+        this.options = Object.assign({}, options)
+        this.options.props = Object.assign({}, this.options.props)
+        this.options.props.frameWrapper = Vue.markRaw(this)
 
         // ссылка на shower, который будет показывать этот фрейм
         this.shower = null

@@ -196,18 +196,12 @@ export class FrameManager {
      * @return {Promise<FrameWrapper>}
      */
     async showFrame(options) {
-        // делаем копию опций
-        let opts = Object.assign({}, options)
-        opts.props = Object.assign({}, opts.props)
+        let frameWrapper = new FrameWrapper(options)
+        let opts = frameWrapper.options
 
         // получаем shower
         let shower = this.getShower(opts.shower)
-
-        // создаем экземпляр frameWrapper и передаем его как не реактивное свойство
-        let frameWrapper = new FrameWrapper()
-        frameWrapper.options = opts
         frameWrapper.shower = shower
-        opts.props.frameWrapper = Vue.markRaw(frameWrapper)
 
         //todo обработка ошибок и чистка за собой всего вот этого
         jcBase.waitShow()
