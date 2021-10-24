@@ -14,16 +14,29 @@ export class FrameShower_page extends FrameShower {
          * Экземпляр JcFrameShowerPage, который создал этот shower
          */
         this.own = own
+
+        // текущие фреймы
+        this._frames = []
     }
 
     async showFrameWrapper(fw) {
-        this.own.mountFrame(fw)
+        if (this._frames.length === 0) {
+            // первый фрейм
+            this._frames.push(fw)
+            this.own.mountFrame(fw)
+        } else if (this._frames.length === 1) {
+            // замена фрейма
+            let lastFw = this._frames.pop()
+            this._frames.push(fw)
+            this.own.mountFrame(fw)
+            lastFw.destroy()
+        }
     }
 
 }
 
 /**
- * vue компонент для указания местоположения shower
+ * vue компонент для указания местоположения shower.
  * @type {{}}
  */
 export default {
@@ -48,35 +61,51 @@ export default {
         }
     },
 
-    created() {
-        this.shower = new FrameShower_page(this)
-    },
-
     mounted() {
+        this.shower = new FrameShower_page(this)
+        this.lastMountedFw = null
         registerShower(this.name, this.shower)
     },
 
     unmounted() {
+        this.unmountFrame()
         unregisterShower(this.name)
         this.shower = null
     },
 
-    computed: {
-        classes() {
-            return ['jc-frame-shower-page', 'jc-frame-shower-page--' + this.name]
-        },
-    },
-
     render() {
-        return h('div', {class: this.classes, style: 'display:none;'})
+        return h('div', {
+            class: ['jc-frame-shower-page', 'jc-frame-shower-page--' + this.name],
+            style: 'display:none;'
+        })
     },
 
     methods: {
+
+        /**
+         * Примонтировать фрейм
+         */
         mountFrame(fw) {
-            let frameBodyEl = fw.vueInst.$el
-            let showerBodyEl = this.$el
-            showerBodyEl.appendChild(frameBodyEl)
-            showerBodyEl.style.display = 'block'
+            this.unmountFrame()
+            if (fw == null) {
+                return
+            }
+            // добавляем el фрейма как первый элемент в parentNode
+            this.$el.parentNode.prepend(fw.vueInst.$el)
+            this.lastMountedFw = fw
+        },
+
+        /**
+         * Отмонтировать текущий показываемый фрейм.
+         */
+        unmountFrame() {
+            if (this.lastMountedFw == null) {
+                return
+            }
+            // возвращаем el фрейма туда, откуда взяли
+            this.lastMountedFw.vueMountEl.appendChild(this.lastMountedFw.vueInst.$el)
+            this.lastMountedFw = null
         }
+
     }
 }
