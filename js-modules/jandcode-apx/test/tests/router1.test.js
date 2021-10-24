@@ -1,5 +1,5 @@
 import {tst} from './vendor'
-import * as m from '../../src/router'
+import * as m from '../../src/frame/router'
 
 describe(module.id, function() {
 
