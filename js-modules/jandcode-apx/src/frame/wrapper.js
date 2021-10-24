@@ -28,6 +28,14 @@ export class FrameWrapper {
     }
 
     /**
+     * Свойства для показа фрейма
+     * @return {Object}
+     */
+    get props() {
+        return this.options.props
+    }
+
+    /**
      * Уничтожить фрейм
      */
     destroy() {
