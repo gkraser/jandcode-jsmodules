@@ -133,8 +133,46 @@ export class FrameManager {
     ////// showFrame
 
     async resolveFrameComp(options) {
-        //todo полный resolve
-        return options.frame
+        let frame = options.frame
+
+        if (frame == null) {
+            throw new Error("frame не указан для фрейма")
+        }
+
+        if (jcBase.isString(frame)) {
+            // заказана строка
+            // возможно router знает про этот фрейм
+            let routeInfo = this.frameRouter.resolve(frame)
+            if (routeInfo != null) {
+                // да, знает
+                options.routeInfo = routeInfo
+                // это фрейм
+                frame = routeInfo.frame
+                // это параметры, объединяем с переданными, от route - важнее!
+                options.props = jcBase.extend(options.props, routeInfo.params)
+                //
+                if (options.__page__hash) {
+                    // фрейм пришел по настоянию адресной строки
+                    options.routeInfo.pageHash = options.__page__hash
+                    delete options.__page__hash
+                }
+            }
+        }
+
+        if (jcBase.isString(frame)) {
+            // заказана строка, считаем ее полным именем модуля
+            let mod = await jcBase.loadModule(frame)
+            frame = mod.default || mod
+        }
+
+        if (frame instanceof Promise) {
+            frame = await frame
+            if (frame.default) {
+                frame = frame.default
+            }
+        }
+
+        return frame
     }
 
     extractFrameInit(vueApp) {
