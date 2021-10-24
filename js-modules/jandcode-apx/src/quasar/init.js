@@ -9,6 +9,7 @@ initVueApp((vueApp) => {
         plugins: [
             Quasar.Dialog,
             Quasar.Notify,
+            Quasar.Loading,
         ],
         iconSet: quasarIconSet,
     })

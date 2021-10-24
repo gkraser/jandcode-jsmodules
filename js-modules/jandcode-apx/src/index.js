@@ -12,6 +12,7 @@ export * from './frame'
 
 // иконки
 import './icons'
-
 // обработчик ошибок
 import './errors'
+// wait
+import './wait'
