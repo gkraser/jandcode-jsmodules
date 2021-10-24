@@ -17,8 +17,9 @@ let webpackMerge = require('webpack-merge')
 let {VueLoaderPlugin} = require('vue-loader')
 let webpackBaseConfig = require("./webpack-base-config")
 let jcVueLoader = require.resolve('./vue-loader')
-var WebpackNotifierPlugin = require('webpack-notifier')
+let WebpackNotifierPlugin = require('webpack-notifier')
 let moduleUtils = require("./module-utils")
+let WebpackAssetsManifest = require('webpack-assets-manifest');
 
 /**
  * Базовый плагин для WebpackBuilder
@@ -194,6 +195,13 @@ class WebpackBuilder {
             }),
             new VueLoaderPlugin(),
             // пока запретим // new webpack.ProgressPlugin(),
+
+            new WebpackAssetsManifest({
+                output: 'entrypoints-manifest.json',
+                entrypoints: true,
+                transform: assets => assets.entrypoints
+            }),
+
         ]
 
         if (!isProd) {
