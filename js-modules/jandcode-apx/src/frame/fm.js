@@ -1,4 +1,4 @@
-import {Vue, jcBase} from '../vendor'
+import {jcBase} from '../vendor'
 import {createVueApp} from '../vue'
 import {FrameWrapper} from './wrapper'
 import {FrameRouter} from './router'
@@ -72,8 +72,6 @@ export class FrameManager {
     constructor() {
         // зарегистрированные shower
         this._showers = {}
-        // имя shower по умолчанию
-        this._defaultShowerName = 'main'
         // router
         this.frameRouter = new FrameRouter()
         //
@@ -108,9 +106,6 @@ export class FrameManager {
     getShower(name) {
         let res = this._showers[name]
         if (!res) {
-            res = this._showers[this._defaultShowerName]
-        }
-        if (!res) {
             throw new Error("Не найден shower: " + name)
         }
         return res
@@ -132,47 +127,49 @@ export class FrameManager {
 
     ////// showFrame
 
-    async resolveFrameComp(options) {
-        let frame = options.frame
-
-        if (frame == null) {
+    /**
+     * Для поля fw.frame делает настоящий фрейм в этом же поле
+     * @param {FrameWrapper} fw
+     * @return {Promise<void>}
+     */
+    async resolveFrameComp(fw) {
+        if (fw.frame == null) {
             throw new Error("frame не указан для фрейма")
         }
 
-        if (jcBase.isString(frame)) {
+        if (jcBase.isString(fw.frame)) {
             // заказана строка
             // возможно router знает про этот фрейм
-            let routeInfo = this.frameRouter.resolve(frame)
+            let routeInfo = this.frameRouter.resolve(fw.frame)
             if (routeInfo != null) {
                 // да, знает
-                options.routeInfo = routeInfo
+                fw.routeInfo = routeInfo
                 // это фрейм
-                frame = routeInfo.frame
+                fw.frame = routeInfo.frame
                 // это параметры, объединяем с переданными, от route - важнее!
-                options.props = jcBase.extend(options.props, routeInfo.params)
+                fw.props = jcBase.extend(fw.props, routeInfo.params)
                 //
-                if (options.__page__hash) {
+                if (fw.options.__page__hash) {
                     // фрейм пришел по настоянию адресной строки
-                    options.routeInfo.pageHash = options.__page__hash
-                    delete options.__page__hash
+                    fw.routeInfo.pageHash = fw.options.__page__hash
+                    delete fw.options.__page__hash
                 }
             }
         }
 
-        if (jcBase.isString(frame)) {
+        if (jcBase.isString(fw.frame)) {
             // заказана строка, считаем ее полным именем модуля
-            let mod = await jcBase.loadModule(frame)
-            frame = mod.default || mod
+            let mod = await jcBase.loadModule(fw.frame)
+            fw.frame = mod.default || mod
         }
 
-        if (frame instanceof Promise) {
-            frame = await frame
-            if (frame.default) {
-                frame = frame.default
+        if (fw.frame instanceof Promise) {
+            fw.frame = await fw.frame
+            if (fw.frame.default) {
+                fw.frame = fw.frame.default
             }
         }
 
-        return frame
     }
 
     extractFrameInit(vueApp) {
@@ -197,20 +194,19 @@ export class FrameManager {
      */
     async showFrame(options) {
         let frameWrapper = new FrameWrapper(options)
-        let opts = frameWrapper.options
 
         // получаем shower
-        let shower = this.getShower(opts.shower)
-        frameWrapper.shower = shower
+        let showerName = frameWrapper.options.shower || 'main'
+        frameWrapper.shower = this.getShower(showerName)
 
         //todo обработка ошибок и чистка за собой всего вот этого
         jcBase.waitShow()
         try {
             // получаем компонент
-            let frameComp = await this.resolveFrameComp(opts)
+            await this.resolveFrameComp(frameWrapper)
 
             // создаем
-            let vueApp = createVueApp(frameComp, opts.props)
+            let vueApp = createVueApp(frameWrapper.frame, frameWrapper.props)
 
             // сохраняем все что нужно
             frameWrapper.vueApp = vueApp
@@ -229,7 +225,7 @@ export class FrameManager {
             frameWrapper.vueInst = vueApp.mount(frameWrapper.vueMountEl)
 
             // показываем
-            await shower.showFrameWrapper(frameWrapper)
+            await frameWrapper.shower.showFrameWrapper(frameWrapper)
 
         } finally {
             jcBase.waitHide()

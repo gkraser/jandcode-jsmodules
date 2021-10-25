@@ -31,6 +31,13 @@ export class FrameShower_page extends FrameShower {
             this.own.mountFrame(fw)
             lastFw.destroy()
         }
+
+        // меняем url, если допустимо
+        let routeHash = fw.getRouteHash()
+        if (routeHash != null) {
+            jcBase.app.frameManager.history.updateHash(routeHash)
+        }
+
     }
 
 }

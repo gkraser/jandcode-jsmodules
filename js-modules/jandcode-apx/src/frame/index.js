@@ -11,7 +11,7 @@ import JcDecorFrame from './JcDecorFrame'
 import JcDecorApp from './JcDecorApp'
 import JcApp from './JcApp'
 
-import {initVueApp, registerVueComponents} from '../vue'
+import {initVueApp} from '../vue'
 import * as dummyDecor from './dummy-decor'
 
 import {FrameManagerService} from './fm'
