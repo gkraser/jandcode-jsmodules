@@ -99,4 +99,28 @@ export class FrameWrapper {
         return res
     }
 
+    //////
+
+    /**
+     * Заголовок фрейма
+     */
+    get title() {
+        let res = this.vueInst.title
+        if (!res) {
+            res = ''
+        }
+        return res
+    }
+
+    /**
+     * Короткий заголовок фрейма
+     */
+    get titleShort() {
+        let res = this.vueInst.titleShort
+        if (!res) {
+            res = this.title
+        }
+        return res
+    }
+
 }

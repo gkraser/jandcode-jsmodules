@@ -4,6 +4,18 @@
 export class FrameShower {
 
     constructor() {
+        // все мои текущие работающие фреймы
+        this._frames = []
+    }
+
+    /**
+     * Уничтожить shower
+     */
+    destroy() {
+        for (let fw of this._frames) {
+            fw.destroy()
+        }
+        this._frames = null
     }
 
     /**
@@ -35,9 +47,10 @@ export class FrameShower {
     }
 
     /**
-     * Уничтожить shower
+     * Все текущие фреймы в shower
      */
-    destroy() {
+    getFrames() {
+        return this._frames
     }
 
 }

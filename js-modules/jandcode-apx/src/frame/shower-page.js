@@ -14,9 +14,6 @@ export class FrameShower_page extends FrameShower {
          * Экземпляр JcFrameShowerPage, который создал этот shower
          */
         this.own = own
-
-        // текущие фреймы
-        this._frames = []
     }
 
     async showFrameWrapper(fw) {
@@ -38,6 +35,8 @@ export class FrameShower_page extends FrameShower {
             jcBase.app.frameManager.history.updateHash(routeHash)
         }
 
+        // уведомляем заинтересованных в смене состава фреймов
+        this.own.$emit('change', this)
     }
 
 }
