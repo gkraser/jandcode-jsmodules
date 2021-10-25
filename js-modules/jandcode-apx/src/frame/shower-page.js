@@ -17,18 +17,41 @@ export class FrameShower_page extends FrameShower {
     }
 
     async showFrameWrapper(fw) {
-        if (this._frames.length === 0) {
-            // первый фрейм
-            this._frames.push(fw)
-            this.own.mountFrame(fw)
-        } else if (this._frames.length === 1) {
-            // замена фрейма
-            let lastFw = this._frames.pop()
-            this._frames.push(fw)
-            this.own.mountFrame(fw)
-            lastFw.destroy()
+        // нужно ли помещать в стек
+        let isStack = fw.options.stack
+        // нужно ли заменить последний
+        let isReplace = fw.options.replace
+
+        let old_frames = null
+        if (!isStack) {
+            old_frames = this._frames
+            this._frames = []
+        } else {
+            if (isReplace) {
+                // replace в стеке
+                // последний убираем для закрытия
+                old_frames = []
+                if (this._frames.length > 0) {
+                    old_frames.push(this._frames.pop())
+                }
+            }
         }
 
+        // сохраняем новый
+        this._frames.push(fw)
+
+        // сначала по быстрому монтируем фрейм
+        // старый должен исчезнуть с экрана, но остался как экземпляр
+        this.own.mountFrame(fw)
+
+        if (old_frames != null) {
+            // уничттожаем все старые, если новый не хочет быть в стеке
+            while (old_frames.length > 0) {
+                let fw = old_frames.pop()
+                fw.destroy()
+            }
+        }
+        
         // меняем url, если допустимо
         let routeHash = fw.getRouteHash()
         if (routeHash != null) {

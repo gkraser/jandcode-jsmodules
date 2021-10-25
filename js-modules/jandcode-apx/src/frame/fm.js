@@ -190,6 +190,9 @@ export class FrameManager {
      * @param options.frame фрейм
      * @param options.props свойства, который будут переданы фрейму
      * @param options.shower какой shower использовать, по умолчанию main
+     * @param options.stack true - поместить фрейм в стек, если поддерживается shower
+     * @param options.replace true - заменить последний показанный фрейм в стеке,
+     * если поддерживается shower. Работает только совместно со stack=true
      * @return {Promise<FrameWrapper>}
      */
     async showFrame(options) {
