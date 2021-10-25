@@ -46,11 +46,8 @@ export function parse(path) {
         dirname: '',
         basename: '',
     }
-    if (pt.length === 0) {
-        res.parts = []
-    } else {
-        res.parts = pt.split("/")
-        let parts = [...res.parts]
+    if (pt.length > 0) {
+        let parts = pt.split("/")
         res.filename = parts.pop()
         res.dirname = parts.join('/')
         let a = res.filename.lastIndexOf('.')

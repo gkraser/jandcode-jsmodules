@@ -25,11 +25,6 @@ describe(module.id, function() {
             "ext": "txt",
             "dirname": "a/b",
             "basename": "c",
-            "parts": [
-                "a",
-                "b",
-                "c.txt"
-            ]
         }
         parse("/a/b/c.txt", r1)
         parse("///a\\\\b///c.txt", r1)
@@ -41,7 +36,6 @@ describe(module.id, function() {
             "ext": "",
             "dirname": "",
             "basename": "",
-            "parts": []
         }
 
         parse("/", emptyRoot)
@@ -54,7 +48,6 @@ describe(module.id, function() {
             "ext": "",
             "dirname": "",
             "basename": "",
-            "parts": []
         }
 
         parse("", empty)
