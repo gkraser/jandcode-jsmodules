@@ -47,6 +47,14 @@ export class FrameShower {
     }
 
     /**
+     * Активировать фрейм.
+     * Все, которые после него - закрыть.
+     * @param fw
+     */
+    async activateFrameWrapper(fw) {
+    }
+
+    /**
      * Все текущие фреймы в shower
      */
     getFrames() {

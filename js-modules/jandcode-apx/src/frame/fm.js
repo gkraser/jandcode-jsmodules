@@ -1,4 +1,4 @@
-import {jcBase} from '../vendor'
+import {jcBase, Vue} from '../vendor'
 import {createVueApp} from '../vue'
 import {FrameWrapper} from './wrapper'
 import {FrameRouter} from './router'
@@ -196,7 +196,7 @@ export class FrameManager {
      * @return {Promise<FrameWrapper>}
      */
     async showFrame(options) {
-        let frameWrapper = new FrameWrapper(options)
+        let frameWrapper = Vue.markRaw(new FrameWrapper(options))
 
         // получаем shower
         let showerName = frameWrapper.options.shower || 'main'

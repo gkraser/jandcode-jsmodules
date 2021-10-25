@@ -16,6 +16,12 @@ export class FrameShower_page extends FrameShower {
         this.own = own
     }
 
+    destroy() {
+        this.own.unmountFrame()
+        super.destroy();
+        this.own = null
+    }
+
     async showFrameWrapper(fw) {
         // нужно ли помещать в стек
         let isStack = fw.options.stack
@@ -51,7 +57,11 @@ export class FrameShower_page extends FrameShower {
                 fw.destroy()
             }
         }
-        
+
+        this._activateFw(fw)
+    }
+
+    _activateFw(fw) {
         // меняем url, если допустимо
         let routeHash = fw.getRouteHash()
         if (routeHash != null) {
@@ -60,6 +70,66 @@ export class FrameShower_page extends FrameShower {
 
         // уведомляем заинтересованных в смене состава фреймов
         this.own.$emit('change', this)
+    }
+
+    isFrameWrapperClosable(fw) {
+        if (this._frames.length <= 1) {
+            return false
+        }
+        let idx = this._frames.indexOf(fw)
+        // фрейм показан и он не первый в стеке
+        return idx > 0
+    }
+
+    /**
+     * Проверить возможность закрыть фрейм
+     */
+    async checkForClose(fw, cmd) {
+        return true
+    }
+
+    async activateFrameWrapper(fw) {
+        if (this._frames.length <= 1) {
+            // стек либо пустой, либо там только один фрейм - ничего не делаем
+            return
+        }
+        let idx = this._frames.indexOf(fw)
+        if (idx === -1) {
+            // этот фрейм не в стеке
+            return
+        }
+        if (idx === this._frames.length - 1) {
+            // это последний фрейм в стеке, он и так активный
+            return
+        }
+
+        // проверяем возможность закрытия для всех после искомого
+        let curIdx = this._frames.length - 1
+        let closeIdx = null
+        while (curIdx > idx) {
+            if (!await this.checkForClose(this._frames[curIdx])) {
+                break
+            }
+            closeIdx = curIdx
+            curIdx--
+        }
+
+        if (closeIdx == null) {
+            // нечего закрывать
+            return
+        }
+
+        // монтируем активный
+        let fwActive = this._frames[closeIdx - 1]
+        this.own.mountFrame(fwActive)
+
+        // остальные уничтожаем
+        while (this._frames.length > closeIdx) {
+            let fwd = this._frames.pop()
+            fwd.destroy()
+        }
+
+        this._activateFw(fwActive)
     }
 
 }
@@ -99,7 +169,7 @@ export default {
     unmounted() {
         this.unmountFrame()
         jcBase.app.frameManager.unregisterShower(this.name)
-        this.shower = null
+        this.shower.destroy()
     },
 
     render() {
