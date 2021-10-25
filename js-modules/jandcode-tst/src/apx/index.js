@@ -41,14 +41,14 @@ function init() {
         })
     })
 
-    beforeEach(function() {
+    beforeEach(async function() {
         vueWarnHolder = []
         cleanBody()
         showBody()
         // пересоздание приложения
         jcBase.App.recreateApp()
         // и запуск его заново
-        jcBase.app.run(() => {
+        await jcBase.app.run(() => {
         })
     })
 

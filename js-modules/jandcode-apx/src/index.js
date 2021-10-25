@@ -10,9 +10,9 @@ export * from './vue'
 export * from './quasar'
 export * from './frame'
 
+export * from './errors'
+export * from './wait'
+export * from './events'
+
 // иконки
 import './icons'
-// обработчик ошибок
-export * from './errors'
-// wait
-export * from './wait'

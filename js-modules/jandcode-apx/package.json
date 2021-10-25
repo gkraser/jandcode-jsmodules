@@ -14,8 +14,9 @@
     "@jandcode/base": "^1.0.0"
   },
   "dependencies": {
+    "mitt": "^3.0.0",
+    "path-to-regexp": "^6.2.0",
     "quasar": "^2.2.0",
-    "vue": "^3.2.20",
-    "path-to-regexp": "^6.2.0"
+    "vue": "^3.2.20"
   }
 }
