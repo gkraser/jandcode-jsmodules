@@ -17,6 +17,7 @@ import * as jsonrpc from './jsonrpc'
 import * as moduleRegistry from './module-registry'
 import * as css from './css'
 import {jQuery, axios} from './vendor'
+import * as path from './path'
 
 export {
     Jc,
@@ -32,6 +33,7 @@ export {
     axios,
     moduleRegistry,
     css,
+    path,
 }
 
 // модули на верхний уровень
