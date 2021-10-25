@@ -1,7 +1,7 @@
 //
 import {jcBase} from '../vendor'
 import {VueService, createVueApp, initVueApp} from './app-service-vue'
-import {registerVueComponents} from './utils'
+import {registerVueComponents, registerVueComponent} from './utils'
 
 // инициализируем приложение
 jcBase.app.registerService(VueService)
@@ -9,7 +9,8 @@ jcBase.app.registerService(VueService)
 export {
     createVueApp,
     initVueApp,
-    registerVueComponents,
     VueService,
+    registerVueComponents,
+    registerVueComponent,
 }
 

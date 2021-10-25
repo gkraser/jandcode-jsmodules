@@ -11,7 +11,7 @@ import JcDecorFrame from './JcDecorFrame'
 import JcDecorApp from './JcDecorApp'
 import JcApp from './JcApp'
 
-import {initVueApp} from '../vue'
+import {initVueApp, registerVueComponent} from '../vue'
 import * as dummyDecor from './dummy-decor'
 
 import {FrameManagerService} from './fm'
@@ -22,10 +22,10 @@ export * from './shower'
 jcBase.app.registerService(FrameManagerService)
 
 initVueApp((vueApp) => {
-    vueApp.component(JcFrameShowerPage.name, JcFrameShowerPage)
-    vueApp.component('jc-decor-app', dummyDecor.DummyDecorApp)
-    vueApp.component('jc-decor-page', dummyDecor.DummyDecorPage)
-    vueApp.component('jc-decor-dialog', dummyDecor.DummyDecorDialog)
+    registerVueComponent(vueApp, JcFrameShowerPage.name, JcFrameShowerPage)
+    registerVueComponent(vueApp, 'jc-decor-app', dummyDecor.DummyDecorApp)
+    registerVueComponent(vueApp, 'jc-decor-page', dummyDecor.DummyDecorPage)
+    registerVueComponent(vueApp, 'jc-decor-dialog', dummyDecor.DummyDecorDialog)
 })
 
 export {
