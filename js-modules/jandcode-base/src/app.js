@@ -77,7 +77,7 @@ export class App {
     service(serviceName) {
         let svc = this.services[serviceName]
         if (!svc) {
-            throw new Error("Servive not found: " + serviceName)
+            throw new Error("Service not found: " + serviceName)
         }
         return svc
     }

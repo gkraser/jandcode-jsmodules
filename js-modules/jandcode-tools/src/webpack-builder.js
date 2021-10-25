@@ -96,7 +96,7 @@ class WebpackBuilder {
          * Имя генерируемой библиотеки
          * @type {string}
          */
-        this.libraryName = "MainApp"
+        this.libraryName = "JcEntry"
 
         /**
          * Поддерживать ли hotReload
