@@ -70,14 +70,14 @@ export class App {
     }
 
     /**
-     * Возвращает сервис по имени.
-     * @param serviceName имя сервиса
+     * Возвращает сервис по классу сервиса.
+     * @param serviceClass имя сервиса
      * @return {*} ошибка, если сервис не найден
      */
-    service(serviceName) {
-        let svc = this.services[serviceName]
+    service(serviceClass) {
+        let svc = this.services[serviceClass]
         if (!svc) {
-            throw new Error("Service not found: " + serviceName)
+            throw new Error("Service not found: " + serviceClass)
         }
         return svc
     }
@@ -157,10 +157,7 @@ export class App {
         for (let svcClass of __registredServices) {
             let svc = new svcClass(this)
             this.__services.push(svc)
-            let name = svc.getName()
-            if (name) {
-                this.services[name] = svc
-            }
+            this.services[svcClass] = svc
         }
 
         //
@@ -221,18 +218,6 @@ export class AppService {
          * @type {App}
          */
         this.app = app
-    }
-
-    /**
-     * Имя сервиса
-     * @return {*}
-     */
-    getName() {
-        let name = this.constructor.name
-        if (!name) {
-            return null
-        }
-        return name.substring(0, 1).toLowerCase() + name.substring(1)
     }
 
     /**

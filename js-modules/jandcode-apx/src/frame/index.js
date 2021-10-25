@@ -35,4 +35,5 @@ export {
     JcDecorFrame,
     JcDecorApp,
     JcApp,
+    FrameManagerService,
 }

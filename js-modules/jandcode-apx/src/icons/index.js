@@ -7,7 +7,7 @@ import {quasarIcons} from './quasar-iconSet'
 /**
  * Инициализация стандартного набора иконок
  */
-export function init() {
+function init() {
     registerIcons(quasarIcons)
 }
 

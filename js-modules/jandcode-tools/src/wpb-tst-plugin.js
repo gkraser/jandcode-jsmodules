@@ -1,7 +1,7 @@
 let path = require('path')
 let webpack = require('webpack')
-let HtmlWebpackPlugin = require('html-webpack-plugin')
-let CopyWebpackPlugin = require("copy-webpack-plugin")
+// let HtmlWebpackPlugin = require('html-webpack-plugin')
+// let CopyWebpackPlugin = require("copy-webpack-plugin")
 
 let wpb = require('./webpack-builder')
 let moduleUtils = require('./module-utils')
@@ -46,11 +46,11 @@ class WpbTstPlugin extends wpb.WebpackBuilderPlugin {
                 //     cache: true,
                 //     chunks: ['tst']
                 // })
-                new CopyWebpackPlugin({
-                    patterns: [
-                        { from: require.resolve('@jandcode/tools/template/tst.html') },
-                    ],
-                })
+                // new CopyWebpackPlugin({
+                //     patterns: [
+                //         { from: require.resolve('@jandcode/tools/template/tst.html') },
+                //     ],
+                // })
             ]
         }
     }

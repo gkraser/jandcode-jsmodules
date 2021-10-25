@@ -10,5 +10,6 @@ export {
     createVueApp,
     initVueApp,
     registerVueComponents,
+    VueService,
 }
 

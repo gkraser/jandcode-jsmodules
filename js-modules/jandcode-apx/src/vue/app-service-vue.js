@@ -69,7 +69,7 @@ export class VueService extends jcBase.AppService {
  * @return {*}
  */
 export function createVueApp(comp, props) {
-    return jcBase.app.service("vueService").createVueApp(comp, props)
+    return jcBase.app.service(VueService).createVueApp(comp, props)
 }
 
 /**

@@ -13,6 +13,6 @@ export * from './frame'
 // иконки
 import './icons'
 // обработчик ошибок
-import './errors'
+export * from './errors'
 // wait
-import './wait'
+export * from './wait'
