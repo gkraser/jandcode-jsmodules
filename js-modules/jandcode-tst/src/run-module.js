@@ -1,5 +1,4 @@
 import {jcBase, apx} from './vendor'
-import * as vue from 'vue'
 
 /**
  * Запуск модуля
@@ -8,6 +7,10 @@ import * as vue from 'vue'
  */
 export async function runModule(moduleName) {
     console.info("tst run module", moduleName);
+
+    let modulePathInfo = jcBase.path.parse(moduleName)
+    document.title = modulePathInfo.filename + ' - ' + modulePathInfo.path
+
     let m = await jcBase.loadModule(moduleName)
 
     if (m.run) {
