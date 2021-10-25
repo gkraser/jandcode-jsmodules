@@ -49,6 +49,7 @@ function init() {
         jcBase.App.recreateApp()
         // и запуск его заново
         await jcBase.app.run(() => {
+            //jcBase.app.service(apx.ErrorHandlerService).onStop() //todo нужно все ошибки выводить как ошибки тестов!
         })
     })
 
