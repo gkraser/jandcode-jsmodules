@@ -11,6 +11,7 @@ export async function runModule(moduleName) {
         tst: {
             module: moduleName,
             filename: pi.filename,
+            dirname: pi.dirname,
         }
     })
     document.title = pi.filename + ' - ' + pi.path

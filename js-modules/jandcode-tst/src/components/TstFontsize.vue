@@ -3,7 +3,7 @@
         <span>font-size:</span>
         <input type="range" :min="fontSizeMin" :max="fontSizeMax"
                v-model.number="fontSize">
-        <span>{{ fontSize }}px</span>
+        <span class="tst-fontsize__size">{{ fontSize }}px</span>
         <button @click="changeFontSize(-1)">-</button>
         <button @click="changeFontSize(1)">+</button>
         <button @click="fontSize=13">13</button>
@@ -47,3 +47,15 @@ export default {
     },
 }
 </script>
+
+<style>
+.tst-fontsize {
+    display: flex;
+    align-items: center;
+}
+
+.tst-fontsize .tst-fontsize__size {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+</style>
