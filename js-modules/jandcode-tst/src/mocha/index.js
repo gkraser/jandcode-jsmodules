@@ -32,8 +32,11 @@ function init() {
     // настраиваем
     mocha.setup('bdd')
 
-    // покажем при первом запуске
+    // выполнится при первом запуске
     before(function() {
+        // устанавливаем среду исполнения тестов
+        jcBase.cfg.envTest = true
+        // показываем mocha el
         mochaEl.style.display = 'block'
     })
 }

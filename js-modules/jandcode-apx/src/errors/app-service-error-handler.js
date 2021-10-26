@@ -9,6 +9,11 @@ export class ErrorHandlerService extends jcBase.AppService {
     onBeforeRun() {
         let th = this
 
+        if (jcBase.cfg.envTest) {
+            // в среде тестирования не настраиваем обработчики ошибок
+            return
+        }
+
         this.app.initVueApp((vueApp) => {
             vueApp.config.errorHandler = function(err, vm, info) {
                 th.handleVueError(err, vm, info, 'error')

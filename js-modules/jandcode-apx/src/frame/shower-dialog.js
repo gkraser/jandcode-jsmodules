@@ -26,6 +26,7 @@ export class FrameShower_dialog extends FrameShower {
         let dialog_vueMountEl = jcBase.dom.createTmpElement()
         let dialog_vueInst = dialog_vueApp.mount(dialog_vueMountEl)
         dialog_vueInst.showDialog()
+        this._frames.push(fw)
     }
 
 }

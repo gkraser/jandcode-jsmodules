@@ -30,6 +30,7 @@ function init() {
         initEnv()
         //
         apx.initVueApp((vueApp) => {
+            // все vue-warn регистрируем, потом будем их как ошибки показывать
             vueApp.config.warnHandler = (err, vm, info) => {
                 console.warn(`[tst][Vue warn]:`, err, info, vm);
                 vueWarnHolder.push({
@@ -49,7 +50,6 @@ function init() {
         jcBase.App.recreateApp()
         // и запуск его заново
         await jcBase.app.run(() => {
-            //jcBase.app.service(apx.ErrorHandlerService).onStop() //todo нужно все ошибки выводить как ошибки тестов!
         })
     })
 
