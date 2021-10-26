@@ -11,7 +11,8 @@
                             <div class="tst-app__files">
                                 <template v-for="(fileData, fileName) in dirData">
                                     <div>
-                                        <a :href="modRef(fileData.name)" target="_blank" class="tst-app__file-name">
+                                        <a :href="modRef(fileData.name)" target="_blank"
+                                           class="tst-app__file-name">
                                             <img :src="fileData.icon">
                                             <span>{{ fileName }}</span>
                                         </a>
