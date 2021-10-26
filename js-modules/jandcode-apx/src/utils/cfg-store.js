@@ -2,6 +2,12 @@
 
     Конфигурация с автоматической записью в localStore
 
+    Сама конфигурация хранится в свойстве cfg.
+
+    При загрузке load() будут доступны только те свойства, которые были явно
+    объявлены через applyDefaut. Остальные - будут проигнорированы.
+
+
  */
 
 import {jcBase, Vue} from '../vendor'
@@ -120,8 +126,11 @@ export class CfgStore {
     }
 
     save() {
-        deepCopy(this.__cfgLoaded, this.cfg, true, true)
-        window.localStorage.setItem(this.configKey, JSON.stringify(this.__cfgLoaded))
+        //deepCopy(this.__cfgLoaded, this.cfg, true, true)
+        let tmp = {}
+        deepCopy(tmp, this.cfg, true, true)
+        // window.localStorage.setItem(this.configKey, JSON.stringify(this.__cfgLoaded))
+        window.localStorage.setItem(this.configKey, JSON.stringify(tmp))
     }
 
     load() {
