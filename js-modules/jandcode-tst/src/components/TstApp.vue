@@ -28,13 +28,12 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue'
 import {jcBase} from '../vendor'
 
 import iconJs from './images/js.png'
 import iconVue from './images/vue.png'
 
-export default defineComponent({
+export default {
     name: 'tst-app',
     props: {},
     methods: {
@@ -68,7 +67,7 @@ export default defineComponent({
             return res
         }
     },
-})
+}
 </script>
 
 <style lang="less">

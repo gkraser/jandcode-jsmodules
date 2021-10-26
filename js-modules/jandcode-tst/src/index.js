@@ -2,7 +2,7 @@
 ----------------------------------------------------------------------------- */
 
 import * as vue from 'vue'
-import {jcBase} from './vendor'
+import {apx, jcBase} from './vendor'
 import TstApp from './components/TstApp'
 import {runModule} from './run-module'
 
@@ -13,6 +13,12 @@ jcBase.cfg.setDefault({
 
 export * from './mocha'
 export * from './apx'
+
+import * as components from './components'
+
+apx.initVueApp((vueApp)=>{
+    apx.registerVueComponents(vueApp, components)
+})
 
 //////
 
