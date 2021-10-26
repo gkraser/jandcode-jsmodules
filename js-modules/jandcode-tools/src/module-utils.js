@@ -9,7 +9,7 @@ let fileUtils = require('./file-utils')
 
 
 /**
- * Разделяет путь внутри модуля на запчасти и возвращает объкт с полями:
+ * Разделяет путь внутри модуля на запчасти и возвращает объект с полями:
  * moduleName - имя модуля
  * modulePath - абсолютный путь до корня модуля
  * filePath - путь до файла внутри модуля
@@ -82,9 +82,11 @@ function splitPath(filePath) {
  * Такие модули импортируются через динамический импорт
  * с помощью @jandcode/base moduleRegistry
  *
- * @param masks набор масок js-файлов в формате module-utils/splitPath
+ * @param {Array} masks набор масок js-файлов в формате module-utils/splitPath
+ * @param {Object} moduleInfo если указан, то будет генерироваться дополнительная информация
+ * об модуле и в нее будет добавлены свойства этого объекта
  */
-function genDynModules({masks}) {
+function genDynModules({masks, moduleInfo}) {
     if (!Array.isArray(masks)) {
         throw new Error("'masks' must be array")
     }
@@ -96,15 +98,29 @@ function genDynModules({masks}) {
         for (let file of files) {
             let dir = path.resolve(path.dirname(file))
             dirs[dir] = 1
-            let nm = mp.moduleName + "/" + fileUtils.normSlash(path.relative(mp.modulePath, file))
-            jsFiles[nm] = file
+            let relPath = fileUtils.normSlash(path.relative(mp.modulePath, file))
+            let nm = mp.moduleName + "/" + relPath
+
+            let res = {}
+            if (moduleInfo) {
+                res.moduleName = mp.moduleName
+                res.modulePath = mp.modulePath
+                res.filePath = relPath
+                Object.assign(res, moduleInfo)
+            }
+            res.fullPath = file
+            jsFiles[nm] = res
         }
     }
     let code = []
     code.push(`let a = require('@jandcode/base').moduleRegistry.addModule`)
     for (let nm in jsFiles) {
         let f = jsFiles[nm]
-        code.push(`a(${JSON.stringify(nm)},()=>import(${JSON.stringify(f)}))`)
+        let mi = ''
+        if (moduleInfo) {
+            mi = `,${JSON.stringify(f)}`
+        }
+        code.push(`a(${JSON.stringify(nm)},()=>import(${JSON.stringify(f.fullPath)})${mi})`)
     }
     return {
         cacheable: true,
@@ -118,14 +134,16 @@ function genDynModules({masks}) {
  * вызов genDynModules
  *
  * @param masks см. genDynModules
+ * @param moduleInfo см. genDynModules
  * @param filename в какой файл писать
  */
-function genDynModulesMainFile({masks, filename}) {
+function genDynModulesMainFile({masks, filename, moduleInfo}) {
     let text = `//
 let jcTools = require("@jandcode/tools")
 module.exports = (options, loaderContext) => {
     return jcTools.genDynModules({
-        masks: ${JSON.stringify(masks, null, 12)}
+        masks: ${JSON.stringify(masks, null, 12)},
+        moduleInfo: ${JSON.stringify(moduleInfo, null, 12)},
     })
 }
 `

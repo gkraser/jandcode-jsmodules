@@ -10,15 +10,19 @@ let _registry = {}
  * Регистрирует модуль
  * @param name произвольное имя, под которым будет доступен модуль
  * @param fnPromise функция, которая возвращает Promise, которая должна вернуть модуль
+ * @param moduleInfo опциональный объект с произвольной информацией об модуле
  */
-export function addModule(name, fnPromise) {
+export function addModule(name, fnPromise, moduleInfo = null) {
     if (!name) {
         throw new Error("name not defined")
     }
     if (!cnv.isFunction(fnPromise)) {
         throw new Error("fnPromise is not function")
     }
-    _registry[name] = fnPromise
+    let mi = Object.assign({}, moduleInfo)
+    mi.name = name
+    mi.fnPromise = fnPromise
+    _registry[name] = mi
 }
 
 /**
@@ -27,11 +31,11 @@ export function addModule(name, fnPromise) {
  * @return {Promise}
  */
 export async function loadModule(name) {
-    let fnPromise = _registry[name]
-    if (!fnPromise) {
+    let mi = _registry[name]
+    if (!mi) {
         throw new Error(`module ${name} not found`)
     }
-    let mod = fnPromise()
+    let mod = mi.fnPromise()
     //
     if (!(mod instanceof Promise)) {
         throw new Error(`module ${name} is registered with a function that does not return a Promise`)
@@ -41,9 +45,9 @@ export async function loadModule(name) {
 }
 
 /**
- * Имена всех зарегистрированных модулей
- * @return {string[]}
+ * Информация обо всех зарегистрированный модулях
+ * @return {Object[]}
  */
-export function getModuleNames() {
-    return Object.keys(_registry)
+export function getModuleInfos() {
+    return Object.values(_registry)
 }

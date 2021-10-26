@@ -47,6 +47,13 @@ class WebpackBuilderPlugin {
     updateConfig(builder, config) {
     }
 
+    /**
+     * Инициализация builder. Вызывается в процессе построения конфигурации
+     * как первый этап. Возможно добавление других плагинов.
+     * @param {WebpackBuilder} builder
+     */
+    initBuilder(builder) {
+    }
 }
 
 /**
@@ -120,6 +127,13 @@ class WebpackBuilder {
             console.info(`webpack PRODUCTION build in ${this.basedir}`);
         }
 
+        // сначала инициализация, состав плагинов может изменится
+        for (let m of this._merges) {
+            if (m instanceof WebpackBuilderPlugin) {
+                m.initBuilder(this)
+            }
+        }
+
         let merges = []
         for (let m of this._merges) {
             let cfg = m
@@ -133,7 +147,7 @@ class WebpackBuilder {
             }
         }
 
-        // объеденяем конфигурации
+        // объединяем конфигурации
         let config = webpackMerge.merge(
             this.buildBaseConfig(),
             this.buildStdConfig(),
@@ -164,6 +178,18 @@ class WebpackBuilder {
         this._merges.push(config)
     }
 
+    /**
+     * Есть ли зарегистрированный плагин
+     * @param pluginClass класс плагина
+     */
+    hasPlugin(pluginClass) {
+        for (let p of this._merges) {
+            if (p instanceof pluginClass) {
+                return true
+            }
+        }
+        return false
+    }
 
     ////// privates
 

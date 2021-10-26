@@ -28,6 +28,9 @@ class WpbTstPlugin extends wpb.WebpackBuilderPlugin {
         moduleUtils.genDynModulesMainFile({
             masks: this.masks,
             filename: tmpDynFile,
+            moduleInfo: {
+                tst: true
+            }
         })
         return {
             entry: {

@@ -3,8 +3,8 @@
         <h1>tst app</h1>
         <div class="tst-app__list-modules">
             <table>
-                <tr v-for="it in getModuleNames()">
-                    <td><a :href="modRef(it)" target="_blank">{{ it }}</a></td>
+                <tr v-for="it in getModuleInfos()">
+                    <td><a :href="modRef(it.name)" target="_blank">{{ it.name }}</a></td>
                 </tr>
             </table>
         </div>
@@ -22,8 +22,8 @@ export default defineComponent({
         return {}
     },
     methods: {
-        getModuleNames() {
-            return jcBase.moduleRegistry.getModuleNames()
+        getModuleInfos() {
+            return jcBase.moduleRegistry.getModuleInfos().filter((it) => it.tst == true)
         },
         modRef(mod) {
             return "?module=" + mod
