@@ -29,7 +29,6 @@
 <script>
 import {defineComponent} from 'vue'
 import {jcBase} from '../vendor'
-import normalizeCss from './normalize.css'
 
 import iconJs from './images/js.png'
 import iconVue from './images/vue.png'
@@ -37,16 +36,7 @@ import iconVue from './images/vue.png'
 export default defineComponent({
     name: 'tst-app',
     props: {},
-    data() {
-        return {}
-    },
-    created() {
-        jcBase.applyCss(normalizeCss)
-    },
     methods: {
-        getModuleInfos() {
-            return jcBase.moduleRegistry.getModuleInfos().filter((it) => it.tst == true)
-        },
         modRef(mod) {
             return "?module=" + mod
         },
@@ -74,7 +64,6 @@ export default defineComponent({
                 }
                 dir[pi.filename] = it
             }
-            console.info("res", res);
             return res
         }
     },
