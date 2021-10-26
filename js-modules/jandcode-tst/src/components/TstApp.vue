@@ -1,10 +1,25 @@
 <template>
     <div class="tst-app">
-        <h1>tst app</h1>
+        <div class="tst-app__title">_tst/webpack</div>
         <div class="tst-app__list-modules">
             <table>
-                <tr v-for="it in getModuleInfos()">
-                    <td><a :href="modRef(it.name)" target="_blank">{{ it.name }}</a></td>
+                <tr v-for="(modData, modName) in buildItems()">
+                    <td class="tst-app__module-name">{{ modName }}</td>
+                    <td>
+                        <template v-for="(dirData, dirName) in modData">
+                            <div class="tst-app__dir-name">{{ dirName }}</div>
+                            <div class="tst-app__files">
+                                <template v-for="(fileData, fileName) in dirData">
+                                    <div>
+                                        <a :href="modRef(fileData.name)" target="_blank" class="tst-app__file-name">
+                                            <img :src="fileData.icon">
+                                            <span>{{ fileName }}</span>
+                                        </a>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -14,12 +29,19 @@
 <script>
 import {defineComponent} from 'vue'
 import {jcBase} from '../vendor'
+import normalizeCss from './normalize.css'
+
+import iconJs from './images/js.png'
+import iconVue from './images/vue.png'
 
 export default defineComponent({
     name: 'tst-app',
     props: {},
     data() {
         return {}
+    },
+    created() {
+        jcBase.applyCss(normalizeCss)
     },
     methods: {
         getModuleInfos() {
@@ -28,8 +50,32 @@ export default defineComponent({
         modRef(mod) {
             return "?module=" + mod
         },
-        splitPath(p) {
-
+        buildItems() {
+            let allItems = jcBase.moduleRegistry.getModuleInfos().filter((it) => it.tst == true)
+            let res = {}
+            for (let itOrig of allItems) {
+                let it = Object.assign({}, itOrig)
+                let moduleName = it.moduleName
+                let mod = res[moduleName]
+                if (!mod) {
+                    mod = {}
+                    res[moduleName] = mod
+                }
+                let pi = jcBase.path.parse(it.filePath)
+                let dir = mod[pi.dirname]
+                if (!dir) {
+                    dir = {}
+                    mod[pi.dirname] = dir
+                }
+                if (pi.ext === 'vue') {
+                    it.icon = iconVue
+                } else {
+                    it.icon = iconJs
+                }
+                dir[pi.filename] = it
+            }
+            console.info("res", res);
+            return res
         }
     },
 })
@@ -38,20 +84,80 @@ export default defineComponent({
 <style lang="less">
 
 @color-link: navy;
+@width-col: 20em;
 
 .tst-app {
+
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+
+    padding: 20px;
+    padding-bottom: 40px;
 
     a, a:visited {
         color: @color-link;
         text-decoration: none;
     }
 
-    a:hover {
-        text-decoration: underline;
+    &__title {
+        font-size: 1.2em;
+        font-weight: bold;
+        padding-bottom: 10px;
     }
 
     &__list-modules {
         font-family: monospace;
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid silver;
+            padding: 8px;
+        }
+
+        tr:hover {
+            background-color: #fbfbfb;
+        }
+    }
+
+    &__module-name {
+        text-align: left;
+        vertical-align: top;
+        width: @width-col;
+    }
+
+    &__files {
+        column-width: @width-col;
+        column-count: 4;
+        padding-bottom: 12px;
+        padding-left: 20px;
+    }
+
+    &__dir-name {
+        color: gray;
+        font-weight: bold;
+        font-size: 0.9em;
+        padding-bottom: 8px;
+    }
+
+    &__file-name {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px;
+        min-width: @width-col;
+
+        img {
+            width: 20px;
+            height: 20px;
+            padding-right: 4px;
+            opacity: 0.4;
+        }
+
+        &:hover {
+            background-color: #e8e8e8;
+        }
     }
 
 }

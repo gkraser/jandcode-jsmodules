@@ -310,6 +310,10 @@ class WebpackBuilder {
                             'val-loader',
                         ],
                     },
+                    {
+                        test: /.png$/,
+                        type: 'asset/resource',
+                    },
                 ],
             },
             plugins: plugins,
