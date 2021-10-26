@@ -154,5 +154,30 @@ describe('cfg-store1.test.js', function() {
 
     })
 
+    it("load-and-default-1", function() {
+        let z = create(this.test.title)
+        z.cfg.v1 = 'q1'
+        z.cfg.v2 = 'q2'
+        z.save()
+        //
+        let z2 = create(this.test.title, true)
+        z2.load()
+        z2.autoSave = true
+
+        z2.applyDefault({
+            v3: 'default-q3',
+        })
+        tst.assert.equal(z2.cfg.v2, undefined) // загружено, еще нет значения по умолчанию
+
+        z2.applyDefault({
+            v2: 'default-q2',
+        })
+        tst.assert.equal(z2.cfg.v2, 'q2') // теперь по умолчанию есть, но берется загруженное
+
+        tst.assert.equal(z2.cfg.v1, undefined) // загружено, но нет значения по умолчанию
+        tst.assert.equal(z2.cfg.v3, 'default-q3')
+        tst.assert.equal(z2.__cfgLoaded.v1, 'q1')
+    })
+
 })
 
