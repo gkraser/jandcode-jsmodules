@@ -1,7 +1,13 @@
 <template>
     <div>
-        value1: {{ cfg.value1 }}
-        <input type="text" v-model="cfg.value1"/>
+        <div>
+            <input type="text" v-model="cfg.value1"/>
+            value1: <b>{{ cfg.value1 }}</b>
+            value2: <b>{{ value2 }}</b>
+        </div>
+        <div>
+            <button @click="cfgStore.reset()">reset</button>
+        </div>
     </div>
 </template>
 
@@ -18,12 +24,14 @@ export default {
         })
     },
     data() {
-        return {}
+        return {
+            value2: '',
+        }
     },
     methods: {
         applyCfg() {
             let cfg = this.cfg
-            //console.info("applyCfg for", cfg);
+            this.value2 = '[' + cfg.value1 + ']'
         },
     }
 }
