@@ -1,3 +1,6 @@
+import upperFirst from 'lodash/upperFirst'
+import {jcBase} from '../vendor'
+
 /**
  * Показывальщик фреймов
  */
@@ -52,6 +55,54 @@ export class FrameShower {
      * @param fw
      */
     async activateFrameWrapper(fw) {
+    }
+
+    /**
+     * Проверить, что фрейм можно закрывать.
+     * @param {FrameWrapper} fw фрейм
+     * @param {String} cmd команда для закрытия ('ok', 'cancel', ...). По умолчанию - 'cancel'
+     * @return {Promise<boolean>} возвращает false, если фрейм закрывать нельзя
+     */
+    async checkClose(fw, cmd = 'cancel') {
+
+        if (!cmd) {
+            cmd = 'cancel'
+        }
+
+        let vueInst = fw.vueInst
+        if (!vueInst) {
+            return true
+        }
+
+        let handlerName = 'on' + upperFirst(cmd)
+        let handlerNameCloseCmd = 'onCloseCmd'
+
+        if (jcBase.isFunction(vueInst[handlerName])) {
+            // у фрейма есть обработчик onXxx
+            if (await vueInst[handlerName](fw, cmd) === false) {
+                return false // закрываться нельзя
+            }
+        } else if (jcBase.isFunction(vueInst[handlerNameCloseCmd])) {
+            // у фрейма есть обработчик onCloseCmd
+            if (await vueInst[handlerNameCloseCmd](fw, cmd) === false) {
+                return false // закрываться нельзя
+            }
+        }
+
+        if (jcBase.isFunction(fw.options[handlerName])) {
+            // у фрейма есть обработчик onXxx
+            if (await fw.options[handlerName](fw, cmd) === false) {
+                return false // закрываться нельзя
+            }
+        } else if (jcBase.isFunction(fw.options[handlerNameCloseCmd])) {
+            // у фрейма есть обработчик onCloseCmd
+            if (await fw.options[handlerNameCloseCmd](fw, cmd) === false) {
+                return false // закрываться нельзя
+            }
+        }
+
+        // все разрешили закрытся
+        return true
     }
 
     /**

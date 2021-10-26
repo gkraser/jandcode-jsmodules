@@ -81,13 +81,6 @@ export class FrameShower_page extends FrameShower {
         return idx > 0
     }
 
-    /**
-     * Проверить возможность закрыть фрейм
-     */
-    async checkForClose(fw, cmd) {
-        return true
-    }
-
     async activateFrameWrapper(fw) {
         if (this._frames.length <= 1) {
             // стек либо пустой, либо там только один фрейм - ничего не делаем
@@ -107,7 +100,7 @@ export class FrameShower_page extends FrameShower {
         let curIdx = this._frames.length - 1
         let closeIdx = null
         while (curIdx > idx) {
-            if (!await this.checkForClose(this._frames[curIdx])) {
+            if (!await this.checkClose(this._frames[curIdx])) {
                 break
             }
             closeIdx = curIdx

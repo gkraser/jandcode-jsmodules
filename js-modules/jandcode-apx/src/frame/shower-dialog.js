@@ -14,7 +14,15 @@ export class FrameShower_dialog extends FrameShower {
     }
 
     async showFrameWrapper(fw) {
-        let dialog_vueApp = createVueApp(Dialog, {frameWrapper: fw})
+        if (fw.options.replace) {
+            throw new Error("replace (and reloadFrame) not supported in dialogs")
+        }
+        let dialog_vueApp = createVueApp(Dialog, {
+            frameWrapper: fw,
+            onDialogClose() {
+                console.info("close dialog!");
+            }
+        })
         let dialog_vueMountEl = jcBase.dom.createTmpElement()
         let dialog_vueInst = dialog_vueApp.mount(dialog_vueMountEl)
         dialog_vueInst.showDialog()
@@ -30,9 +38,6 @@ export let Dialog = {
     props: {
         frameWrapper: Object
     },
-    data() {
-        return {}
-    },
     render() {
         let qDialog = resolveComponent('q-dialog')
         return h(qDialog, {
@@ -41,6 +46,9 @@ export let Dialog = {
             transitionShow: null,
             transitionHide: null,
             noBackdropDismiss: true,
+            onHide: () => {
+                this.$emit('dialog-close', this)
+            }
         }, {
             default: (props) => h('div', {ref: 'framePlace', style: 'display:none;'})
         })
@@ -60,9 +68,5 @@ export let Dialog = {
         hideDialog() {
             this.$refs.dialogInst.hide()
         },
-
-        onHideDialog() {
-            this.$emit('dialog-close', this)
-        }
     }
 }
