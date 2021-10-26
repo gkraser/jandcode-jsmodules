@@ -1,10 +1,14 @@
 <template>
     <div class="tst-app">
-        <div class="tst-app__title">_tst/webpack</div>
+        <div class="tst-app__title"><a href="?">_tst/webpack</a></div>
         <div class="tst-app__list-modules">
             <table>
                 <tr v-for="(modData, modName) in buildItems()">
-                    <td class="tst-app__module-name">{{ modName }}</td>
+                    <td class="tst-app__module-name">
+                        <a :href="filterRef(modName+'/')" class="tst-app__file-name">
+                            {{ modName }}
+                        </a>
+                    </td>
                     <td>
                         <template v-for="(dirData, dirName) in modData">
                             <div class="tst-app__dir-name">{{ dirName }}</div>
@@ -35,13 +39,24 @@ import iconVue from './images/vue.png'
 
 export default {
     name: 'tst-app',
-    props: {},
+    props: {
+        /**
+         * Только модули, которые начинаются с указанной строки
+         */
+        filter: '',
+    },
     methods: {
         modRef(mod) {
             return "?module=" + mod
         },
+        filterRef(filter) {
+            return "?filter=" + filter
+        },
         buildItems() {
             let allItems = jcBase.moduleRegistry.getModuleInfos().filter((it) => it.tst == true)
+            if (this.filter) {
+                allItems = allItems.filter((it) => it.name.startsWith(this.filter))
+            }
             let res = {}
             for (let itOrig of allItems) {
                 let it = Object.assign({}, itOrig)
@@ -136,6 +151,7 @@ export default {
         align-items: center;
         padding: 3px;
         min-width: @width-col;
+        min-height: 20px;
 
         img {
             width: 20px;

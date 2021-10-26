@@ -6,6 +6,7 @@ import {apx, jcBase} from './vendor'
 import TstApp from './components/TstApp'
 import {runModule} from './run-module'
 import * as mixins from './mixins'
+import * as components from './components'
 
 //
 jcBase.cfg.setDefault({
@@ -14,8 +15,6 @@ jcBase.cfg.setDefault({
 
 export * from './mocha'
 export * from './apx'
-
-import * as components from './components'
 
 apx.initVueApp((vueApp) => {
     apx.registerVueComponents(vueApp, components)
@@ -39,7 +38,9 @@ export async function run() {
         await runModule(pageParams.module)
     } else {
         // модуль не указан - показываем стартовую запускалку
-        let vm = vue.createApp(TstApp)
+        let vm = vue.createApp(TstApp, {
+            filter: pageParams.filter
+        })
         vm.mount(jcBase.dom.getAppElement())
     }
 

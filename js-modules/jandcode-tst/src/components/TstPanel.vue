@@ -3,9 +3,13 @@
         <div class="tst-panel--head">
             <template v-if="cfgTst.module">
                 <div class="tst-panel--value-big">{{ cfgTst.filename }}</div>
-                <span class="tst-panel--divider"></span>
+                <span class="tst-panel--arrow"></span>
                 <div class="tst-panel--value-small"><a
-                        :href="'?path='+cfgTst.dirname">{{ cfgTst.dirname }}/</a>
+                    :href="'?filter='+cfgTst.dirname+'/'">{{ cfgTst.dirname }}/</a>
+                </div>
+                <span class="tst-panel--arrow"></span>
+                <div class="tst-panel--value-small"><a
+                    :href="'?filter='+cfgTst.moduleName+'/'">{{ cfgTst.moduleName }}/</a>
                 </div>
                 <span class="tst-panel--divider" :style="{flex:1}"></span>
             </template>
@@ -62,8 +66,7 @@ export default {
         }
     },
     data() {
-        return {
-        }
+        return {}
     },
     created() {
         this.cfgStore.applyDefault({
@@ -89,83 +92,85 @@ export default {
 <style>
 
 .tst-panel {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 .tst-panel--head {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  border-bottom: 1px solid silver;
-  background-color: #f5f5f5;
-  padding: 4px 10px;
-  display: flex;
-  min-height: 34px;
-  align-items: center;
-  flex-wrap: wrap;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    border-bottom: 1px solid silver;
+    background-color: #f5f5f5;
+    padding: 4px 10px;
+    display: flex;
+    min-height: 34px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .tst-panel--head > *:not(:first-child) {
-  margin-left: 8px;
+    margin-left: 8px;
 }
 
 .tst-panel--head input[type="range"] {
-  color: red;
-  width: 60px;
+    color: red;
+    width: 60px;
 }
 
 .tst-panel--head .tst-panel--value-big {
-  color: navy;
-  font-size: 12px;
-  font-family: "Lucida Console", Monaco, monospace;
+    color: navy;
+    font-size: 12px;
+    font-family: "Lucida Console", Monaco, monospace;
 }
 
 .tst-panel--head .tst-panel--value-small {
-  font-size: 11px;
-  color: gray;
-  font-family: "Lucida Console", Monaco, monospace;
+    font-size: 11px;
+    color: gray;
+    font-family: "Lucida Console", Monaco, monospace;
 }
 
 .tst-panel--head select {
-  color: navy;
-  font-size: 11px;
-  font-family: "Lucida Console", Monaco, monospace;
-  padding: 2px;
-  background-color: #f5f5f5;
+    color: navy;
+    font-size: 11px;
+    font-family: "Lucida Console", Monaco, monospace;
+    padding: 2px;
+    background-color: #f5f5f5;
 }
 
 .tst-panel--head button {
-  font-size: 11px;
-  white-space: nowrap;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.tst-panel--head a {
+    text-decoration: none;
+    color: navy;
 }
 
 .tst-panel--head a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .tst-panel--body {
-  padding: 20px 20px;
+    padding: 20px 20px;
 }
 
 .tst-panel--body.tst-panel--no-padding {
-  padding: 0;
+    padding: 0;
 }
 
 .tst-panel--size-label {
-  min-width: 30px;
+    min-width: 30px;
 }
 
 .tst-panel--divider {
-  width: 4px;
+    width: 4px;
 }
 
-.tst-panel--head .vue-portal-target {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+.tst-panel--arrow {
+    padding-bottom: 4px;
 }
 
-.tst-panel--head .vue-portal-target > *:not(:first-child) {
-  margin-left: 8px;
+.tst-panel--arrow::before {
+    content: '\00BB';
 }
-
 </style>

@@ -3,10 +3,9 @@
 
 import {jcBase, apx} from '../vendor'
 import * as mocha from '../mocha'
+import styleCss from './style.css'
 
 export * from './rnd-utils'
-
-import styleCss from './style.css'
 
 // css
 jcBase.applyCss(styleCss)

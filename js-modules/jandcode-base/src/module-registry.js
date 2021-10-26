@@ -51,3 +51,16 @@ export async function loadModule(name) {
 export function getModuleInfos() {
     return Object.values(_registry)
 }
+
+/**
+ * Информация об указанном модуле
+ * @return {Object[]} null, если модуль не найден
+ */
+export function getModuleInfo(name) {
+    let mi = _registry[name]
+    if (mi != null) {
+        mi = Object.assign({}, mi)
+    }
+    return mi
+}
+

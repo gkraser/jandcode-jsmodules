@@ -7,16 +7,19 @@ import {jcBase, apx} from './vendor'
  */
 export async function runModule(moduleName) {
     let pi = jcBase.path.parse(moduleName)
+    document.title = pi.filename + ' - ' + pi.path
+
+    let m = await jcBase.loadModule(moduleName)
+    let mi = jcBase.getModuleInfo(moduleName)
+
     jcBase.cfg.set({
         tst: {
             module: moduleName,
             filename: pi.filename,
             dirname: pi.dirname,
+            moduleName: mi.moduleName,
         }
     })
-    document.title = pi.filename + ' - ' + pi.path
-
-    let m = await jcBase.loadModule(moduleName)
 
     if (m.run) {
         m.run()
