@@ -15,11 +15,6 @@
  *   "ext": "txt",
  *   "dirname": "a/b",
  *   "basename": "c",
- *   "parts": [
- *       "a",
- *       "b",
- *       "c.txt"
- *   ]
  * }
  */
 export function parse(path) {

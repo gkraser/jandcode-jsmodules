@@ -6,10 +6,14 @@ import {jcBase, apx} from './vendor'
  *        Должен иметь метод run.
  */
 export async function runModule(moduleName) {
-    console.info("tst run module", moduleName);
-
-    let modulePathInfo = jcBase.path.parse(moduleName)
-    document.title = modulePathInfo.filename + ' - ' + modulePathInfo.path
+    let pi = jcBase.path.parse(moduleName)
+    jcBase.cfg.set({
+        tst: {
+            module: moduleName,
+            filename: pi.filename,
+        }
+    })
+    document.title = pi.filename + ' - ' + pi.path
 
     let m = await jcBase.loadModule(moduleName)
 
