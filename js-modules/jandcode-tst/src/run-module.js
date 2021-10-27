@@ -1,5 +1,6 @@
 import {jcBase, apx} from './vendor'
 import themes from 'all/themes'
+import icons from 'all/icons'
 
 /**
  * Запуск модуля
@@ -36,6 +37,8 @@ export async function runModule(moduleName) {
     }
     jcBase.cfg.tst.themeInfo = themeInfo
 
+    // icons
+    apx.icons.registerIcons(icons)
 
     //////
 

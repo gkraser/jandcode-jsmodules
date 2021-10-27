@@ -1,7 +1,4 @@
 import {apx, tst} from './vendor'
-import icons from '@jandcode/apx-ui/src/icons.dyn'
-
-apx.icons.registerIcons(icons)
 
 describe(module.id, function() {
 

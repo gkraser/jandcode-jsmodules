@@ -28,6 +28,7 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
             'all/themes': '@jandcode/apx/src/css/themes-all.js',
             'all/components': '@jandcode/apx/src/css/components-all.less',
             'all/vars': '@jandcode/apx/src/css/vars-all.less',
+            'all/icons': '@jandcode/apx/src/css/icons-all.js',
         }
     }
 
@@ -64,13 +65,6 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         modules.push(pi.moduleName)
         modules = uniq(modules)
         this.apxModules = modules
-
-        // ищем темы и общие css
-        let themes = {}
-        let themeFiles = this.getModuleFiles('src/css/*-theme.js')
-        let componentsLessFiles = this.getModuleFiles('src/css/components.less')
-        let varsLessFiles = this.getModuleFiles('src/css/vars.less')
-
     }
 
     getModuleFiles(mask) {
@@ -131,6 +125,12 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         jcTools.saveFile(tmpFile, this.genLessAll(varsLessFiles))
         res.resolve.alias['all/vars'] = tmpFile
 
+        // генерим файл со всеми иконками
+        tmpFile = path.resolve(builder.basedir, `temp/icons-all.dyn.js`)
+        jcTools.saveFile(tmpFile, this.genIconsAll())
+        res.resolve.alias['all/icons'] = tmpFile
+
+
         return res
     }
 
@@ -163,6 +163,25 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         }
         return s.join('\n')
     }
+
+    genIconsAll() {
+        let masks = []
+        let mask = 'assets/icons/**/*.svg'
+        for (let mod of this.apxModules) {
+            let m1 = mod + '/' + mask
+            masks.push(m1)
+        }
+        return `
+let jcTools = require("@jandcode/tools")
+module.exports = (options, loaderContext) => {
+    return jcTools.svgUtils.genSvgIconsJs({
+        masks: ${JSON.stringify(masks)}
+    })
+}        
+        `
+    }
+
 }
+
 
 module.exports = WpbApxPlugin
