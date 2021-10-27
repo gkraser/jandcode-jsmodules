@@ -20,6 +20,15 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         super(options)
         this.apxModules = []
         this.themeDefault = this.options.themeDefault || 'apx-base'
+        
+        // алиасы по умолчанию
+        this.alias = {
+            'jquery$': 'jquery/dist/jquery.slim.js',
+
+            'all/themes': '@jandcode/apx/src/css/themes-all.js',
+            'all/components': '@jandcode/apx/src/css/components-all.less',
+            'all/vars': '@jandcode/apx/src/css/vars-all.less',
+        }
     }
 
     initBuilder(builder) {
@@ -79,12 +88,10 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         let res = {
             resolve: {
                 alias: {
-                    'all/themes': '@jandcode/apx/src/css/themes-all.js',
-                    'all/components': '@jandcode/apx/src/css/components-all.less',
-                    'all/vars': '@jandcode/apx/src/css/vars-all.less',
                 }
             },
         }
+        Object.assign(res.resolve.alias, this.alias)
 
         // ищем темы и общие css
         let themes = {}
