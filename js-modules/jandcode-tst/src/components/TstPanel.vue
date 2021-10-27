@@ -13,7 +13,7 @@
                 </div>
                 <span class="tst-panel--divider" :style="{flex:1}"></span>
                 <div class="tst-apx-panel--value-small">Theme:</div>
-                <select v-model="curTheme">
+                <select v-model="curTheme" :title="cfgTst.theme.module">
                     <option v-for="theme in themes" :value="theme.name">
                         {{ theme.name }}
                     </option>
