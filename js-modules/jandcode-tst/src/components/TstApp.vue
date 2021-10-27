@@ -1,6 +1,10 @@
 <template>
     <div class="tst-app">
         <div class="tst-app__title"><a href="?">_tst/webpack</a></div>
+        <div class="tst-app__filter" v-if="filter">
+            <span>Filter: </span>
+            <span>{{ filter }}</span>
+        </div>
         <div class="tst-app__list-modules">
             <table>
                 <tr v-for="(modData, modName) in buildItems()">
@@ -105,6 +109,11 @@ export default {
     &__title {
         font-size: 1.2em;
         font-weight: bold;
+        padding-bottom: 10px;
+    }
+
+    &__filter {
+        font-size: 0.9em;
         padding-bottom: 10px;
     }
 
