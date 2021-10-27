@@ -20,6 +20,8 @@ export async function runModule(moduleName) {
             filename: pi.filename,
             dirname: pi.dirname,
             moduleName: mi.moduleName,
+            themes: {},
+            theme: {}
         }
     })
 
@@ -35,7 +37,8 @@ export async function runModule(moduleName) {
     } else {
         jcBase.applyTheme(themeInfo.theme)
     }
-    jcBase.cfg.tst.themeInfo = themeInfo
+    jcBase.cfg.tst.themes = themes
+    jcBase.cfg.tst.theme = themeInfo
 
     // icons
     apx.icons.registerIcons(icons)

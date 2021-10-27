@@ -12,6 +12,16 @@
                     :href="'?filter='+cfgTst.moduleName+'/'">{{ cfgTst.moduleName }}/</a>
                 </div>
                 <span class="tst-panel--divider" :style="{flex:1}"></span>
+                <div class="tst-apx-panel--value-small">Theme:</div>
+                <select v-model="curTheme">
+                    <option v-for="theme in themes" :value="theme.name">
+                        {{ theme.name }}
+                    </option>
+                </select>
+                <button @click="resetTheme">Reset</button>
+                <button v-for="theme in themes" @click="curTheme=theme.name">
+                    {{ theme.name }}
+                </button>
             </template>
         </div>
 
@@ -66,17 +76,41 @@ export default {
         }
     },
     data() {
-        return {}
+        return {
+            curTheme: Jc.cfg.tst.theme.name,
+        }
     },
     created() {
         this.cfgStore.applyDefault({
             debugBg: false,
         })
     },
+    watch: {
+        curTheme: function(v) {
+            let prms = jcBase.url.getPageParams()
+            prms.theme = v
+            window.location.search = decodeURIComponent(jcBase.url.params(prms))
+        }
+    },
     computed: {
         cfgTst() {
             return jcBase.cfg.tst || {}
         },
+        themes() {
+            let res = []
+            for (let nm in jcBase.cfg.tst.themes) {
+                if (nm === 'default') {
+                    continue;
+                }
+                let theme = jcBase.cfg.tst.themes[nm]
+                let th = {
+                    name: nm,
+                    module: theme.module,
+                }
+                res.push(th)
+            }
+            return res
+        }
     },
     methods: {
         resetCfg() {
@@ -84,7 +118,12 @@ export default {
         },
         applyCfg() {
             document.body.classList.toggle("debug-bg", this.cfg.debugBg)
-        }
+        },
+        resetTheme() {
+            let prms = jcBase.url.getPageParams()
+            delete prms.theme
+            window.location.search = decodeURIComponent(jcBase.url.params(prms))
+        },
     }
 }
 </script>
