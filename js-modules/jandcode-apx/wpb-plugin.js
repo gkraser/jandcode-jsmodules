@@ -3,6 +3,8 @@
 let path = require('path')
 let uniq = require('lodash/uniq')
 let jcTools = require('@jandcode/tools')
+let fs = require('fs')
+let globby = require('globby')
 
 class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
 
@@ -17,6 +19,7 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
     constructor(options) {
         super(options)
         this.apxModules = []
+        this.themeDefault = this.options.themeDefault || 'apx-base'
     }
 
     initBuilder(builder) {
@@ -53,8 +56,105 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         modules = uniq(modules)
         this.apxModules = modules
 
-        // ищем темы
-        
+        // ищем темы и общие css
+        let themes = {}
+        let themeFiles = this.getModuleFiles('src/css/*-theme.js')
+        let componentsLessFiles = this.getModuleFiles('src/css/components.less')
+        let varsLessFiles = this.getModuleFiles('src/css/vars.less')
+
+    }
+
+    getModuleFiles(mask) {
+        let res = []
+        for (let mod of this.apxModules) {
+            let m1 = mod + '/' + mask
+            let mp = jcTools.splitPath(m1)
+            let files = globby.sync(mp.filePath, {cwd: mp.modulePath, absolute: true})
+            res.push(...files)
+        }
+        return res
+    }
+
+    buildConfig(builder) {
+        let res = {
+            resolve: {
+                alias: {
+                    'all/themes': '@jandcode/apx/src/css/themes-all.js',
+                    'all/components': '@jandcode/apx/src/css/components-all.less',
+                    'all/vars': '@jandcode/apx/src/css/vars-all.less',
+                }
+            },
+        }
+
+        // ищем темы и общие css
+        let themes = {}
+        let themeFiles = this.getModuleFiles('src/css/*-theme.js')
+        let componentsLessFiles = this.getModuleFiles('src/css/components.less')
+        let varsLessFiles = this.getModuleFiles('src/css/vars.less')
+
+        // themes
+        for (let themeFile of themeFiles) {
+            let themeName = path.basename(themeFile).replace('-theme.js', '')
+            let theme = themes[themeName] = {}
+            theme.name = themeName
+            theme.themeFile = themeFile
+            res.resolve.alias['theme/' + themeName] = themeFile
+        }
+
+        // тема по умолчанию
+        let themeDefault = themes[this.themeDefault]
+        if (themeDefault) {
+            res.resolve.alias['theme/default'] = themeDefault.themeFile
+        }
+
+        let tmpFile
+
+        // генерим файл со всеми темами
+        tmpFile = path.resolve(builder.basedir, `temp/themes-all.js`)
+        jcTools.saveFile(tmpFile, this.genThemesAll(Object.values(themes), themeDefault))
+        res.resolve.alias['all/themes'] = tmpFile
+
+        // генерим файл со всеми компонентами
+        tmpFile = path.resolve(builder.basedir, `temp/components-all.less`)
+        jcTools.saveFile(tmpFile, this.genLessAll(componentsLessFiles))
+        res.resolve.alias['all/components'] = tmpFile
+
+        // генерим файл со всеми переменными
+        tmpFile = path.resolve(builder.basedir, `temp/vars-all.less`)
+        jcTools.saveFile(tmpFile, this.genLessAll(varsLessFiles))
+        res.resolve.alias['all/vars'] = tmpFile
+
+        return res
+    }
+
+    genThemesAll(themes, themeDefault) {
+        let s = [`let res = {}, t`]
+
+        let cnt = 0
+        for (let theme of themes) {
+            cnt++
+            s.push(`//`)
+            s.push(`import theme${cnt} from '${theme.themeFile}'`)
+            s.push(`t = res['${theme.name}'] = {}`)
+            s.push(`t.name = '${theme.name}'`)
+            s.push(`t.themeFile = '${theme.themeFile}'`)
+            s.push(`t.theme = theme${cnt}`)
+            if (themeDefault && themeDefault.name === theme.name) {
+                s.push(`// default`)
+                s.push(`res['default'] = t`)
+            }
+        }
+        s.push(`//`)
+        s.push(`export default res`)
+        return s.join('\n')
+    }
+
+    genLessAll(files) {
+        let s = []
+        for (let f of files) {
+            s.push(`@import '${f}';`)
+        }
+        return s.join('\n')
     }
 }
 
