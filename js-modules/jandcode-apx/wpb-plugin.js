@@ -20,7 +20,7 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         super(options)
         this.apxModules = []
         this.themeDefault = this.options.themeDefault || 'apx-base'
-        
+
         // алиасы по умолчанию
         this.alias = {
             'jquery$': 'jquery/dist/jquery.slim.js',
@@ -81,8 +81,7 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
     buildConfig(builder) {
         let res = {
             resolve: {
-                alias: {
-                }
+                alias: {}
             },
         }
         Object.assign(res.resolve.alias, this.alias)
@@ -95,10 +94,12 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
 
         // themes
         for (let themeFile of themeFiles) {
+            let pi = jcTools.splitPath(themeFile)
             let themeName = path.basename(themeFile).replace('-theme.js', '')
             let theme = themes[themeName] = {}
             theme.name = themeName
             theme.themeFile = themeFile
+            theme.module = pi.moduleName + "/" + pi.filePath
             res.resolve.alias['theme/' + themeName] = themeFile
         }
 
@@ -144,6 +145,7 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
             s.push(`import theme${cnt} from '${theme.themeFile}'`)
             s.push(`t = res['${theme.name}'] = {}`)
             s.push(`t.name = '${theme.name}'`)
+            s.push(`t.module = '${theme.module}'`)
             s.push(`t.themeFile = '${theme.themeFile}'`)
             s.push(`t.theme = theme${cnt}`)
             if (themeDefault && themeDefault.name === theme.name) {
