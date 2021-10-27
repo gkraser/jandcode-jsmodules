@@ -16,6 +16,7 @@ let API_THEME = {
 }
 
 let prevThemeId
+let lastApplyTheme
 
 /**
  * Применить тему
@@ -30,6 +31,11 @@ export function applyTheme(theme) {
     if (theme.default) {
         theme = theme.default
     }
+
+    if (lastApplyTheme === theme) {
+        return // повторный applyTheme, игнорируем
+    }
+
     //
     let css = cssUtils.normCssArray(theme.css)
     for (let it of css) {
@@ -65,4 +71,5 @@ export function applyTheme(theme) {
         document.querySelectorAll("style[data-group=" + prevThemeId + "]").forEach(n => n.parentNode.removeChild(n))
     }
     prevThemeId = newThemeId
+    lastApplyTheme = theme
 }
