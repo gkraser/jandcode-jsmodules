@@ -15,7 +15,7 @@
 
 }
 
-доступен как:
+Доступен как:
 
 import themes from 'all/themes'
 

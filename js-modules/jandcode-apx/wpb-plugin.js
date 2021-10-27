@@ -25,10 +25,10 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         this.alias = {
             'jquery$': 'jquery/dist/jquery.slim.js',
 
-            'all/themes': '@jandcode/apx/src/css/themes-all.js',
-            'all/components': '@jandcode/apx/src/css/components-all.less',
-            'all/vars': '@jandcode/apx/src/css/vars-all.less',
-            'all/icons': '@jandcode/apx/src/css/icons-all.js',
+            'all/themes': '@jandcode/apx/alias/themes-all.js',
+            'all/components': '@jandcode/apx/alias/components-all.less',
+            'all/vars': '@jandcode/apx/alias/vars-all.less',
+            'all/icons': '@jandcode/apx/alias/icons-all.js',
         }
     }
 
