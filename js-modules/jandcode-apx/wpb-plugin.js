@@ -27,7 +27,6 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
 
             'all/themes': '@jandcode/apx/alias/themes-all.js',
             'all/components': '@jandcode/apx/alias/components-all.less',
-            'all/vars': '@jandcode/apx/alias/vars-all.less',
             'all/icons': '@jandcode/apx/alias/icons-all.js',
         }
     }
@@ -120,11 +119,6 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         tmpFile = path.resolve(builder.basedir, `temp/components-all.less`)
         jcTools.saveFile(tmpFile, this.genLessAll(componentsLessFiles))
         res.resolve.alias['all/components'] = tmpFile
-
-        // генерим файл со всеми переменными
-        tmpFile = path.resolve(builder.basedir, `temp/vars-all.less`)
-        jcTools.saveFile(tmpFile, this.genLessAll(varsLessFiles))
-        res.resolve.alias['all/vars'] = tmpFile
 
         // генерим файл со всеми иконками
         tmpFile = path.resolve(builder.basedir, `temp/icons-all.dyn.js`)

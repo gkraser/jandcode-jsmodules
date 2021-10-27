@@ -8,5 +8,6 @@ import cssQuasar from 'quasar/dist/quasar.css'
 import css from './apx-clean/index.less'
 
 export default {
-    css: [...Object.values(robotoFonts), cssQuasar, css],
+    // quasarCss после css!
+    css: [...Object.values(robotoFonts), css, cssQuasar],
 }
