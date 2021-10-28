@@ -1,5 +1,5 @@
-export * from './fake'
 export * from './decor'
 export * from './btn'
 export * from './action'
 export * from './toolbar'
+export * from './sidemenu'

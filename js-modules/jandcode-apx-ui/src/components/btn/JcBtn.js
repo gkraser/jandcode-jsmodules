@@ -1,4 +1,5 @@
 import {apx} from '../vendor'
+import {grabShowFrameOptions} from '../../utils/frame'
 
 let {h, resolveComponent} = apx.Vue
 
@@ -27,7 +28,7 @@ export let config = {
  * showFrame({
  *      frame:props.frame,
  *      props: attrs.frameProps,
- *      ...props.showFrameParams
+ *      ...props.showFrame
  * })
  * ```
  *
@@ -93,18 +94,9 @@ export default function JcBtn(props, context) {
     }
 
     if (!attrs.onClick) {
-        if (attrs.frame || attrs.showFrame) {
+        let sfp = grabShowFrameOptions(attrs)
+        if (sfp) {
             attrs.onClick = (ev) => {
-                let sfp = {}
-                if (attrs.frame) {
-                    sfp.frame = attrs.frame
-                }
-                if (attrs.frameProps) {
-                    sfp.props = attrs.frameProps
-                }
-                if (attrs.showFrame) {
-                    Object.assign(sfp, attrs.showFrame)
-                }
                 apx.showFrame(sfp)
             }
         }

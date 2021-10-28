@@ -50,3 +50,40 @@ export function adaptProps(props) {
     }
     return res
 }
+
+/**
+ * Проверка, что компонент является определенным компонентом
+ * @param comp экземпляр компонента
+ * @param type тип. Может быть строкой, тогда проверяется имя компонента.
+ *        Может быть функцией вида fn(comp). Если функция возвращает
+ *        true, значит наш компонент.
+ */
+export function isComp(comp, type) {
+    if (!comp) {
+        return false;
+    }
+    if (comp.$options) {
+        // это экземпляр компонента
+        if (jcBase.isFunction(type)) {
+            return type(comp);
+        } else {
+            return comp.$options.name === type
+        }
+    }
+
+    return false;
+}
+
+
+/**
+ * Ищет компонент с указанным типом, которому принадлежит компонент from.
+ * Возвращает найденный компонент или null, если не найден.
+ * @param from с какого компонента искать
+ * @param type тип искомого компонента (включая его самого).
+ * @see isComp
+ */
+export function findCompUp(from, type) {
+    if (!from) return null;
+    if (isComp(from, type)) return from;
+    return findCompUp(from.$parent, type)
+}
