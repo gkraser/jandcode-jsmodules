@@ -5,7 +5,7 @@
             :disable="disable"
             :style="style"
             :class="classes"
-            @click="onClick"
+            @click="onClick1"
             :href="href_calc"
             :target="target"
             :tag="tag_calc"
@@ -24,7 +24,7 @@
                       :group="groupValue"
                       :headerStyle="style"
                       :headerClass="classes"
-                      @click="onClick"
+                      @click="onClick1"
                       @update:modelValue="onChangeOpened">
         <template v-slot:header>
             <q-item-section avatar>
@@ -185,7 +185,7 @@ export default {
 
     },
     methods: {
-        onClick(ev) {
+        onClick1(ev) {
             let sfp = grabShowFrameOptions(this)
             if (sfp) {
                 apx.showFrame(sfp)
@@ -194,8 +194,9 @@ export default {
             }
         },
         onChangeOpened(val) {
+            console.info("THISITEM",this);
             let oldVal = this.$refs.expansionItem.showing
-            if (this.$listeners.input) {
+            if (this.$attrs.onInput) {
                 this.$emit('input', val)
             } else {
                 this.$refs.expansionItem.showing = val
