@@ -4,6 +4,7 @@
 import * as vue from 'vue'
 import {apx, jcBase} from './vendor'
 import TstApp from './components/TstApp'
+import TstErrorApp from './components/TstErrorApp'
 import {runModule} from './run-module'
 import * as mixins from './mixins'
 import * as components from './components'
@@ -35,7 +36,15 @@ export async function run() {
 
     if (pageParams.module) {
         // указан модуль - запускаем его
-        await runModule(pageParams.module)
+        try {
+            await runModule(pageParams.module)
+        } catch(e) {
+            console.error("error", e);
+            let vm = vue.createApp(TstErrorApp, {
+                error: e
+            })
+            vm.mount(jcBase.dom.getAppElement())
+        }
     } else {
         // модуль не указан - показываем стартовую запускалку
         let vm = vue.createApp(TstApp, {

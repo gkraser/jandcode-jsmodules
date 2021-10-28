@@ -54,6 +54,9 @@ export default function JcBtn(props, context) {
     if (attrs['no-wrap'] == null) {
         attrs['no-wrap'] = true
     }
+    if (attrs['no-caps'] == null) {
+        attrs['no-caps'] = true
+    }
 
     // размер задаем через классы
     if ('size' in attrs) {

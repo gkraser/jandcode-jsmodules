@@ -9,7 +9,7 @@ describe(module.id, function() {
         console.info("@jandcode/base", apx.jcBase);
         console.info("@jandcode/tst", tst);
 
-        let vueApp = apx.createVueApp({template:'<div>dummy app</div>'})
+        let vueApp = apx.createVueApp({template: '<div>dummy app</div>'})
         console.info("components", vueApp._context.components);
         console.info("vueApp", vueApp);
 

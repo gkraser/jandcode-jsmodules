@@ -8,7 +8,7 @@ describe(module.id, function() {
         console.info(apx);
 
         let Comp = {
-            template:`
+            template: `
 <jc-decor-app container style="width:400px;height:200px">
     <template #main>
         Hello
@@ -16,7 +16,7 @@ describe(module.id, function() {
 </jc-decor-app>`
         }
         let z = tst.vueMount(Comp)
-        
+
     })
 
 })
