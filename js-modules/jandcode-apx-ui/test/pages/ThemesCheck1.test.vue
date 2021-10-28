@@ -1,8 +1,8 @@
 <template>
-    <tst-panel class="themescheck1-test-9f7a9d37">
+    <tst-panel fontsize>
 
         <q-btn label="Button1" color="primary"/>
-
+        <pre><code>pre text</code></pre>
     </tst-panel>
 </template>
 
@@ -21,10 +21,5 @@ export default {
 </script>
 
 <style lang="less">
-
-.themescheck1-test-9f7a9d37 {
-
-
-}
 
 </style>

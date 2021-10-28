@@ -9,5 +9,6 @@ import css from './apx-clean/index.less'
 
 export default {
     // quasarCss после css!
-    css: [...Object.values(robotoFonts), css, cssQuasar],
+    //css: [...Object.values(robotoFonts), css, cssQuasar],
+    css: [css, cssQuasar],
 }
