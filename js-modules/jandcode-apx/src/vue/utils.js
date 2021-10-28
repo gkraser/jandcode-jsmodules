@@ -1,6 +1,8 @@
 /* Утилиты для vue
 ----------------------------------------------------------------------------- */
 
+import {jcBase} from '../vendor'
+
 /**
  * Регистрация компонентов
  * @param vueApp для какого приложения vue
@@ -31,3 +33,20 @@ export function registerVueComponent(vueApp, name, comp) {
     vueApp._context.components[name] = comp
 }
 
+/**
+ * Адаптировать props функционального компонента для модификации
+ * @param props свойства функционального компонента
+ * @return {*} копия свойств, адаптированная для модификации
+ */
+export function adaptProps(props) {
+    let res = Object.assign({}, props)
+    if (jcBase.isArray(res.class)) {
+        res.class = [...res.class]
+    }
+    if (res.class == null) {
+        res.class = []
+    } else {
+        res.class = [res.class]
+    }
+    return res
+}

@@ -1,4 +1,13 @@
 /* font Roboto, основные css
+
+Пример пспользования в темах:
+
+    import robotoFonts from './fonts/roboto'
+
+    export default {
+        css: [...Object.values(robotoFonts), cssQuasar, css],
+    }
+
 ----------------------------------------------------------------------------- */
 
 import f100 from "@fontsource/roboto/100.css";

@@ -4,11 +4,9 @@
 качестве темы по умолчанию.
 
 ----------------------------------------------------------------------------- */
-import robotoFonts from './fonts/roboto'
 import cssQuasar from 'quasar/dist/quasar.css'
 import css from './apx-std/index.less'
 
 export default {
-    //css: [...Object.values(robotoFonts), cssQuasar, css],
     css: [cssQuasar, css],
 }
