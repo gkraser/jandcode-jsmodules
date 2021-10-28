@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: 'tst-checkbox',
+    name: 'TstCheckbox',
     props: {
         label: {
             type: String,

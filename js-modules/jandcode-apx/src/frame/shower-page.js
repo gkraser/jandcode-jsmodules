@@ -132,7 +132,7 @@ export class FrameShower_page extends FrameShower {
  * @type {{}}
  */
 export default {
-    name: 'jc-frame-shower-page',
+    name: 'JcFrameShowerPage',
 
     props: {
         /**

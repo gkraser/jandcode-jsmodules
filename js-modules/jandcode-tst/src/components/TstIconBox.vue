@@ -34,7 +34,7 @@ export let colors = {
 }
 
 export default {
-    name: 'tst-icon-box',
+    name: 'TstIconBox',
     props: {
         icon: {
             default: 'bus'

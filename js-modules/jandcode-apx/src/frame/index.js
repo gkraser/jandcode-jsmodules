@@ -23,9 +23,9 @@ jcBase.app.registerService(FrameManagerService)
 
 initVueApp((vueApp) => {
     registerVueComponent(vueApp, JcFrameShowerPage.name, JcFrameShowerPage)
-    registerVueComponent(vueApp, 'jc-decor-app', dummyDecor.DummyDecorApp)
-    registerVueComponent(vueApp, 'jc-decor-page', dummyDecor.DummyDecorPage)
-    registerVueComponent(vueApp, 'jc-decor-dialog', dummyDecor.DummyDecorDialog)
+    registerVueComponent(vueApp, 'JcDecorApp', dummyDecor.DummyDecorApp)
+    registerVueComponent(vueApp, 'JcDecorPage', dummyDecor.DummyDecorPage)
+    registerVueComponent(vueApp, 'JcDecorDialog', dummyDecor.DummyDecorDialog)
 })
 
 export {

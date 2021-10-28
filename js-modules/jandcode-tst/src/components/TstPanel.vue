@@ -53,7 +53,7 @@ import {jcBase} from '../vendor'
 import * as mixins from '../mixins'
 
 export default {
-    name: 'tst-panel',
+    name: 'TstPanel',
     mixins: [mixins.cfgStore],
     props: {
         debugBg: {

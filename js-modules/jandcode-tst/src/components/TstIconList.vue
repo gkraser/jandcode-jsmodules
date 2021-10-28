@@ -58,7 +58,7 @@
 import {apx} from '../vendor'
 
 export default {
-    name: 'tst-icon-list',
+    name: 'TstIconList',
     props: {
         icons: {
             default: null

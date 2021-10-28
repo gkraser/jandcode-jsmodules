@@ -42,7 +42,7 @@ import iconJs from './images/js.png'
 import iconVue from './images/vue.png'
 
 export default {
-    name: 'tst-app',
+    name: 'TstApp',
     props: {
         /**
          * Только модули, которые начинаются с указанной строки

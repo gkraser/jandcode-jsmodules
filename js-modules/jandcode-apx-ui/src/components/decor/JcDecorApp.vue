@@ -53,10 +53,10 @@
 <script>
 import {apx} from "../vendor"
 
-//todo пока не доведен до гогического конца
+//todo пока не доведен до логического конца
 
 export default {
-    name: 'jc-decor-app',
+    name: 'JcDecorApp',
 
     extends: apx.JcDecorApp,
 

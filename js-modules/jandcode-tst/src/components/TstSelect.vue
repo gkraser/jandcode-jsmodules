@@ -11,7 +11,7 @@
 import {jcBase} from '../vendor'
 
 export default {
-    name: 'tst-select',
+    name: 'TstSelect',
     props: {
         label: {
             default: null

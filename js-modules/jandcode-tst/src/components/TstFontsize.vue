@@ -17,7 +17,7 @@
 import {jcBase} from '../vendor'
 
 export default {
-    name: "tst-fontsize",
+    name: "TstFontsize",
     props: {},
     data() {
         return {

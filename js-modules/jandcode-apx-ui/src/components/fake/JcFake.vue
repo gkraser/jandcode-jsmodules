@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'jc-fake',
+    name: 'JcFake',
     props: {},
     data() {
         return {}

@@ -7,7 +7,7 @@
 <script>
 //! событие click транслируется автоматом
 export default {
-    name: 'tst-btn',
+    name: 'TstBtn',
     props: {
         label: {
             type: String,
