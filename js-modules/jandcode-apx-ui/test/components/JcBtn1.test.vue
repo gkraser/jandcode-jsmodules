@@ -26,11 +26,39 @@
         </div>
 
         <div class="q-gutter-y-sm q-mb-md">
-            <div>href btn:</div>
+            <div>href:</div>
             <div class="row q-gutter-x-sm">
                 <jc-btn label="local" href="_tst"/>
                 <jc-btn label="local blank" href="_tst" target="_blank"/>
                 <jc-btn label="yandex" href="http://yandex.ru" target="_blank"/>
+            </div>
+        </div>
+
+        <div class="q-gutter-y-sm q-mb-md">
+            <div>frame:</div>
+            <div class="row q-gutter-x-sm">
+                <jc-btn label="frame"
+                        :frameProps="{prop1:'assigned prop1'}"
+                        :showFrame="{frame:import('./_frames/Dialog1'),shower:'dialog'}"/>
+            </div>
+        </div>
+
+        <div class="q-gutter-y-sm q-mb-md">
+            <div>sizes:</div>
+            <div class="q-gutter-x-sm">
+                <label>jc-btn</label>
+                <jc-btn v-for="size in sizes" :size="size" :label="`Size ${size}`"/>
+                <jc-btn v-for="size in sizes" color="warning" :size="size" icon="mail"/>
+                <jc-btn v-for="size in sizes" color="secondary" round :size="size"
+                        icon="mail"/>
+            </div>
+            <div class="q-gutter-x-sm">
+                <label>q-btn</label>
+                <q-btn v-for="size in sizes" color="primary" :size="size"
+                       :label="`Size ${size}`"/>
+                <q-btn v-for="size in sizes" color="warning" :size="size" icon="mail"/>
+                <q-btn v-for="size in sizes" color="secondary" round :size="size"
+                       icon="mail"/>
             </div>
         </div>
 
@@ -49,7 +77,9 @@ for (let z in btnConfig.kind) {
 export default {
     mixins: [tst.mixins.cfgStore],
     data() {
-        return {}
+        return {
+            sizes: ['xs', 'sm', 'md', 'lg', 'xl', 'large-6', 'small-3'],
+        }
     },
     computed: {
         kinds() {

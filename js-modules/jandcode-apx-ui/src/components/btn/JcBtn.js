@@ -17,8 +17,30 @@ export let config = {
 }
 
 /**
- * Если указан атрибут 'frame' и click не определен, то при клике делаем:
- * showFrame({frame:attrs.frame, params: attrs.frameParams, ...attrs.showFrameParams})
+ * Обертка вокруг QBtn. Все ее свойства применимы.
+ *
+ * ### frame, frameProps, showFrame
+ *
+ * Если не определен `onClick` и указан атрибут `frame` или `showFrame`, то при клике делаем:
+ *
+ * ```
+ * showFrame({
+ *      frame:props.frame,
+ *      props: attrs.frameProps,
+ *      ...props.showFrameParams
+ * })
+ * ```
+ *
+ * ### kind: String
+ *
+ * Для обычной кнопки (не flat, outline, round) ставится класс `jc-btn--default`.
+ * Если указан `kind`, то ставится дополнительно класс `jc-btn--${kind}`.
+ *
+ * ### size: String
+ *
+ * Если размер указан не числом (например не 12px, 15rem), то значение из атрибута `size`
+ * рассматривается как класс `text-size-${size}`. Иначе - не трогается и им управляет quasar.
+ *
  */
 export default function JcBtn(props, context) {
     let QBtn = resolveComponent('q-btn')
@@ -70,7 +92,7 @@ export default function JcBtn(props, context) {
     if (!attrs.onClick) {
         if (attrs.frame || attrs.showFrame) {
             attrs.onClick = (ev) => {
-                let sfp = Object.assign({}, attrs.showFrame)
+                let sfp = {}
                 if (attrs.frame) {
                     sfp.frame = attrs.frame
                 }
