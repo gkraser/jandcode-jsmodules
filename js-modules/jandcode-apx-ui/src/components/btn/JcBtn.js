@@ -43,65 +43,67 @@ export let config = {
  * рассматривается как класс `text-size-${size}`. Иначе - не трогается и им управляет quasar.
  *
  */
-export default function JcBtn(props, context) {
-    let QBtn = resolveComponent('q-btn')
+export default {
+    name: 'JcBtn',
+    render() {
+        let QBtn = resolveComponent('q-btn')
+        let attrs = apx.vueUtils.adaptProps(this.$attrs)
 
-    let attrs = apx.vueUtils.adaptProps(props)
+        let cls = attrs.class
 
-    let cls = attrs.class
+        cls.push('jc-btn')
 
-    cls.push('jc-btn')
-
-    if (attrs['no-wrap'] == null) {
-        attrs['no-wrap'] = true
-    }
-    if (attrs['no-caps'] == null) {
-        attrs['no-caps'] = true
-    }
-
-    // размер задаем через классы
-    if ('size' in attrs) {
-        let sz = attrs['size']
-        if (!apx.jcBase.isStartNumChar(sz)) {
-            cls.push('text-size-' + sz)
-            delete attrs['size']
+        if (attrs['no-wrap'] == null) {
+            attrs['no-wrap'] = true
         }
-    }
-
-    let kind = attrs.kind || 'default'
-
-    //
-    if (!isAttrTrue(attrs.flat) &&
-        !isAttrTrue(attrs.outline) &&
-        !isAttrTrue(attrs.round)) {
-        // обычная кнопка
-        cls.push('jc-btn--default')
-        if (kind !== 'default') {
-            cls.push('jc-btn--' + kind)
+        if (attrs['no-caps'] == null) {
+            attrs['no-caps'] = true
         }
-    }
 
-    // ссылку правим, если есть
-    if (attrs.href) {
-        attrs.href = apx.jcBase.url.ref(attrs.href)
-    }
-
-    // если тип явно не установлен, и нет click - ставим 'a'
-    if (!attrs.type) {
-        if (!attrs.onClick) {
-            attrs.type = 'a'
-        }
-    }
-
-    if (!attrs.onClick) {
-        let sfp = grabShowFrameOptions(attrs)
-        if (sfp) {
-            attrs.onClick = (ev) => {
-                apx.showFrame(sfp)
+        // размер задаем через классы
+        if ('size' in attrs) {
+            let sz = attrs['size']
+            if (!apx.jcBase.isStartNumChar(sz)) {
+                cls.push('text-size-' + sz)
+                delete attrs['size']
             }
         }
-    }
 
-    return h(QBtn, attrs, context.slots)
+        let kind = attrs.kind || 'default'
+
+        //
+        if (!isAttrTrue(attrs.flat) &&
+            !isAttrTrue(attrs.outline) &&
+            !isAttrTrue(attrs.round)) {
+            // обычная кнопка
+            cls.push('jc-btn--default')
+            if (kind !== 'default') {
+                cls.push('jc-btn--' + kind)
+            }
+        }
+
+        // ссылку правим, если есть
+        if (attrs.href) {
+            attrs.href = apx.jcBase.url.ref(attrs.href)
+        }
+
+        // если тип явно не установлен, и нет click - ставим 'a'
+        if (!attrs.type) {
+            if (!attrs.onClick) {
+                attrs.type = 'a'
+            }
+        }
+
+        if (!attrs.onClick) {
+            let sfp = grabShowFrameOptions(attrs)
+            if (sfp) {
+                attrs.onClick = (ev) => {
+                    apx.showFrame(sfp)
+                }
+            }
+        }
+
+        return h(QBtn, attrs, this.$slots)
+    }
 }
 

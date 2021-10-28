@@ -20,6 +20,7 @@
                     <!--                    <q-input :value="'Для масштаба:'+(c?c:'norm')" square outlined/>-->
                     <jc-btn :kind="c" label="С иконкой справа" icon-right="bus"/>
                     <jc-btn :kind="c" label="С иконками" icon="mail" icon-right="bus"/>
+                    <jc-btn :kind="c" label="caps" :no-caps="false"/>
                     <div>С иконками (просто текст для сравнения)</div>
                 </div>
             </template>
@@ -40,6 +41,21 @@
                 <jc-btn label="frame"
                         :frameProps="{prop1:'assigned prop1'}"
                         :showFrame="{frame:import('./_frames/Dialog1'),shower:'dialog'}"/>
+            </div>
+        </div>
+
+        <div class="q-gutter-y-sm q-mb-md">
+            <div>change label and icon (click button):</div>
+            <div class="row q-gutter-x-sm">
+                <jc-btn :label="label1" :icon="icon1" @click="cnt++"/>
+            </div>
+        </div>
+
+        <div class="q-gutter-y-sm q-mb-md">
+            <div>button ref:</div>
+            <div class="row q-gutter-x-sm">
+                <jc-btn label="button-ref" ref="button1"/>
+                <span>{{ refInfo_button1 }}</span>
             </div>
         </div>
 
@@ -74,16 +90,42 @@ for (let z in btnConfig.kind) {
     btnKinds.push(z)
 }
 
+let icons = ['quasar.arrow.right', 'quasar.arrow.down', 'quasar.arrow.left', 'quasar.arrow.up']
+
 export default {
     mixins: [tst.mixins.cfgStore],
     data() {
         return {
             sizes: ['xs', 'sm', 'md', 'lg', 'xl', 'large-6', 'small-3'],
+            cnt: 0,
+            refInfo_button1: '',
+        }
+    },
+    mounted() {
+        this.refInfo_button1 = this.refInfo('button1')
+    },
+    methods: {
+        refInfo(name) {
+            let r = this.$refs[name]
+            console.info("ref", name, r);
+            if (!r) {
+                return `no ref: ${name}`
+            }
+            if (r instanceof Element) {
+                return `html element: ${name}`
+            }
+            return `comp: ${name}`
         }
     },
     computed: {
         kinds() {
             return btnKinds
+        },
+        label1() {
+            return 'label-' + this.cnt
+        },
+        icon1() {
+            return icons[this.cnt % 4]
         }
     }
 }
