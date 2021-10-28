@@ -72,7 +72,7 @@ export function isAbs(url) {
     if (!url) {
         return false;
     }
-    return url.indexOf(':') !== -1 || url.substr(0, 1) === '/';
+    return url.startsWith('http://') || url.startsWith('https://')
 }
 
 /**
@@ -84,6 +84,9 @@ export function isAbs(url) {
 export function ref(url) {
     if (!url) {
         return cfg.baseUrl;
+    }
+    if (url.startsWith('/')) {
+        return url
     }
     if (isAbs(url)) {
         return url;

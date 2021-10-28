@@ -35,6 +35,9 @@ export function fixIconUrl(name) {
     if (name.startsWith('img:')) {
         return 'img:' + jcBase.url.ref(name.substring(4))
     }
+    if (jcBase.url.isAbs(name)) {
+        return 'img:' + name
+    }
 }
 
 /**

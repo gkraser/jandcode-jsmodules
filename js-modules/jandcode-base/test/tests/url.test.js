@@ -20,5 +20,11 @@ describe("utils/url", function() {
         assert.deepEqual(m.deparams('#a='), {a: ''})
     })
 
+    it("isAbs", function() {
+        assert.equal(m.isAbs(''), false)
+        assert.equal(m.isAbs('http://hello'), true)
+        assert.equal(m.isAbs('svg:bus'), false)
+    })
+
 })
     

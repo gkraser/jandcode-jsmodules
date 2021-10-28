@@ -314,6 +314,10 @@ class WebpackBuilder {
                         test: /.png$/,
                         type: 'asset/resource',
                     },
+                    {
+                        test: /.svg$/,
+                        type: 'asset/resource',
+                    },
                 ],
             },
             plugins: plugins,

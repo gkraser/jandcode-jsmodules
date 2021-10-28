@@ -47,8 +47,15 @@
 </template>
 
 <script>
-import {tst} from '../vendor'
+import {apx, tst} from '../vendor'
 import SideMenu1 from './_components/SideMenu1'
+
+apx.icons.registerIcons({
+    'png1': require('../_images/calc.png'),
+    'svg1': require('../_images/cpu.svg'),
+    'folder1': require('../_images/folder.svg'),
+    'file1': require('../_images/file.svg'),
+})
 
 let itemsSet = {
     items1: [
@@ -103,21 +110,21 @@ export default {
 // Отладочные стили
 .debug-bg {
 
-  .place1 {
-    background-color: #C6E2A6 !important;
-    color: black;
+    .place1 {
+        background-color: #C6E2A6 !important;
+        color: black;
 
-    & > * {
-      background-color: #d7edc5;
+        & > * {
+            background-color: #d7edc5;
+        }
     }
-  }
 }
 
 .jcsidemenu2-test-7ced957a {
 
-  .block {
-    margin-right: 10px;
-  }
+    .block {
+        margin-right: 10px;
+    }
 
 }
 
