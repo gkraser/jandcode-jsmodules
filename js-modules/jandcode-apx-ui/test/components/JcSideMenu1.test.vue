@@ -1,5 +1,5 @@
 <template>
-    <tst-panel class="jcsidemenu2-test-7ced957a" debug-bg>
+    <tst-panel class="jcsidemenu2-test-7ced957a" debug-bg fontsize>
         <template #tools>
         </template>
 

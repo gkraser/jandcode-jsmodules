@@ -17,7 +17,7 @@
         </q-item-section>
     </q-item>
     <q-expansion-item v-else ref="expansionItem"
-                      v-bind="modelBind"
+                      v-bind="$attrs"
                       :disable="disable"
                       :defaultOpened="opened"
                       :group="groupValue"
@@ -44,8 +44,8 @@ import {grabShowFrameOptions} from '../../utils/frame'
 let nm = 'jc-side-menu-item'
 
 export let cfg = {
-    insetPaddingStart: 16,
-    insetPaddingLevel: 32,
+    insetPaddingStart: 1,
+    insetPaddingLevel: 2,
 }
 
 export default {
@@ -124,7 +124,7 @@ export default {
 
         style() {
             if (this.level > 0) {  //todo может в rem?
-                let pad = (cfg.insetPaddingStart + this.level * cfg.insetPaddingLevel) + 'px'
+                let pad = (cfg.insetPaddingStart + this.level * cfg.insetPaddingLevel) + 'em'
                 return {
                     'padding-left': pad
                 }
@@ -183,17 +183,6 @@ export default {
             }
             return 'a'
         },
-
-        modelBind() {
-            let res={}
-            if ('modelValue' in this.$attrs) {
-                res.modelValue = this.$attrs.modelValue
-            }
-            if ('onUpdateModelValue' in this.$attrs) {
-                res.modelValue = this.$attrs.onUpdateModelValue
-            }
-            return res
-        }
 
     },
     methods: {
