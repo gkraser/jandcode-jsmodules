@@ -8,15 +8,15 @@ import {MsgboxService} from './app-service-msgbox'
 jcBase.app.registerService(MsgboxService)
 
 export async function showYn(msg, onYes) {
-    return jcBase.app.service(MsgboxService).showYn(msg, onYes)
+    return jcBase.app.msgbox.showYn(msg, onYes)
 }
 
 export async function showMsg(msg) {
-    return jcBase.app.service(MsgboxService).showMsg(msg)
+    return jcBase.app.msgbox.showMsg(msg)
 }
 
 export async function showError(err) {
-    return jcBase.app.service(MsgboxService).showError(msg)
+    return jcBase.app.msgbox.showError(err)
 }
 
 export {

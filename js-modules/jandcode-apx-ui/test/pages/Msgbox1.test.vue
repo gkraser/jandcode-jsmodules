@@ -18,6 +18,7 @@ export default {
         },
         showYn1() {
             apx.showYn('Подтверждаете это самое?', () => {
+                console.info("choice yes");
                 apx.showMsg('Вы нажали да')
             })
         },

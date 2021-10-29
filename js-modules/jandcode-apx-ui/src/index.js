@@ -2,6 +2,8 @@
 import {apx} from './vendor'
 import * as components from './components'
 
+import './msgbox'
+
 export * from './components'
 //
 apx.initVueApp((vueApp) => {
