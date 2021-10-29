@@ -2,7 +2,7 @@
 ----------------------------------------------------------------------------- */
 
 import {jcBase} from '../vendor'
-import {MsgboxService} from './app-service-msgbox'
+import {MsgboxService} from './msgbox-service'
 
 // инициализируем приложение
 jcBase.app.registerService(MsgboxService)

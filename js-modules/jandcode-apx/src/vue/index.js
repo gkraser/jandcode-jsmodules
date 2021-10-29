@@ -1,6 +1,6 @@
 //
 import {jcBase} from '../vendor'
-import {VueService, createVueApp, initVueApp} from './app-service-vue'
+import {VueService, createVueApp, initVueApp} from './vue-service'
 import * as vueUtils from './utils'
 import {registerVueComponents, registerVueComponent} from './utils'
 

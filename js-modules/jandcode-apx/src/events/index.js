@@ -1,6 +1,6 @@
 //
 import {jcBase} from '../vendor'
-import {EventBusService} from './app-service-event-bus'
+import {EventBusService} from './event-bus-service'
 
 // инициализируем приложение
 jcBase.app.registerService(EventBusService)

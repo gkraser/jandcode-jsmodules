@@ -1,7 +1,7 @@
 //
 import '../vue'
 import {jcBase} from '../vendor'
-import {ErrorHandlerService} from './app-service-error-handler'
+import {ErrorHandlerService} from './error-handler-service'
 
 // инициализируем приложение
 jcBase.app.registerService(ErrorHandlerService)

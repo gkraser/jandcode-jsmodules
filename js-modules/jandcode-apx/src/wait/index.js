@@ -1,7 +1,7 @@
 //
 import '../vue'
 import {jcBase} from '../vendor'
-import {WaitUIService} from './app-service-wait-ui'
+import {WaitUIService} from './wait-ui-service'
 
 // инициализируем приложение
 jcBase.app.registerService(WaitUIService)
