@@ -34,12 +34,25 @@
             <div class="col-3">
                 <div>events</div>
                 <jc-side-menu bordered
-                              @click="handle_click1"
-                              @opened-change="handle_opened_change">
+                              @click="handle_click1">
                     <jc-side-menu-item label="item1"/>
-                    <jc-side-menu-item label="item2">
+                    <jc-side-menu-item label="item2" opened>
                         <jc-side-menu-item label="item3"/>
                         <jc-side-menu-item label="item4">
+                            <jc-side-menu-item label="item5"/>
+                        </jc-side-menu-item>
+                    </jc-side-menu-item>
+                </jc-side-menu>
+            </div>
+
+            <div class="col-3">
+                <div>model: model_item2:{{ model_item2 }} model_item4:{{ model_item4 }}
+                </div>
+                <jc-side-menu bordered>
+                    <jc-side-menu-item label="item1"/>
+                    <jc-side-menu-item label="item2" v-model="model_item2">
+                        <jc-side-menu-item label="item3"/>
+                        <jc-side-menu-item label="item4" v-model="model_item4">
                             <jc-side-menu-item label="item5"/>
                         </jc-side-menu-item>
                     </jc-side-menu-item>
@@ -109,16 +122,14 @@ export default {
     data() {
         return {
             itemsSet: itemsSet,
+            model_item2: false,
+            model_item4: true,
         }
     },
     methods: {
         handle_click1(th) {
             console.info("handle_click1", th, th.label);
         },
-
-        handle_opened_change(th) {
-            console.info("handle_opened_change", th);
-        }
     }
 }
 </script>

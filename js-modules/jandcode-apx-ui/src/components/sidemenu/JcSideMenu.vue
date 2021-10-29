@@ -30,11 +30,6 @@ export default {
          */
         click: null,
 
-        /**
-         * Изменилось opened у какого-то  дочернего.
-         * Элемент передается в качестве параметра.
-         */
-        'opened-change': null,
     },
     data() {
         return {

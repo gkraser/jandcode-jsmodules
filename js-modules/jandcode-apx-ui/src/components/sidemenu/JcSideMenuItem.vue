@@ -17,6 +17,7 @@
         </q-item-section>
     </q-item>
     <q-expansion-item v-else ref="expansionItem"
+                      v-bind="modelBind"
                       :disable="disable"
                       :defaultOpened="opened"
                       :group="groupValue"
@@ -181,6 +182,17 @@ export default {
                 return 'div'
             }
             return 'a'
+        },
+
+        modelBind() {
+            let res={}
+            if ('modelValue' in this.$attrs) {
+                res.modelValue = this.$attrs.modelValue
+            }
+            if ('onUpdateModelValue' in this.$attrs) {
+                res.modelValue = this.$attrs.onUpdateModelValue
+            }
+            return res
         }
 
     },
