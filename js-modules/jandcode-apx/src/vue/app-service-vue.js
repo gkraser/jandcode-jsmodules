@@ -31,8 +31,8 @@ export class VueService extends jcBase.AppService {
          * см: {@link VueService.createVueApp}
          * @member App#createVueApp
          */
-        this.app.createVueApp = (cb) => {
-            return this.createVueApp(cb)
+        this.app.createVueApp = (comp, props) => {
+            return this.createVueApp(comp, props)
         }
     }
 
