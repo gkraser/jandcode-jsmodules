@@ -9,11 +9,11 @@ describe(module.id, function() {
 
         let Comp = {
             template: `
-<jc-decor-app container style="width:400px;height:200px">
+<jc-decor-app-std container style="width:400px;height:200px">
     <template #main>
-        Hello
+        Hello                 
     </template>
-</jc-decor-app>`
+</jc-decor-app-std>`
         }
         let z = tst.vueMount(Comp)
 

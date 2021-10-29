@@ -1,5 +1,5 @@
-import JcDecorApp from "./JcDecorApp"
+import JcDecorAppStd from "./JcDecorAppStd"
 
 export {
-    JcDecorApp,
+    JcDecorAppStd,
 }

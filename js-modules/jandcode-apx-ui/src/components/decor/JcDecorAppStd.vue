@@ -1,7 +1,7 @@
 <template>
-    <q-layout view="hHh Lpr fff" class="jc-decor-app" :container="container">
+    <q-layout view="hHh Lpr fff" class="jc-decor-app-std" :container="container">
 
-        <q-header :elevated="false" class="jc-decor-app__header">
+        <q-header :elevated="false" class="jc-decor-app-std__header">
             <slot name="top-header"></slot>
             <q-toolbar>
                 <slot name="toolbar-left">
@@ -16,7 +16,7 @@
 
         <q-drawer v-model="own.left" :elevated="false"
                   side="left" bordered
-                  content-class="jc-decor-app__side jc-decor-app__side--left"
+                  content-class="jc-decor-app-std__side jc-decor-app-std__side--left"
                   :width="own.leftWidth">
             <q-scroll-area class="fit">
 
@@ -29,7 +29,7 @@
         <q-drawer v-model="own.right" behavior="mobile" :elevated="false"
                   no-swipe-open no-swipe-close no-swipe-backdrop
                   side="right" bordered
-                  content-class="jc-decor-app__side jc-decor-app__side--right"
+                  content-class="jc-decor-app-std__side jc-decor-app-std__side--right"
                   :width="own.rightWidth">
             <q-scroll-area class="fit">
 
@@ -39,7 +39,7 @@
             </q-scroll-area>
         </q-drawer>
 
-        <q-page-container class="jc-decor-app__main">
+        <q-page-container class="jc-decor-app-std__main">
             <slot name="main">
                 <q-page>
                     <jc-frame-shower-page></jc-frame-shower-page>
@@ -56,7 +56,7 @@ import {apx} from "../vendor"
 //todo пока не доведен до логического конца
 
 export default {
-    name: 'JcDecorApp',
+    name: 'JcDecorAppStd',
 
     extends: apx.JcDecorApp,
 
