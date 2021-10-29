@@ -27,7 +27,7 @@
 
 <script>
 export default {
-    name: 'JcPanel',
+    name: 'jc-panel',
     props: {
         title: {},
 

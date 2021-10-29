@@ -49,7 +49,7 @@ export let cfg = {
 }
 
 export default {
-    name: 'JcSideMenuItem',
+    name: nm,
     props: {
         icon: {
             type: String,

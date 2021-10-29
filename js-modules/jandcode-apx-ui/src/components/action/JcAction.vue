@@ -35,7 +35,7 @@ slot:content
 
  */
 export default {
-    name: 'JcAction',
+    name: 'jc-action',
     props: {
         icon: {default: null},
         stretch: {default: null},

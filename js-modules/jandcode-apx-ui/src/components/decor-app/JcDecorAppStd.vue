@@ -71,7 +71,7 @@
 import {apx} from "../vendor"
 
 export default {
-    name: 'JcDecorAppStd',
+    name: 'jc-decor-app-std',
 
     extends: apx.JcDecorApp,
 

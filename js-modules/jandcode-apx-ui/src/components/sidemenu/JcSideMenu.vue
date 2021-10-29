@@ -10,7 +10,7 @@ import {apx} from '../vendor';
 let cn = 'jc-side-menu'
 
 export default {
-    name: 'JcSideMenu',
+    name: cn,
     props: {
         bordered: {
             type: Boolean,

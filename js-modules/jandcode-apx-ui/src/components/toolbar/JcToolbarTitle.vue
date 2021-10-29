@@ -11,7 +11,7 @@
 let cn = 'jc-toolbar-title'
 
 export default {
-    name: 'JcToolbarTitle',
+    name: cn,
     props: {
         text: {},
         text2: {},

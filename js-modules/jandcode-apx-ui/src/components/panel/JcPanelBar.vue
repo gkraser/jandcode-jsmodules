@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: 'JcPanelBar',
+    name: 'jc-panel-bar',
     props: {
         title: {},
     },

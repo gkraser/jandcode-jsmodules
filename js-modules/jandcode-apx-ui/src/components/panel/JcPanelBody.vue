@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: 'JcPanelBody',
+    name: 'jc-panel-body',
     props: {
         bodyFit: {
             type: Boolean

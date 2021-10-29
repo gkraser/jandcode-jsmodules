@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'JcToolbar',
+    name: 'jc-toolbar',
     provide() {
         return {
             inToolbar: true

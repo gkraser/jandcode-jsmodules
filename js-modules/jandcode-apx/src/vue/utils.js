@@ -6,7 +6,7 @@ import {jcBase} from '../vendor'
 /**
  * Регистрация компонентов
  * @param vueApp для какого приложения vue
- * @param comps набор компонентов. Каждый компонент, имеющий name будет зарегистрирован
+ * @param comps набор компонентов. Ключ - имя компонента, значение - компонент
  */
 export function registerVueComponents(vueApp, comps) {
     if (!comps) {
@@ -14,22 +14,21 @@ export function registerVueComponents(vueApp, comps) {
     }
     for (let key in comps) {
         let comp = comps[key];
-        if (comp.name) {
-            registerVueComponent(vueApp, comp.name, comp)
-        }
+        registerVueComponent(vueApp, key, comp)
     }
 }
 
 /**
  * Регистрация компонента
  * @param vueApp для какого приложения vue
- * @param name имя компонента
+ * @param name имя компонента. Приводится к PascalCase
  * @param comp компонент
  */
 export function registerVueComponent(vueApp, name, comp) {
     if (!comp || !name) {
         return
     }
+    name = normalizeCompName(name)
     vueApp._context.components[name] = comp
 }
 
@@ -86,4 +85,27 @@ export function findCompUp(from, type) {
     if (!from) return null;
     if (isComp(from, type)) return from;
     return findCompUp(from.$parent, type)
+}
+
+const camelizeRE = /-(\w)/g;
+
+/**
+ * kebab-case to camelCase
+ */
+export function camelize(str) {
+    return str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''));
+}
+
+/**
+ * first char to upper
+ */
+export function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+/**
+ * Нормализация имени компонента (kebab-case to PascalCase)
+ */
+export function normalizeCompName(str) {
+    return capitalize(camelize(str))
 }

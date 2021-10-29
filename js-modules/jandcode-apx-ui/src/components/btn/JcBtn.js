@@ -44,7 +44,7 @@ export let config = {
  *
  */
 export default {
-    name: 'JcBtn',
+    name: 'jc-btn',
     render() {
         let QBtn = resolveComponent('q-btn')
         let attrs = apx.vueUtils.adaptProps(this.$attrs)
