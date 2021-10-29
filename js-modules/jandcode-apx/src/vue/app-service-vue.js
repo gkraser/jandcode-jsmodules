@@ -26,6 +26,14 @@ export class VueService extends jcBase.AppService {
         this.app.initVueApp = (cb) => {
             this.initVueApp(cb)
         }
+
+        /**
+         * см: {@link VueService.createVueApp}
+         * @member App#createVueApp
+         */
+        this.app.createVueApp = (cb) => {
+            return this.createVueApp(cb)
+        }
     }
 
     /**
@@ -69,7 +77,7 @@ export class VueService extends jcBase.AppService {
  * @return {*}
  */
 export function createVueApp(comp, props) {
-    return jcBase.app.service(VueService).createVueApp(comp, props)
+    return jcBase.app.createVueApp(comp, props)
 }
 
 /**
