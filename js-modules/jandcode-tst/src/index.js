@@ -3,8 +3,8 @@
 
 import * as vue from 'vue'
 import {apx, jcBase} from './vendor'
-import TstApp from './components/TstApp'
-import TstErrorApp from './components/TstErrorApp'
+import TstApp from './app/TstApp'
+import TstErrorApp from './app/TstErrorApp'
 import {runModule} from './run-module'
 import * as mixins from './mixins'
 import * as components from './components'

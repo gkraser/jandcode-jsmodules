@@ -38,8 +38,8 @@
 <script>
 import {jcBase} from '../vendor'
 
-import iconJs from './images/js.png'
-import iconVue from './images/vue.png'
+import iconJs from '../components/images/js.png'
+import iconVue from '../components/images/vue.png'
 
 export default {
     name: 'TstApp',
