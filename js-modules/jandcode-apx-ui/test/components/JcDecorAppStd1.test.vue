@@ -41,6 +41,11 @@ import AppToolbarDemoSet, {createToolbarSets, SubMenu1} from './_components/AppT
 import SideMenu1 from './_components/SideMenu1'
 import Frame1 from './_frames/DecorAppFrame1'
 
+apx.icons.registerIcons({
+    'png1': require('../_images/calc.png'),
+    'svg1': require('../_images/cpu.svg'),
+})
+
 let sideMenu_itemsSet = {
     items1: [
         {label: 'Элемент c иконкой', icon: 'bus'},
@@ -90,8 +95,9 @@ export default {
     mounted() {
         apx.showFrame({
             frame: Frame1
-        }).then((finst) => {
-            this.frame1 = finst
+        }).then((fw) => {
+            this.frame1 = fw
+            this.applyCfg()
         })
     },
     data() {
@@ -111,9 +117,9 @@ export default {
             //
             let frm = this.frame1
             if (frm) {
-                frm.title2 = cfg.title2 ? 'Это такой фрейма подзаголовок' : null;
-                frm.icon = cfg.frameIcon ? 'bus' : null;
-                frm.toolbarSet = cfg.frameToolbar;
+                frm.vueInst.title2 = cfg.title2 ? 'Это такой фрейма подзаголовок' : null;
+                frm.vueInst.icon = cfg.frameIcon ? 'bus' : null;
+                frm.vueInst.toolbarSet = cfg.frameToolbar;
             }
         },
     }
@@ -146,6 +152,14 @@ export default {
         }
 
     }
+
+    .jc-decor-frame-page {
+        background-color: #f3f3d7;
+    }
+}
+
+.jc-decor-frame-page {
+   min-height: 100%;
 }
 
 .jcdecorappstd1-test-884f6234 {

@@ -7,6 +7,7 @@ export * from './components'
 apx.initVueApp((vueApp) => {
     apx.registerVueComponents(vueApp, components)
     apx.registerVueComponents(vueApp, {
-        'decor-app': components.JcDecorAppStd
+        'decor-app': components.JcDecorAppStd,
+        'decor-page': components.JcDecorFramePage,
     })
 })

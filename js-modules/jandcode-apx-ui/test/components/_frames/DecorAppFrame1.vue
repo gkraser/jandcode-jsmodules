@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <jc-decor-frame-page>
 
-<!--        <template #toolbar>-->
+        <template #toolbar>
             <AppToolbarDemoSet :toolbarSet="toolbarSet"/>
-<!--        </template>-->
+        </template>
 
-        <jc-btn label="Кнопка на пока"/>
-    </div>
+        <jc-btn label="Просто кнопка"/>
+    </jc-decor-frame-page>
 </template>
 
 <script>

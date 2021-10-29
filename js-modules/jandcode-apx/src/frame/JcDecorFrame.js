@@ -32,4 +32,20 @@ export default {
         }
     },
 
+    computed:{
+
+        /**
+         * Есть ли иконка
+         */
+        hasIcon() {
+            return this.own.icon && !this.own.icon.startsWith(' ')
+        },
+
+        /**
+         * Есть ли заголовок
+         */
+        hasTitle() {
+            return !!this.own.title
+        }
+    }
 }
