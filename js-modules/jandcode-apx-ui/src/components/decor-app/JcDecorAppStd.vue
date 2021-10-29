@@ -5,13 +5,30 @@
             <slot name="top-header"></slot>
             <q-toolbar>
                 <slot name="toolbar-left">
+                    <jc-toolbar>
+                        <jc-action
+                            icon="menu" @click="own.left = !own.left"/>
+                        <slot name="title">
+                            <q-icon v-if="own.icon" :name="own.icon"
+                                    class="cursor-pointer jc-decor-app-std__logo"
+                                    @click="own.home()"/>
+                            <jc-toolbar-title :text="own.title" :text2="own.title2"
+                                              @click="own.home()"/>
+                        </slot>
+                    </jc-toolbar>
                 </slot>
 
                 <q-space/>
 
                 <slot name="toolbar-right">
+                    <jc-toolbar>
+                        <slot name="toolbar">
+                        </slot>
+                    </jc-toolbar>
                 </slot>
+
             </q-toolbar>
+            <jc-breadcrumbs-frames show-one ref="brf"></jc-breadcrumbs-frames>
         </q-header>
 
         <q-drawer v-model="own.left" :elevated="false"
@@ -42,7 +59,7 @@
         <q-page-container class="jc-decor-app-std__main">
             <slot name="main">
                 <q-page>
-                    <jc-frame-shower-page></jc-frame-shower-page>
+                    <jc-frame-shower-page @change="handle_changeFrames"/>
                 </q-page>
             </slot>
         </q-page-container>
@@ -53,8 +70,6 @@
 <script>
 import {apx} from "../vendor"
 
-//todo пока не доведен до логического конца
-
 export default {
     name: 'JcDecorAppStd',
 
@@ -64,6 +79,12 @@ export default {
         container: {
             type: Boolean,
             default: null
+        }
+    },
+
+    methods: {
+        handle_changeFrames(shower) {
+            this.$refs.brf.updateFrames(shower)
         }
     }
 }
