@@ -1,22 +1,20 @@
 <template>
-    <jc-side-menu :bordered="bordered" class="col" @opened-change="handleOpenedChange">
+    <jc-side-menu v-bind="$attrs">
         <template v-for="item in itemsLevel(1)">
-            <jc-side-menu-item v-bind="item" @click="handleClick"/>
+            <jc-side-menu-item v-bind="item"/>
             <template v-if="levels>=2">
                 <jc-side-menu-item v-bind="item" :label="item.label+' (exp)'">
                     <template v-for="item in itemsLevel(2)">
-                        <jc-side-menu-item v-bind="item" @click="handleClick"/>
+                        <jc-side-menu-item v-bind="item"/>
                         <template v-if="levels>=3">
                             <jc-side-menu-item v-bind="item" :label="item.label+' (exp)'">
                                 <template v-for="item in itemsLevel(3)">
-                                    <jc-side-menu-item v-bind="item"
-                                                       @click="handleClick"/>
+                                    <jc-side-menu-item v-bind="item"/>
                                     <template v-if="levels>=4">
                                         <jc-side-menu-item v-bind="item"
                                                            :label="item.label+' (exp)'">
                                             <template v-for="item in itemsLevel(4)">
-                                                <jc-side-menu-item v-bind="item"
-                                                                   @click="handleClick"/>
+                                                <jc-side-menu-item v-bind="item"/>
                                             </template>
                                         </jc-side-menu-item>
                                     </template>
@@ -45,12 +43,7 @@ export default {
             type: Number,
             default: 3
         },
-        bordered: {
-            type: Boolean,
-            default: false
-        }
     },
-    emits: ['click'],
     data() {
         return {}
     },
@@ -69,16 +62,6 @@ export default {
             }
             return res
         },
-
-        handleClick(ev, it) {
-            console.info("click SideMenu1", ev, it);
-            this.$emit('click', ev, it)
-        },
-
-        handleOpenedChange(ev) {
-            console.info("OPENED CHANGE", ev.label, ev);
-        }
-
     }
 
 }

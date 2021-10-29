@@ -29,6 +29,8 @@ export function grabShowFrameOptions(props) {
         if (props.showFrame) {
             Object.assign(sfp, props.showFrame)
         }
+
+        return sfp
     } else {
         return null
     }

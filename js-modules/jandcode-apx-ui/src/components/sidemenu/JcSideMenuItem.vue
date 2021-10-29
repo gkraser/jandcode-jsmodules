@@ -17,15 +17,11 @@
         </q-item-section>
     </q-item>
     <q-expansion-item v-else ref="expansionItem"
-                      expand-separator1
                       :disable="disable"
-                      __defaultOpened="opened"
-                      :modelValue="opened"
+                      :defaultOpened="opened"
                       :group="groupValue"
                       :headerStyle="style"
-                      :headerClass="classes"
-                      @click="handleClick"
-                      update:modelValue="handleUpdateModelValue">
+                      :headerClass="classes">
         <template v-slot:header>
             <q-item-section avatar>
                 <q-icon :name="iconValue"/>
@@ -72,13 +68,8 @@ export default {
             default: false
         },
 
-        modelValue: {
-            type: Boolean,
-            default: false
-        },
-
         /**
-         * Если указана - то показывает при клике делаем:
+         * Если указана - топри клике делаем:
          * showFrame({frame:this.frame, props: frameProps, ...showFrame})
          */
         frame: {
@@ -102,7 +93,9 @@ export default {
         }
     },
 
-    emits: ['click'],
+    emits: {
+        click: null,
+    },
 
     inject: {
         parentMenu: {default: null}
@@ -193,28 +186,15 @@ export default {
     },
     methods: {
         handleClick(ev) {
-            console.info("handleClick in item", this.label, this);
             let sfp = grabShowFrameOptions(this)
             if (sfp) {
                 apx.showFrame(sfp)
             } else {
-                this.$emit('click', ev, this)
+                if (this.parentMenu) {
+                    this.parentMenu.$emit('click', this, ev)
+                }
+                this.$emit('click', this, ev)
             }
-        },
-        handleUpdateModelValue(val) {
-            this.$emit('update:modelValue', val)
-            console.info("val",val);
-            //
-            // console.info("handleChangeOpened", this);
-            // let oldVal = this.$refs.expansionItem.showing
-            // if (this.$attrs['update:modelValue']) {
-            //     this.$emit('update:modelValue', val)
-            // } else {
-            //     this.$refs.expansionItem.showing = val
-            // }
-            // if (this.parentMenu && oldVal !== val) {
-            //     this.parentMenu.$emit('opened-change', this)
-            // }
         },
     }
 }

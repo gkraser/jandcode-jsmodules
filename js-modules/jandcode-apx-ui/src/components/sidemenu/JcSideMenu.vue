@@ -9,15 +9,6 @@ import {apx} from '../vendor';
 
 let cn = 'jc-side-menu'
 
-/*
-
-doc:
-
-event:opened-change
-    Изменилось opened у какого-то  дочернего
-
- */
-
 export default {
     name: 'JcSideMenu',
     props: {
@@ -31,7 +22,20 @@ export default {
             default: true
         }
     },
+    emits: {
 
+        /**
+         * click на каком-то элементе.
+         * Элемент передается в качестве параметра.
+         */
+        click: null,
+
+        /**
+         * Изменилось opened у какого-то  дочернего.
+         * Элемент передается в качестве параметра.
+         */
+        'opened-change': null,
+    },
     data() {
         return {
             group: apx.jcBase.nextId(cn)

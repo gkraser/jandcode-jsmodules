@@ -22,26 +22,48 @@
             <div class="block">
                 <jc-side-menu-item label="href local blank" href="_tst" target="blank"/>
             </div>
+            <div class="block">
+                <jc-side-menu-item label="showFrame"
+                                   :frameProps="{prop1:'assigned prop1'}"
+                                   :showFrame="{frame:import('./_frames/Dialog1'),shower:'dialog'}"/>
+            </div>
+        </div>
+
+        <div class="row q-gutter-md q-mb-md">
+
+            <div class="col-3">
+                <div>events</div>
+                <jc-side-menu bordered
+                              @click="handle_click1"
+                              @opened-change="handle_opened_change">
+                    <jc-side-menu-item label="item1"/>
+                    <jc-side-menu-item label="item2">
+                        <jc-side-menu-item label="item3"/>
+                        <jc-side-menu-item label="item4">
+                            <jc-side-menu-item label="item5"/>
+                        </jc-side-menu-item>
+                    </jc-side-menu-item>
+                </jc-side-menu>
+            </div>
+
         </div>
 
         <div class="row q-gutter-md q-mb-md">
 
             <div class="col">
-                <SideMenu1 :items="itemsSet.items1" :levels="3" @click="handleClick"
-                           bordered/>
+                <SideMenu1 :items="itemsSet.items1" :levels="3" bordered/>
             </div>
 
             <div class="col">
-                <SideMenu1 :items="itemsSet.itemsFs" :levels="3" @click="handleClick"
-                           bordered/>
+                <SideMenu1 :items="itemsSet.itemsFs" :levels="3" bordered/>
             </div>
 
             <div class="col">
-                <SideMenu1 :items="itemsSet.itemsNoIcon" :levels="3" @click="handleClick"
-                           bordered/>
+                <SideMenu1 :items="itemsSet.itemsNoIcon" :levels="3" bordered/>
             </div>
 
         </div>
+
 
     </tst-panel>
 </template>
@@ -81,25 +103,21 @@ let itemsSet = {
 }
 
 export default {
-    mixins: [tst.mixins.cfgStore],
     components: {
         SideMenu1
     },
-    created() {
-        this.cfgStore.applyDefault({})
-    },
     data() {
         return {
-            itemsSet: itemsSet
+            itemsSet: itemsSet,
         }
     },
     methods: {
-        applyCfg() {
-            let cfg = this.cfg
+        handle_click1(th) {
+            console.info("handle_click1", th, th.label);
         },
 
-        handleClick(ev, th) {
-            console.info("click JcSideMenu1", arguments, itemsSet);
+        handle_opened_change(th) {
+            console.info("handle_opened_change", th);
         }
     }
 }
