@@ -27,17 +27,17 @@
         <div class="row q-gutter-md q-mb-md">
 
             <div class="col">
-                <SideMenu1 :items="itemsSet.items1" :levels="3" @click="onClick"
+                <SideMenu1 :items="itemsSet.items1" :levels="3" @click="handleClick"
                            bordered/>
             </div>
 
             <div class="col">
-                <SideMenu1 :items="itemsSet.itemsFs" :levels="3" @click="onClick"
+                <SideMenu1 :items="itemsSet.itemsFs" :levels="3" @click="handleClick"
                            bordered/>
             </div>
 
             <div class="col">
-                <SideMenu1 :items="itemsSet.itemsNoIcon" :levels="3" @click="onClick"
+                <SideMenu1 :items="itemsSet.itemsNoIcon" :levels="3" @click="handleClick"
                            bordered/>
             </div>
 
@@ -98,8 +98,8 @@ export default {
             let cfg = this.cfg
         },
 
-        onClick(ev, th) {
-            console.info("click JcSideMenu1", arguments);
+        handleClick(ev, th) {
+            console.info("click JcSideMenu1", arguments, itemsSet);
         }
     }
 }

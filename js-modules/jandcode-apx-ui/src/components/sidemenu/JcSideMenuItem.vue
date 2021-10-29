@@ -5,11 +5,10 @@
             :disable="disable"
             :style="style"
             :class="classes"
-            @click="onClick1"
+            @click="handleClick"
             :href="href_calc"
             :target="target"
-            :tag="tag_calc"
-    >
+            :tag="tag_calc">
         <q-item-section avatar>
             <q-icon :name="iconValue"/>
         </q-item-section>
@@ -20,12 +19,13 @@
     <q-expansion-item v-else ref="expansionItem"
                       expand-separator1
                       :disable="disable"
+                      __defaultOpened="opened"
                       :modelValue="opened"
                       :group="groupValue"
                       :headerStyle="style"
                       :headerClass="classes"
-                      @click="onClick1"
-                      @update:modelValue="onChangeOpened">
+                      @click="handleClick"
+                      update:modelValue="handleUpdateModelValue">
         <template v-slot:header>
             <q-item-section avatar>
                 <q-icon :name="iconValue"/>
@@ -72,6 +72,11 @@ export default {
             default: false
         },
 
+        modelValue: {
+            type: Boolean,
+            default: false
+        },
+
         /**
          * Если указана - то показывает при клике делаем:
          * showFrame({frame:this.frame, props: frameProps, ...showFrame})
@@ -96,6 +101,8 @@ export default {
             default: null,
         }
     },
+
+    emits: ['click'],
 
     inject: {
         parentMenu: {default: null}
@@ -185,7 +192,8 @@ export default {
 
     },
     methods: {
-        onClick1(ev) {
+        handleClick(ev) {
+            console.info("handleClick in item", this.label, this);
             let sfp = grabShowFrameOptions(this)
             if (sfp) {
                 apx.showFrame(sfp)
@@ -193,17 +201,20 @@ export default {
                 this.$emit('click', ev, this)
             }
         },
-        onChangeOpened(val) {
-            console.info("THISITEM",this);
-            let oldVal = this.$refs.expansionItem.showing
-            if (this.$attrs.onInput) {
-                this.$emit('input', val)
-            } else {
-                this.$refs.expansionItem.showing = val
-            }
-            if (this.parentMenu && oldVal !== val) {
-                this.parentMenu.$emit('opened-change', this)
-            }
+        handleUpdateModelValue(val) {
+            this.$emit('update:modelValue', val)
+            console.info("val",val);
+            //
+            // console.info("handleChangeOpened", this);
+            // let oldVal = this.$refs.expansionItem.showing
+            // if (this.$attrs['update:modelValue']) {
+            //     this.$emit('update:modelValue', val)
+            // } else {
+            //     this.$refs.expansionItem.showing = val
+            // }
+            // if (this.parentMenu && oldVal !== val) {
+            //     this.parentMenu.$emit('opened-change', this)
+            // }
         },
     }
 }
