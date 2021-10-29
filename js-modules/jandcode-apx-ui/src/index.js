@@ -9,5 +9,6 @@ apx.initVueApp((vueApp) => {
     apx.registerVueComponents(vueApp, {
         'decor-app': components.JcDecorAppStd,
         'decor-page': components.JcDecorFramePage,
+        'decor-dialog': components.JcDecorFrameDialog,
     })
 })

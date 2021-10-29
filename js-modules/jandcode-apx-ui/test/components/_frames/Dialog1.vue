@@ -1,7 +1,7 @@
 <template>
-    <q-card>
+    <jc-decor-frame-dialog>
         <q-card-section>Dialog 1. prop1={{ prop1 }}</q-card-section>
-    </q-card>
+    </jc-decor-frame-dialog>
 </template>
 
 <script>
