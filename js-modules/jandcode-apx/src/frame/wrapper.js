@@ -104,7 +104,7 @@ export class FrameWrapper {
     /**
      * Заголовок фрейма
      */
-    get title() {
+    getTitle() {
         let res = this.vueInst.title
         if (!res) {
             res = ''
@@ -115,10 +115,10 @@ export class FrameWrapper {
     /**
      * Короткий заголовок фрейма
      */
-    get titleShort() {
+    getTitleShort() {
         let res = this.vueInst.titleShort
         if (!res) {
-            res = this.title
+            res = this.getTitle()
         }
         return res
     }

@@ -40,7 +40,7 @@ export default {
             let index = 0
             for (let fw of this.frames) {
                 let item = {
-                    title: fw.titleShort,
+                    title: fw.getTitleShort(),
                     id: fw.id,
                     last: index === this.frames.length - 1,
                     index: index,

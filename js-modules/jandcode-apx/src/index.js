@@ -13,6 +13,7 @@ export * from './frame'
 export * from './errors'
 export * from './wait'
 export * from './events'
+export * from './msgbox'
 
 // иконки
 import './icons'
