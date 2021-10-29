@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import {apx, tst} from '../vendor'
+import {apx} from '../vendor'
 import SideMenu1 from './_components/SideMenu1'
 
 apx.icons.registerIcons({

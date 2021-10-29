@@ -1,7 +1,7 @@
 /* Показ wait
 ----------------------------------------------------------------------------- */
 
-import {Vue, Quasar, jcBase} from '../vendor'
+import {Quasar, jcBase} from '../vendor'
 
 class ApxWaitUI extends jcBase.WaitUI {
 

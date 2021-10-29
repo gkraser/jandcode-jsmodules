@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import {apx} from '../vendor'
 
 /*
 

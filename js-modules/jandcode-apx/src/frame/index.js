@@ -18,6 +18,7 @@ import {FrameManagerService} from './fm'
 
 export * from './fm'
 export * from './shower'
+export * from './dialog-buttons'
 
 jcBase.app.registerService(FrameManagerService)
 

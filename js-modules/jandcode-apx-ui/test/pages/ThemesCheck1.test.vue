@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import {apx, tst} from '../vendor'
 
 export default {
     components: {},

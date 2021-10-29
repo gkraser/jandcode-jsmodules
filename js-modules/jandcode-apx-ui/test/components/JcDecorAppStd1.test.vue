@@ -14,7 +14,8 @@
         </template>
 
         <div class="wrap-app">
-            <jc-decor-app-std container style="height: calc(100vh - 72px);" :ownComp="this">
+            <jc-decor-app-std container style="height: calc(100vh - 72px);"
+                              :ownComp="this">
                 <template #toolbar-left v-if="cfg.toolbarSetLeft">
                     <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetLeft"/>
                 </template>
@@ -159,7 +160,7 @@ export default {
 }
 
 .jc-decor-frame-page {
-   min-height: 100%;
+    min-height: 100%;
 }
 
 .jcdecorappstd1-test-884f6234 {

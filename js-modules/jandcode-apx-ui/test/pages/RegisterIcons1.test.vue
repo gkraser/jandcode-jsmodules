@@ -16,7 +16,6 @@ apx.icons.registerIcons({
     'folder1': require('../_images/folder.svg'),
 })
 
-export default {
-}
+export default {}
 </script>
 

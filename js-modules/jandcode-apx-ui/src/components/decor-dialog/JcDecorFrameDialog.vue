@@ -4,7 +4,7 @@
         <div class="jc-decor-frame-dialog__header">
             <jc-toolbar>
 
-                <q-icon v-if="own.icon" :name="own.icon"
+                <q-icon v-if="hasIcon" :name="own.icon"
                         :class="['jc-decor-frame-dialog__title-icon']">
                 </q-icon>
 
@@ -40,13 +40,12 @@
 </template>
 
 <script>
-import JcDecorFrame from '../../baseapp/JcDecorFrame'
-import {getDialogButtons} from '../../baseapp/frame'
+import {apx} from '../vendor'
 
 export default {
     name: 'jc-decor-frame-dialog',
 
-    extends: JcDecorFrame,
+    extends: apx.JcDecorFrame,
     props: {
         size: {
             default: null
@@ -91,7 +90,7 @@ export default {
             return res;
         },
         footerRightButtons() {
-            return getDialogButtons(this.buttons)
+            return apx.getDialogButtons(this.buttons)
         },
     }
 }

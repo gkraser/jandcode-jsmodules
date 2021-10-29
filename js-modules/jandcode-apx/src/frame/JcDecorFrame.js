@@ -32,7 +32,7 @@ export default {
         }
     },
 
-    computed:{
+    computed: {
 
         /**
          * Есть ли иконка
