@@ -33,7 +33,7 @@ export class FrameShower {
     /**
      * Закрыть фрейм с указанной командой
      * @param fw {FrameWrapper} что закрывать. Гарантированно принадлежит этому shower
-     * @param cmd
+     * @param cmd команда для закрытия (ok, cancel ...)
      */
     closeFrameWrapper(fw, cmd) {
         throw new Error("Not implemented closeFrameWrapper")

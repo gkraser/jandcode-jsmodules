@@ -15,20 +15,38 @@ export class FrameShower_dialog extends FrameShower {
 
     async showFrameWrapper(fw) {
         if (fw.options.replace) {
-            throw new Error("replace (and reloadFrame) not supported in dialogs")
+            throw new Error("replace not supported in dialogs")
         }
+        let th = this
         let dialog_vueApp = createVueApp(Dialog, {
             frameWrapper: fw,
             onDialogClose() {
-                console.info("close dialog!");
+                let a = th._frames.indexOf(fw)
+                if (a !== -1) {
+                    th._frames.splice(a, 1)
+                }
+                dialog_vueApp.unmount()
+                dialog_vueMountEl.remove()
+                fw.__dialog_vueInst = null
+                fw.destroy()
             }
         })
         let dialog_vueMountEl = jcBase.dom.createTmpElement()
-        let dialog_vueInst = dialog_vueApp.mount(dialog_vueMountEl)
+        let dialog_vueInst = fw.__dialog_vueInst = dialog_vueApp.mount(dialog_vueMountEl)
         dialog_vueInst.showDialog()
         this._frames.push(fw)
     }
 
+
+    async closeFrameWrapper(fw, cmd) {
+        let a = this._frames.indexOf(fw)
+        if (a === -1) {
+            return // не наш фрейм
+        }
+        if (await this.checkClose(fw, cmd)) {
+            fw.__dialog_vueInst.hideDialog()
+        }
+    }
 }
 
 /**
@@ -55,11 +73,16 @@ export let Dialog = {
         })
     },
     mounted() {
+        // framePlaceEl.parentNode еще не существует, поэтому - nextTick
         this.$nextTick(() => {
             let framePlaceEl = this.$refs['framePlace']
             let frameBodyEl = this.frameWrapper.vueInst.$el
             framePlaceEl.parentNode.insertBefore(frameBodyEl, framePlaceEl)
         })
+    },
+    beforeUnmount() {
+        // возвращаем el фрейма туда, откуда взяли
+        this.frameWrapper.vueMountEl.appendChild(this.frameWrapper.vueInst.$el)
     },
     methods: {
         showDialog() {

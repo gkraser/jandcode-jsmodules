@@ -20,10 +20,11 @@ export default {
     computed: {
 
         /**
-         * Можно ли закрывать этот фрейм
+         * Можно ли закрывать этот фрейм. Можно использовать для отслеживания
+         * необходимости кнопки "Закрыть".
          */
         isClosable() {
-            return this.frameWrapper.shower.isFrameWrapperClosable(this.frameWrapper)
+            return this.frameWrapper.isClosable()
         }
 
     },
@@ -45,7 +46,7 @@ export default {
          * @param cmd команда
          */
         closeFrame(cmd) {
-            this.frameWrapper.shower.closeFrameWrapper(this.frameWrapper, cmd)
+            this.frameWrapper.close(cmd)
         }
 
     }

@@ -125,6 +125,14 @@ export class FrameShower_page extends FrameShower {
         this._activateFw(fwActive)
     }
 
+    closeFrameWrapper(fw, cmd) {
+        let a = this._frames.indexOf(fw)
+        if (a === -1 || a === 0 || a !== this._frames.length - 1) {
+            return // не наш фрейм или не последний
+        }
+        // активируем предпоследний
+        this.activateFrameWrapper(this._frames[this._frames.length - 2])
+    }
 }
 
 /**

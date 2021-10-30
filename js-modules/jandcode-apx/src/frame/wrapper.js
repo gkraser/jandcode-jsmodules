@@ -69,6 +69,25 @@ export class FrameWrapper {
     //////
 
     /**
+     * Закрыть фрейм с указанной командой
+     * @param cmd
+     */
+    close(cmd) {
+        this.shower.closeFrameWrapper(this, cmd)
+    }
+
+    /**
+     * Возвращает true, если фрейм возможно закрыть.
+     * Например диалог всегда можно закрыть,
+     * а фрейм на main - только если он не первый в стеке.
+     */
+    isClosable() {
+        return this.shower.isFrameWrapperClosable(this)
+    }
+
+    //////
+
+    /**
      * Возвращает path (вместе с параметрами), который можно использовать
      * в hash для ссылки на показ этого фрейма.
      * Возвращает null, если этот фрейм не доступен через router.
