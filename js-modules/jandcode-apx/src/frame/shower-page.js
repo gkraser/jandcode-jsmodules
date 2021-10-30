@@ -49,6 +49,8 @@ export class FrameShower_page extends FrameShower {
         // сначала по быстрому монтируем фрейм
         // старый должен исчезнуть с экрана, но остался как экземпляр
         this.own.mountFrame(fw)
+        // уведомляем
+        fw.eventBus.emit('show', fw)
 
         if (old_frames != null) {
             // уничттожаем все старые, если новый не хочет быть в стеке
@@ -73,12 +75,15 @@ export class FrameShower_page extends FrameShower {
     }
 
     isFrameWrapperClosable(fw) {
+        if (!fw) {
+            return false
+        }
         if (this._frames.length <= 1) {
             return false
         }
         let idx = this._frames.indexOf(fw)
-        // фрейм показан и он не первый в стеке
-        return idx > 0
+        // фрейм можно закрыть, если он последний в стеке
+        return idx === this._frames.length - 1
     }
 
     async activateFrameWrapper(fw) {
@@ -121,6 +126,9 @@ export class FrameShower_page extends FrameShower {
             let fwd = this._frames.pop()
             fwd.destroy()
         }
+
+        // уведомляем
+        fw.eventBus.emit('show', fwActive)
 
         this._activateFw(fwActive)
     }
@@ -204,6 +212,8 @@ export default {
             }
             // возвращаем el фрейма туда, откуда взяли
             this.lastMountedFw.vueMountEl.appendChild(this.lastMountedFw.vueInst.$el)
+            // уведомляем
+            this.lastMountedFw.eventBus.emit('hide', this.lastMountedFw)
             this.lastMountedFw = null
         }
 

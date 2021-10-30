@@ -1,4 +1,5 @@
 import {jcBase, Vue} from '../vendor'
+import mitt from 'mitt'
 
 /**
  * Обертка вокруг vue-компонента фрейма.
@@ -38,6 +39,11 @@ export class FrameWrapper {
 
         // el, куда примонтирован экземпляр vue
         this.vueMountEl = null
+
+        // события
+        // show - фрейм показан на экране
+        // hide - фрейм убран с экрана
+        this.eventBus = mitt()
     }
 
     /**
@@ -64,6 +70,10 @@ export class FrameWrapper {
             this.vueMountEl.remove()
         }
         this.vueMountEl = null
+        if (this.eventBus != null) {
+            this.eventBus.all.clear()
+            this.eventBus = null
+        }
     }
 
     //////

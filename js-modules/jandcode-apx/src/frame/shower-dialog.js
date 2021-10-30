@@ -87,9 +87,11 @@ export let Dialog = {
     methods: {
         showDialog() {
             this.$refs.dialogInst.show()
+            this.frameWrapper.eventBus.emit('show', this.frameWrapper)
         },
 
         hideDialog() {
+            this.frameWrapper.eventBus.emit('hide', this.frameWrapper)
             this.$refs.dialogInst.hide()
         },
     }

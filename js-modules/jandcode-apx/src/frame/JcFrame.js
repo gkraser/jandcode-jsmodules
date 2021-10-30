@@ -16,19 +16,20 @@ export default {
             title: null,
             title2: null,
             icon: null,
+
+            /**
+             * Можно ли закрывать этот фрейм. Можно использовать для отслеживания
+             * необходимости кнопки "Закрыть".
+             */
+            closable: true,
         }
     },
 
-    computed: {
-
-        /**
-         * Можно ли закрывать этот фрейм. Можно использовать для отслеживания
-         * необходимости кнопки "Закрыть".
-         */
-        isClosable() {
-            return this.frameWrapper.isClosable()
-        }
-
+    created() {
+        this.frameWrapper.eventBus.on('show', () => {
+            // получить closable можно только после того, как фрейм показан!
+            this.closable = this.frameWrapper.isClosable()
+        })
     },
 
     methods: {
