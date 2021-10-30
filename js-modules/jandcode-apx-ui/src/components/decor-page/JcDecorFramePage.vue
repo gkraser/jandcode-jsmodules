@@ -5,7 +5,6 @@
 
             <jc-toolbar v-if="hasTitle">
 
-
                 <q-icon v-if="own.icon" :name="own.icon"
                         :class="[own.title2?'self-start':'', 'jc-decor-frame-page__title-icon']">
                 </q-icon>
@@ -17,7 +16,7 @@
 
                 <slot name="toolbar">
                 </slot>
-                
+
                 <template v-if="own.closable">
                     <q-btn dense flat icon="close" @click="own.closeFrame('cancel')"/>
                 </template>
@@ -44,9 +43,16 @@ export default {
     name: nm,
     extends: apx.JcDecorFrame,
     props: {
+
+        /**
+         * Растянуть тело на весь контейнер.
+         * Что бы это сработало, у фрейма должен быть
+         * один компонент внутри с классом 'col'.
+         */
         bodyFit: {
             type: Boolean
         },
+
         bodyClass: {},
         bodyStyle: {},
     },

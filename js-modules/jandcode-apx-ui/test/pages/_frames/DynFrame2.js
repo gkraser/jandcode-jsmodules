@@ -7,6 +7,6 @@ export default {
     },
     async frameInit(fw) {
         await Frame1.frameInit(fw)
-        fw.frameData.dynData1 =  'dyn1'
+        fw.frameData.dynData1 = 'dyn1'
     }
 }

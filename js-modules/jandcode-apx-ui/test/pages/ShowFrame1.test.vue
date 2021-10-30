@@ -2,6 +2,7 @@
     <tst-panel no-padding debug-bg>
 
         <template #tools>
+            <tst-checkbox label="bodyFit" v-model="cfg.bodyFit"/>
         </template>
 
         <div class="wrap-app">
@@ -45,7 +46,9 @@ export default {
     mixins: [tst.mixins.cfgStore, apx.JcApp],
     created() {
         this.title = 'ShowFrame test'
-        this.cfgStore.applyDefault({})
+        this.cfgStore.applyDefault({
+            bodyFit: false,
+        })
         //
         this.menu1 = [
             item('simple', () => {
@@ -180,6 +183,10 @@ export default {
         &__header {
             background-color: #C6E2A6 !important;
         }
+    }
+
+    .body-for-fit {
+        background-color: #a9c48b !important;
     }
 }
 

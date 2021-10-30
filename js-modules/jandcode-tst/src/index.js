@@ -16,6 +16,7 @@ jcBase.cfg.setDefault({
 
 export * from './mocha'
 export * from './apx'
+export * from './cfg-store'
 
 apx.initVueApp((vueApp) => {
     apx.registerVueComponents(vueApp, components)
