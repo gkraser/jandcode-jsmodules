@@ -6,7 +6,9 @@ import {showFrame} from './fm'
 export default {
 
     props: {
-        frameWrapper: {}
+        frameWrapper: {
+            required: true
+        }
     },
 
     data() {
