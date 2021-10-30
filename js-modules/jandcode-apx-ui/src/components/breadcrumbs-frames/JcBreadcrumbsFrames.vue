@@ -2,10 +2,9 @@
     <div class="jc-breadcrumbs-frames">
         <q-breadcrumbs v-show="showOne || items.length>1">
             <template v-for="it in items">
-                <q-breadcrumbs-el v-if="!it.last" :label="it.title"
-                                  class="jc-shower-main-breadcrumbs--link"
+                <q-breadcrumbs-el :label="it.title"
+                                  :class="{'jc-breadcrumbs-frames--link':!it.last}"
                                   @click="clickItem(it)"/>
-                <q-breadcrumbs-el v-else :label="it.title"/>
             </template>
         </q-breadcrumbs>
     </div>
@@ -53,6 +52,9 @@ export default {
         },
 
         clickItem(item) {
+            if (item.last) {
+                return
+            }
             item.fw.shower.activateFrameWrapper(item.fw)
         }
     },
