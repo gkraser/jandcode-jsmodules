@@ -15,6 +15,7 @@ import {initVueApp, registerVueComponent} from '../vue'
 import * as dummyDecor from './dummy-decor'
 
 import {FrameManagerService} from './fm'
+import {FrameWrapper} from './wrapper'
 
 export * from './fm'
 export * from './shower'
@@ -37,4 +38,5 @@ export {
     JcDecorApp,
     JcApp,
     FrameManagerService,
+    FrameWrapper,
 }

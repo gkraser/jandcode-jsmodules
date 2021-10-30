@@ -34,6 +34,14 @@ export default {
     components: {
         AppToolbarDemoSet,
     },
+    props: {
+        frameWrapper: {
+            default() {
+                return new apx.FrameWrapper({})
+            }
+        }
+
+    },
     created() {
         this.title = 'Заголовок фрейма'
 
