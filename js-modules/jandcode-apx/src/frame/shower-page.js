@@ -171,9 +171,21 @@ export default {
         this.shower = new FrameShower_page(this)
         this.lastMountedFw = null
         jcBase.app.frameManager.registerShower(this.name, this.shower)
+
+        if (this.syncMinHeight) {
+            this.$nextTick(() => {
+                this.__rsw = jcBase.dom.resizeWatch(this.$el.parentNode, (ev) => {
+                    this.doSyncMinHeight()
+                })
+            })
+        }
+
     },
 
     unmounted() {
+        if (this.__rsw) {
+            this.__rsw.destroy()
+        }
         this.unmountFrame()
         jcBase.app.frameManager.unregisterShower(this.name)
         this.shower.destroy()
@@ -199,6 +211,8 @@ export default {
             // добавляем el фрейма как первый элемент в parentNode
             this.$el.parentNode.prepend(fw.vueInst.$el)
             this.lastMountedFw = fw
+            //
+            this.doSyncMinHeight()
         },
 
         /**
@@ -213,6 +227,33 @@ export default {
             // уведомляем
             this.lastMountedFw.eventBus.emit('hide', this.lastMountedFw)
             this.lastMountedFw = null
+        },
+
+        doSyncMinHeight() {
+            if (!this.syncMinHeight) {
+                // не разрешено
+                return
+            }
+            if (this.lastMountedFw == null) {
+                // ничего не примонтировано
+                return
+            }
+            let parentEl = this.$el.parentNode
+            if (parentEl == null) {
+                // нету parent
+                return
+            }
+            let frameEl = this.lastMountedFw.vueInst.$el
+
+            //
+            let parentMh = parentEl.style.minHeight
+            if (!parentMh) {
+                // нет min-height у parent
+                return
+            }
+
+            // устанавливаем
+            frameEl.style.minHeight = parentMh
         }
 
     }

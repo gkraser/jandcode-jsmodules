@@ -1,5 +1,5 @@
 <template>
-    <tst-panel no-padding>
+    <tst-panel no-padding debug-bg>
 
         <template #tools>
         </template>
@@ -169,3 +169,18 @@ export default {
     }
 }
 </script>
+
+<style lang="less">
+
+// Отладочные стили
+.debug-bg {
+    .jc-decor-frame-page {
+        background-color: #C6E2A6 !important;
+
+        &__header {
+            background-color: #C6E2A6 !important;
+        }
+    }
+}
+
+</style>
