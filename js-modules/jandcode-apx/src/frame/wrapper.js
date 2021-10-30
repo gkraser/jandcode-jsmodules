@@ -25,6 +25,9 @@ export class FrameWrapper {
         // заказанный фрейм: строка или компонент
         this.frame = this.options.frame
 
+        // данные для фрейма, заполняются в методе frameInit
+        this.frameData = {}
+
         // если фрейм заресолвился через router, тут информация об этом
         this.routeInfo = null
 

@@ -32,6 +32,18 @@ export default {
         })
     },
 
+    computed: {
+
+        /**
+         * Данные фрейма, которые заполняются в frameInit
+         * @return {Object}
+         */
+        frameData: function() {
+            return this.frameWrapper.frameData
+        },
+
+    },
+
     methods: {
 
         /**

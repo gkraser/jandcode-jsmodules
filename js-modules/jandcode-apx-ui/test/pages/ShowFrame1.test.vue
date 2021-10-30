@@ -32,6 +32,15 @@ let item = (label, click) => {
     return {label: label, click: click, icon: 'file'}
 }
 
+apx.app.onBeforeRun(() => {
+    apx.app.frameRouter.addRoutes([
+        {path: '/frame2', frame: import('./_frames/DynFrame2')},
+        {path: '/frame3/:prop1', frame: import('./_frames/DynFrame2')},
+    ])
+})
+
+let cnt = 0
+
 export default {
     mixins: [tst.mixins.cfgStore, apx.JcApp],
     created() {
@@ -55,6 +64,64 @@ export default {
                     frame: Frame1,
                     stack: true,
                     replace: true,
+                })
+            }),
+            item('router', () => {
+                apx.showFrame({
+                    frame: '/frame2',
+                    props: {
+                        prop1: cnt++
+                    }
+                })
+            }),
+            item('router stack', () => {
+                apx.showFrame({
+                    frame: '/frame2',
+                    stack: true,
+                    props: {
+                        prop1: cnt++
+                    }
+                })
+            }),
+            item('router prop1 in url', () => {
+                apx.showFrame({
+                    frame: `/frame3/${cnt++}`,
+                })
+            }),
+            item('frameData load long', () => {
+                apx.showFrame({
+                    frame: '/frame2',
+                    props: {
+                        prop1: cnt++,
+                        processLoad: 'long',
+                    }
+                })
+            }),
+            item('frameData load long error', () => {
+                apx.showFrame({
+                    frame: '/frame2',
+                    props: {
+                        prop1: cnt++,
+                        processLoad: 'long-error',
+                    }
+                })
+            }),
+            item('frameData load quick', () => {
+                apx.showFrame({
+                    frame: '/frame2',
+                    props: {
+                        prop1: cnt++,
+                        processLoad: 'quick',
+                    }
+                })
+            }),
+            item('frameData load quick error', () => {
+                apx.showFrame({
+                    frame: '/frame2',
+                    props: {
+                        prop1: cnt++,
+                        processLoad: 'quick-error',
+                    }
                 })
             }),
         ]
