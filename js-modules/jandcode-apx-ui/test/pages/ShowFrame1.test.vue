@@ -124,6 +124,37 @@ export default {
                     }
                 })
             }),
+            item('dialog simple', () => {
+                apx.showFrame({
+                    frame: Frame1,
+                    shower: 'dialog',
+                    props: {
+                        decor: 'decor-dialog'
+                    }
+                })
+            }),
+            item('dialog load long', () => {
+                apx.showFrame({
+                    frame: '/frame2',
+                    shower: 'dialog',
+                    props: {
+                        prop1: cnt++,
+                        processLoad: 'long',
+                        decor: 'decor-dialog'
+                    }
+                })
+            }),
+            item('dialog load long error', () => {
+                apx.showFrame({
+                    frame: '/frame2',
+                    shower: 'dialog',
+                    props: {
+                        prop1: cnt++,
+                        processLoad: 'long-error',
+                        decor: 'decor-dialog'
+                    }
+                })
+            }),
         ]
     },
     data() {

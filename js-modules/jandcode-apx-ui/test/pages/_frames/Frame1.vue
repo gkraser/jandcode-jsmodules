@@ -1,5 +1,5 @@
 <template>
-    <decor-page>
+    <component :is="decor" size="big">
         <div class="row q-gutter-x-md q-pb-md">
             <jc-panel class="col" title="props">
                 <ObjectView :obj="$props"/>
@@ -19,7 +19,7 @@
                 <span>data1: {{ frameData.data1 }}</span>
             </jc-panel>
         </div>
-    </decor-page>
+    </component>
 </template>
 
 <script>
@@ -43,7 +43,10 @@ export default {
         prop3: {
             default: 'prop3-default',
         },
-        processLoad: {}
+        processLoad: {},
+        decor: {
+            default: 'decor-page'
+        },
     },
     async frameInit(fw) {
         console.info("frameInit", fw);
@@ -106,3 +109,14 @@ export default {
     methods: {},
 }
 </script>
+
+<style lang="less">
+@w: 80vw;
+@h: 80vh;
+.jc-decor-frame-dialog--size-big {
+    height: calc(@h);
+    max-height: calc(@h);
+    max-width: calc(@w);
+    width: @w;
+}
+</style>
