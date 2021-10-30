@@ -50,6 +50,13 @@ export default {
                     stack: true,
                 })
             }),
+            item('stack replace', () => {
+                apx.showFrame({
+                    frame: Frame1,
+                    stack: true,
+                    replace: true,
+                })
+            }),
         ]
     },
     data() {
