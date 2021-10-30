@@ -28,7 +28,7 @@
                 </slot>
 
             </q-toolbar>
-            <jc-breadcrumbs-frames show-one ref="brf"></jc-breadcrumbs-frames>
+            <jc-breadcrumbs-frames :show-one="breadcrumbsShowOne" ref="brf"/>
         </q-header>
 
         <q-drawer v-model="own.left" :elevated="false"
@@ -79,6 +79,11 @@ export default {
         container: {
             type: Boolean,
             default: null
+        },
+
+        breadcrumbsShowOne: {
+            type: Boolean,
+            default: true,
         }
     },
 
