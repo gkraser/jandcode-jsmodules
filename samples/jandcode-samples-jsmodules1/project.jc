@@ -1,11 +1,23 @@
 import jandcode.core.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
+import jandcode.core.nodejs.jc.*
 
 class P extends ProjectScript {
 
     static beforeLoad = {
         include("jc/apx-project")
+        classpath("jandcode-core-nodejs-jc")
+
+        /*
+            Загрузка проекта jandcode-jsmodules из родительского каталога.
+            В реальном приложении нужно будет указать правильное местоположение
+            этого проекта, например:
+
+            load("../jandcode-jsmodules")
+
+         */
+        load("../..")  // проект jandcode-jsmodules
     }
 
     void onInclude() {
@@ -23,6 +35,16 @@ class P extends ProjectScript {
             )
         }
         //
+        include(NodeJsRootProject).with {
+            modules(
+                    "frontend"
+            )
+            mainModule = "frontend"
+        }
+        //
+
+        // перекрытие для конкретного разработчика
+        ut.includeIfExists('./_project.jc')
     }
 
 }
