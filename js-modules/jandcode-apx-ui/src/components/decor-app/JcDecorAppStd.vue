@@ -58,7 +58,7 @@
 
         <q-page-container class="jc-decor-app-std__main">
             <slot name="main">
-                <q-page>
+                <q-page :style-fn="fixStyleFn">
                     <jc-frame-shower-page @change="handle_changeFrames"/>
                 </q-page>
             </slot>
@@ -90,6 +90,16 @@ export default {
     methods: {
         handle_changeFrames(shower) {
             this.$refs.brf.updateFrames(shower)
+        },
+
+        /**
+         * Функция для уменьшения минимальной высоты для q-page. Без нее при определенных
+         * высотах показывается вертикальный скролл даже на пустой странице.
+         */
+        fixStyleFn(offset, height) {
+            return {
+                minHeight: (height - offset - 1) + 'px'
+            }
         }
     }
 }
