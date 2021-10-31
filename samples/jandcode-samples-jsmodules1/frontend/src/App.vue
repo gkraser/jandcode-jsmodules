@@ -1,12 +1,13 @@
 <template>
-    <decor-app>
+    <!--todo в quasar есть глюк с мигающими scrollbar, пока не исправлен, нужно укзаывать
+             container style="width:100vw;height: 100vh"
+    -->
+    <decor-app container style="width:100vw;height: 100vh">
         <template #toolbar>
         </template>
 
         <template #left>
             <q-item-label header>Меню</q-item-label>
-            <jc-side-menu>
-            </jc-side-menu>
         </template>
 
     </decor-app>
@@ -24,10 +25,9 @@ export default {
     },
 
     created() {
-        this.title = "App1"
+        this.title = "Samples JsModules"
     },
 
     methods: {}
 }
 </script>
-

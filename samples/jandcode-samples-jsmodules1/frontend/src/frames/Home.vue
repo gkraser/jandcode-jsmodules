@@ -12,11 +12,5 @@ export default {
     created() {
         this.title = 'Home'
     },
-    frameInit(fw) {
-    },
-    data() {
-        return {}
-    },
-    methods: {},
 }
 </script>
