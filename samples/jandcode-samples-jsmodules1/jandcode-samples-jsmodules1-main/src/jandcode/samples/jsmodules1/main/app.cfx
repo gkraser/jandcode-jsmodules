@@ -8,4 +8,9 @@
 
     <x-depends module="jandcode.samples.jsmodules1.main"/>
 
+    <web>
+        <action name="root"
+                template="jandcode/samples/jsmodules1/main/root/root.gsp"/>
+    </web>
+
 </root>
