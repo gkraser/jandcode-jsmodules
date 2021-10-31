@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <app
+            title="JandcodeSamplesJsmodules1"
+            mainmodule="jandcode.samples.jsmodules1.main"
+    />
+
+    <x-depends module="jandcode.samples.jsmodules1.main"/>
+
+</root>

@@ -1,0 +1,28 @@
+import jandcode.core.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        include("jc/apx-project")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-samples-jsmodules1"
+        project.version = include(GitVersion)
+        //
+        include(AppRunBat).with {
+            mainClass = "jandcode.samples.jsmodules1.main.Main"
+        }
+        include(RootProject).with {
+            modules(
+                    "jandcode-samples-jsmodules1",
+                    "jandcode-samples-jsmodules1-main",
+            )
+        }
+        //
+    }
+
+}

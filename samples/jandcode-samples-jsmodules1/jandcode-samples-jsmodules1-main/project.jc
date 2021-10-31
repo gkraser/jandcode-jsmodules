@@ -1,0 +1,24 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-samples-jsmodules1-main"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.samples.jsmodules1.main").with {
+                depends.prod(
+                    "jandcode.samples.jsmodules1",
+                )
+                depends.dev(
+                )
+            }
+        }
+    }
+
+}
