@@ -88,8 +88,7 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         // ищем темы и общие css
         let themes = {}
         let themeFiles = this.getModuleFiles('src/css/*-theme.js')
-        let componentsLessFiles = this.getModuleFiles('src/css/components.less')
-        let varsLessFiles = this.getModuleFiles('src/css/vars.less')
+        let componentsLessFiles = this.getModuleFiles('src/components/index.less')
 
         // themes
         for (let themeFile of themeFiles) {
