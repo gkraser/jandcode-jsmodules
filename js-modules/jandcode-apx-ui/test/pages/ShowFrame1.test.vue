@@ -69,6 +69,12 @@ export default {
                     replace: true,
                 })
             }),
+            item('replace', () => {
+                apx.showFrame({
+                    frame: Frame1,
+                    replace: true,
+                })
+            }),
             item('router', () => {
                 apx.showFrame({
                     frame: '/frame2',
