@@ -1,1 +1,5 @@
-//export * from './btn'
+import JcMap from './JcMap'
+
+export {
+    JcMap,
+}
