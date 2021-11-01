@@ -1,5 +1,6 @@
 let jcTools = require("@jandcode/tools")
 let path = require('path')
+let fs = require('fs')
 
 let WpbApxPlugin = require('@jandcode/apx/wpb-plugin')
 
@@ -12,7 +13,9 @@ builder.merge(new WpbApxPlugin({
         '@jandcode/base',
         '@jandcode/apx-map',
     ],
-    apxModules: []
+    apxModules: [
+        '@jandcode/apx-map'
+    ]
 }))
 
 builder.merge({
@@ -30,6 +33,14 @@ builder.merge({
     },
 })
 
+// перекрытие для конкретного разработчика
+let devConfig = path.resolve(__dirname, '_dev.config.js')
+if (fs.existsSync(devConfig)) {
+    let fn = require(devConfig)
+    fn(builder)
+}
+
+//
 module.exports = builder.build()
 
 //console.info("module.exports", module.exports);

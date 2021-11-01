@@ -18,8 +18,14 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
      */
     constructor(options) {
         super(options)
+
+        //
+        this.options.apxModules = this.options.apxModules || []
+        this.options.tstModules = this.options.tstModules || []
+
+        //
         this.apxModules = []
-        this.themeDefault = this.options.themeDefault || 'apx-std'
+        this.themeDefault = this.options.themeDefault || 'apx-std'  //todo разработчик может перекрыть, поэтому в options должно быть!
 
         // алиасы по умолчанию
         this.alias = {
