@@ -1,12 +1,32 @@
 <template>
     <div class="tst-app">
-        <div class="tst-app__title"><a href="?">_tst/frontend</a></div>
-        <div class="tst-app__filter" v-if="filter">
-            <span>Filter: </span>
-            <span>{{ filter }}</span>
-        </div>
-        <div class="tst-app__list-modules">
-            <table>
+
+        <nav class="navbar is-light is-fixed-top">
+
+            <a class="navbar-item is-size-4" href="?">
+                <div class="is-flex is-align-items-center">
+                    <img class="mr-2" src="../../assets/images/tst-logo.svg" width="32">
+                    <div>_tst/frontend</div>
+                </div>
+            </a>
+
+<!--            <div class="navbar-brand">-->
+<!--                <a class="navbar-item" href="">-->
+<!--                    Приложение-->
+<!--                </a>-->
+<!--            </div>-->
+        </nav>
+
+        <div class="container is-fluid tst-app__main-content">
+
+            <div class="block tst-app__filter" v-if="filter">
+                <span>Filter: </span>
+                <span>{{ filter }}</span>
+            </div>
+
+            <table
+                class="table is-bordered is-narrow is-family-code tst-app__list-modules">
+                <tbody>
                 <tr v-for="(modData, modName) in buildItems()">
                     <td class="tst-app__module-name">
                         <a :href="filterRef(modName+'/')" class="tst-app__file-name">
@@ -19,10 +39,12 @@
                             <div class="tst-app__files">
                                 <template v-for="(fileData, fileName) in dirData">
                                     <div>
-                                        <a :href="modRef(fileData.name)" target="_blank"
+                                        <a :href="modRef(fileData.name)"
+                                           target="_blank"
+                                           :title="fileData.name"
                                            class="tst-app__file-name">
                                             <img :src="fileData.icon">
-                                            <span>{{ fileName }}</span>
+                                            <span>{{ fileData.shortName }}</span>
                                         </a>
                                     </div>
                                 </template>
@@ -30,16 +52,21 @@
                         </template>
                     </td>
                 </tr>
+                </tbody>
             </table>
+
         </div>
+
     </div>
 </template>
 
 <script>
 import {jcBase} from '../vendor'
 
-import iconJs from '../components/images/js.png'
-import iconVue from '../components/images/vue.png'
+import iconJs from '../../assets/images/js.png'
+import iconVue from '../../assets/images/vue.png'
+
+import bulmaCss from 'bulma/css/bulma.css'
 
 export default {
     name: 'TstApp',
@@ -48,6 +75,10 @@ export default {
          * Только модули, которые начинаются с указанной строки
          */
         filter: '',
+    },
+    created() {
+        jcBase.applyCss(bulmaCss)
+        document.body.classList.add('has-navbar-fixed-top')
     },
     methods: {
         modRef(mod) {
@@ -81,6 +112,11 @@ export default {
                 } else {
                     it.icon = iconJs
                 }
+                it.shortName = pi.basename
+                let pi2 = jcBase.path.parse(it.shortName)
+                if (pi2.ext === 'test') {
+                    it.shortName = pi2.basename
+                }
                 dir[pi.filename] = it
             }
             return res
@@ -92,47 +128,25 @@ export default {
 <style lang="less">
 
 @color-link: navy;
-@width-col: 20em;
+@width-col: 18em;
 
 .tst-app {
 
-    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
-
-    padding: 20px;
-    padding-bottom: 40px;
-
-    a, a:visited {
-        color: @color-link;
-        text-decoration: none;
-    }
-
-    &__title {
-        font-size: 1.2em;
-        font-weight: bold;
-        padding-bottom: 10px;
-    }
-
-    &__filter {
-        font-size: 0.9em;
-        padding-bottom: 10px;
-    }
-
     &__list-modules {
-        font-family: monospace;
+        font-size: 0.8em;
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
+        a, a:visited {
+            color: @color-link;
         }
 
         td {
-            border: 1px solid silver;
             padding: 8px;
         }
+    }
 
-        tr:hover {
-            background-color: #fbfbfb;
-        }
+    &__main-content {
+        padding-bottom: 2rem;
+        padding-top: 1rem;
     }
 
     &__module-name {
@@ -142,31 +156,31 @@ export default {
     }
 
     &__files {
-        column-width: @width-col;
         column-count: 4;
-        padding-bottom: 12px;
+        padding-bottom: 6px;
         padding-left: 20px;
     }
 
     &__dir-name {
         color: gray;
         font-weight: bold;
-        font-size: 0.9em;
-        padding-bottom: 8px;
+        font-size: 0.8em;
+        padding-top: 8px;
+        padding-left: 12px;
+        padding-bottom: 2px;
     }
 
     &__file-name {
         display: inline-flex;
         align-items: center;
         padding: 3px;
-        min-width: @width-col;
+        width: 100%;
         min-height: 20px;
 
         img {
             width: 20px;
-            height: 20px;
             padding-right: 4px;
-            opacity: 0.4;
+            opacity: 0.7;
         }
 
         &:hover {
@@ -175,4 +189,5 @@ export default {
     }
 
 }
+
 </style>
