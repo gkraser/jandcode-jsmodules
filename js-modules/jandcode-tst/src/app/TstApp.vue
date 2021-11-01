@@ -10,11 +10,20 @@
                 </div>
             </a>
 
-            <!--            <div class="navbar-brand">-->
-            <!--                <a class="navbar-item" href="">-->
-            <!--                    Приложение-->
-            <!--                </a>-->
-            <!--            </div>-->
+            <div class="navbar-brand">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Tools
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a v-for="it in toolItems" class="navbar-item"
+                           :href="modRef(it.name)" target="_blank">
+                            {{ it.label }}
+                        </a>
+                    </div>
+                </div>
+            </div>
         </nav>
 
         <div class="container is-fluid tst-app__main-content">
@@ -35,7 +44,7 @@
             <table
                 class="table is-bordered is-narrow is-family-code tst-app__list-modules">
                 <tbody>
-                <tr v-for="(modData, modName) in buildItems">
+                <tr v-for="(modData, modName) in moduleItems">
                     <td class="tst-app__module-name">
                         <a :href="filterRef(modName+'/')" class="tst-app__file-name">
                             {{ modName }}
@@ -73,8 +82,8 @@ import {jcBase} from '../vendor'
 
 import iconJs from '../../assets/images/js.png'
 import iconVue from '../../assets/images/vue.png'
-
 import bulmaCss from 'bulma/css/bulma.css'
+import '../tools'
 
 export default {
     name: 'TstApp',
@@ -103,7 +112,7 @@ export default {
         },
     },
     computed: {
-        buildItems() {
+        moduleItems() {
             let allItems = jcBase.moduleRegistry.getModuleInfos().filter((it) => it.tst == true)
             if (this.filterValue) {
                 let filter = this.filterValue.toLowerCase()
@@ -138,6 +147,18 @@ export default {
                     it.shortName = pi2.basename
                 }
                 dir[pi.filename] = it
+            }
+            return res
+        },
+        toolItems() {
+            let allItems = jcBase.moduleRegistry.getModuleInfos().filter((it) => it.name.startsWith('tst/tools/'))
+            let res = []
+            for (let itOrig of allItems) {
+                let it = Object.assign({}, itOrig)
+                if (!it.label) {
+                    it.label = it.name
+                }
+                res.push(it)
             }
             return res
         }

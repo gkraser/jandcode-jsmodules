@@ -2,15 +2,28 @@
     <div class="tst-panel">
         <div class="tst-panel--head">
             <template v-if="cfgTst.module">
-                <div class="tst-panel--value-big">{{ cfgTst.filename }}</div>
-                <span class="tst-panel--arrow"></span>
-                <div class="tst-panel--value-small"><a
-                    :href="'?filter='+cfgTst.dirname+'/'">{{ cfgTst.dirname }}/</a>
-                </div>
-                <span class="tst-panel--arrow"></span>
-                <div class="tst-panel--value-small"><a
-                    :href="'?filter='+cfgTst.moduleName+'/'">{{ cfgTst.moduleName }}/</a>
-                </div>
+                <template v-if="cfgTst.module.startsWith('tst/tools/')">
+                    <div class="tst-panel--value-big">
+                        {{ cfgTst.moduleInfo.label || cfgTst.moduleInfo.name }}
+                    </div>
+                    <span class="tst-panel--arrow"></span>
+                    <div class="tst-panel--value-small">
+                        {{ cfgTst.moduleInfo.name }}
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="tst-panel--value-big">{{ cfgTst.filename }}</div>
+                    <span class="tst-panel--arrow"></span>
+                    <div class="tst-panel--value-small"><a
+                        :href="'?filter='+cfgTst.dirname+'/'">{{ cfgTst.dirname }}/</a>
+                    </div>
+                    <span class="tst-panel--arrow"></span>
+                    <div class="tst-panel--value-small"><a
+                        :href="'?filter='+cfgTst.moduleName+'/'">{{
+                            cfgTst.moduleName
+                        }}/</a>
+                    </div>
+                </template>
                 <span class="tst-panel--divider" :style="{flex:1}"></span>
                 <div class="tst-apx-panel--value-small">Theme:</div>
                 <select v-model="curTheme" :title="cfgTst.theme.module">

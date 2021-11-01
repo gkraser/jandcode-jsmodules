@@ -20,6 +20,9 @@ export async function runModule(moduleName) {
             filename: pi.filename,
             dirname: pi.dirname,
             moduleName: mi.moduleName,
+            moduleInfo: {
+                ...mi
+            },
             themes: {},
             theme: {}
         }
