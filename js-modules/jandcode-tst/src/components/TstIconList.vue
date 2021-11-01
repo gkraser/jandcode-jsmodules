@@ -13,14 +13,12 @@
                 </q-popup-proxy>
             </q-btn>
 
-            <div class="row items-center">
-                <label class="q-pr-sm">Размер (rem):</label>
-                <div class="col row q-gutter-x-md">
-                    <q-btn-toggle
-                        v-model="iconSize"
-                        toggle-color="primary"
-                        :flat="true"
-                        :options="[
+            <label class="q-pr-sm col-auto">Размер (rem):</label>
+            <q-btn-toggle
+                v-model="iconSize"
+                toggle-color="primary"
+                :flat="true"
+                :options="[
                                 {label:'1', value: '1rem'},
                                 {label:'1.5', value: '1.5rem'},
                                 {label:'2', value: '2rem'},
@@ -28,10 +26,8 @@
                                 {label:'7', value: '7rem'},
                                 {label:'9', value: '9rem'},
                             ]"
-                    />
-                    <q-checkbox v-model="iconBorder" label="Рамка" class="col-1"/>
-                </div>
-            </div>
+            />
+            <q-checkbox v-model="iconBorder" label="Рамка"/>
             <div>
                 <label>Всего: </label>
                 <span><b>{{ iconsList.length }}</b></span>
