@@ -10,24 +10,32 @@
                 </div>
             </a>
 
-<!--            <div class="navbar-brand">-->
-<!--                <a class="navbar-item" href="">-->
-<!--                    Приложение-->
-<!--                </a>-->
-<!--            </div>-->
+            <!--            <div class="navbar-brand">-->
+            <!--                <a class="navbar-item" href="">-->
+            <!--                    Приложение-->
+            <!--                </a>-->
+            <!--            </div>-->
         </nav>
 
         <div class="container is-fluid tst-app__main-content">
 
-            <div class="block tst-app__filter" v-if="filter">
-                <span>Filter: </span>
-                <span>{{ filter }}</span>
+            <div class="block is-flex is-align-items-center">
+                <label class="mr-2 is-small111 is-size-7">Filter:</label>
+                <input class="input is-small mr-2" type="text"
+                       v-model="filterValue" size="20" style="width:200px">
+                <button class="button is-small mr-2 is-info is-light"
+                        @click="filterValue=''">
+                    Clear filter
+                </button>
+                <a class="button is-small mr-2 is-text" :href="filterRef(filterValue)">
+                    Reload with filter
+                </a>
             </div>
 
             <table
                 class="table is-bordered is-narrow is-family-code tst-app__list-modules">
                 <tbody>
-                <tr v-for="(modData, modName) in buildItems()">
+                <tr v-for="(modData, modName) in buildItems">
                     <td class="tst-app__module-name">
                         <a :href="filterRef(modName+'/')" class="tst-app__file-name">
                             {{ modName }}
@@ -78,7 +86,13 @@ export default {
     },
     created() {
         jcBase.applyCss(bulmaCss)
-        document.body.classList.add('has-navbar-fixed-top')
+        document.body.classList.add('has-navbar-fixed-top') // требует bulma
+        this.filterValue = this.filter
+    },
+    data() {
+        return {
+            filterValue: '',
+        }
     },
     methods: {
         modRef(mod) {
@@ -87,10 +101,16 @@ export default {
         filterRef(filter) {
             return "?filter=" + filter
         },
+    },
+    computed: {
         buildItems() {
             let allItems = jcBase.moduleRegistry.getModuleInfos().filter((it) => it.tst == true)
-            if (this.filter) {
-                allItems = allItems.filter((it) => it.name.startsWith(this.filter))
+            if (this.filterValue) {
+                let filter = this.filterValue.toLowerCase()
+                allItems = allItems.filter((it) => {
+                    let s = it.name.toLowerCase()
+                    return s.indexOf(filter) != -1
+                })
             }
             let res = {}
             for (let itOrig of allItems) {
@@ -121,7 +141,7 @@ export default {
             }
             return res
         }
-    },
+    }
 }
 </script>
 
