@@ -15,7 +15,12 @@ builder.merge(new WpbApxPlugin({
     ],
     apxModules: [
         '@jandcode/apx-map'
-    ]
+    ],
+    themes: [
+        'app',
+        'apx-std',
+    ],
+    themeDefault: 'app',
 }))
 
 builder.merge({

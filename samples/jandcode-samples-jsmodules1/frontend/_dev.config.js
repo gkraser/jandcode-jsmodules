@@ -9,5 +9,8 @@ module.exports = function(builder) {
         apxPlugin.options.tstModules.push(
             '@jandcode/apx-ui',
         )
+        apxPlugin.options.themes.push(
+            '*', // все темы
+        )
     }
 }

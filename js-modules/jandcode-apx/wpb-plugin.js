@@ -15,6 +15,9 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
      * @param {Array} options.apxModules список модулей, которые учавствуют в сборке конкретного
      * приложения. В него автоматически будут включены модули @jandcode/apx-ui и текущий модуль,
      * их указывать не нужно.
+     * @param {Array} options.themes список тем, которые нужно включить в генерируемый
+     * контент файла all/themes. Если один из элементов '*', то включаются все темы.
+     * @param {String} options.themeDefault имя темы по умолчанию, будет доступна как 'theme/default'
      */
     constructor(options) {
         super(options)
@@ -22,10 +25,10 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         //
         this.options.apxModules = this.options.apxModules || []
         this.options.tstModules = this.options.tstModules || []
+        this.options.themes = this.options.themes || []
 
         //
         this.apxModules = []
-        this.themeDefault = this.options.themeDefault || 'apx-std'  //todo разработчик может перекрыть, поэтому в options должно быть!
 
         // алиасы по умолчанию
         this.alias = {
@@ -98,18 +101,42 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         let componentsLessFiles = this.getModuleFiles('src/components/index.less')
 
         // themes
+        let themesAll = {}
         for (let themeFile of themeFiles) {
             let pi = jcTools.splitPath(themeFile)
             let themeName = path.basename(themeFile).replace('-theme.js', '')
-            let theme = themes[themeName] = {}
+            let theme = themesAll[themeName] = {}
             theme.name = themeName
             theme.themeFile = themeFile
             theme.module = pi.moduleName + "/" + pi.filePath
-            res.resolve.alias['theme/' + themeName] = themeFile
+        }
+        for (let needThemeName of this.options.themes) {
+            if (needThemeName === '*') {
+                Object.assign(themes, themesAll)
+            } else {
+                let theme = themesAll[needThemeName]
+                if (theme) {
+                    themes[needThemeName] = theme
+                }
+            }
+        }
+        if (Object.keys(themes).length === 0) {
+            Object.assign(themes, themesAll)
+        }
+        for (let theme of Object.values(themes)) {
+            res.resolve.alias['theme/' + theme.name] = theme.themeFile
         }
 
         // тема по умолчанию
-        let themeDefault = themes[this.themeDefault]
+        let themeDefaultNameSys = 'apx-std'
+        let themeDefaultName = this.options.themeDefault || themeDefaultNameSys
+        let themeDefault = themes[themeDefaultName]
+        if (!themeDefault) {
+            themeDefault = themes[themeDefaultNameSys]
+            if (!themeDefault) {
+                themeDefault = Object.values(themes)[0]
+            }
+        }
         if (themeDefault) {
             res.resolve.alias['theme/default'] = themeDefault.themeFile
         }
@@ -137,6 +164,16 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
 
     genThemesAll(themes, themeDefault) {
         let s = [`let res = {}, t`]
+
+        themes.sort(function(a, b) {
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (a.name < b.name) {
+                return -1;
+            }
+            return 0;
+        })
 
         let cnt = 0
         for (let theme of themes) {
