@@ -45,7 +45,8 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
             let mask1 = 'test/**/*.test.{js,vue}'
             let masks = [path.resolve(builder.basedir, mask1)]
             if (Array.isArray(opts.tstModules)) {
-                for (let m of opts.tstModules) {
+                let mods = uniq(opts.tstModules)
+                for (let m of mods) {
                     masks.push(`${m}/${mask1}`)
                 }
             }
