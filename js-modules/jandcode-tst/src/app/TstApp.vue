@@ -1,6 +1,6 @@
 <template>
     <div class="tst-app">
-        <div class="tst-app__title"><a href="?">_tst/webpack</a></div>
+        <div class="tst-app__title"><a href="?">_tst/frontend</a></div>
         <div class="tst-app__filter" v-if="filter">
             <span>Filter: </span>
             <span>{{ filter }}</span>

@@ -97,7 +97,7 @@ class WebpackBuilder {
          * В какой каталог внутри _gen будет генерироватся бандл
          * @type {string}
          */
-        this.outdirPrefix = "public"
+        this.outdirPrefix = "frontend"
 
         /**
          * Имя генерируемой библиотеки
