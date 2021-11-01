@@ -52,6 +52,7 @@ export {
 } from './theme'
 
 // глобализация
+// todo видимо не нужно более
 Jc.ready = base.ready;
 Jc.loadModule = moduleRegistry.loadModule
 Jc.applyTheme = theme.applyTheme

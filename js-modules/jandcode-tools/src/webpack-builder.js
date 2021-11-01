@@ -179,16 +179,17 @@ class WebpackBuilder {
     }
 
     /**
-     * Есть ли зарегистрированный плагин
+     * Найти зарегистрированный плагин по классу
      * @param pluginClass класс плагина
+     * @return null, если плагина нет
      */
-    hasPlugin(pluginClass) {
+    findPlugin(pluginClass) {
         for (let p of this._merges) {
             if (p instanceof pluginClass) {
-                return true
+                return p
             }
         }
-        return false
+        return null
     }
 
     ////// privates

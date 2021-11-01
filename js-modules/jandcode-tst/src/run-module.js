@@ -35,7 +35,7 @@ export async function runModule(moduleName) {
     if (!themeInfo || !themeInfo.theme) {
         themeInfo = {name: 'no-theme'}
     } else {
-        jcBase.applyTheme(themeInfo.theme)
+        jcBase.applyTheme(themeInfo.theme, true)
     }
     jcBase.cfg.tst.themes = themes
     jcBase.cfg.tst.theme = themeInfo

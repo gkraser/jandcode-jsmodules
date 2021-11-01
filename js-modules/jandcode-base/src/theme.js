@@ -16,13 +16,24 @@ let API_THEME = {
 }
 
 let prevThemeId
-let lastApplyTheme
+
+/**
+ * Тема, которая была применена последней.
+ * null, если еще не было вызова applyTheme.
+ */
+export let lastApplyTheme = null
 
 /**
  * Применить тему
  * @param theme объект с конфигурацией темы
+ * @param replace false: если тема уже была применена, то вызов игнорируется.
+ * true: если тема уже была применена, то она заменяется
  */
-export function applyTheme(theme) {
+export function applyTheme(theme, replace = false) {
+    if (!replace && lastApplyTheme != null) {
+        // не требуется замена и тема уже есть
+        return
+    }
     cssUtils.defineCssPlace('before-theme')
     cssUtils.defineCssPlace('theme')
 
