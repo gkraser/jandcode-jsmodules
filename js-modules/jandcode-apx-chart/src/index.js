@@ -3,6 +3,7 @@ import {apx, echarts} from './vendor'
 import * as components from './components'
 import langRU from 'echarts/lib/i18n/langRU'
 import {hideAllTooltip} from './utils/chart-holder'
+import {Chart} from './utils/chart'
 
 export * from './components'
 //
@@ -17,11 +18,12 @@ apx.jcBase.cfg.setDefault({
         theme: 'default'
     }
 })
-                             
+
 // локаль
 echarts.registerLocale('RU', langRU)
 
 export {
     echarts,
     hideAllTooltip,
+    Chart,
 }
