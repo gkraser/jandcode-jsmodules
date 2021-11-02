@@ -35,5 +35,23 @@ describe(module.id, function() {
         tst.assert.equal(z, undefined)
     })
 
+    it('component name', function() {
+        let vm = m.createVueApp({})
+        let Comp = {
+            template: '<div></div>'
+        }
+        let appInst = vm.component("CompNumber1", Comp)
+        let compDef = vm.component("CompNumber1")
+        console.info("Comp", Comp);
+        console.info("appInst", appInst);
+        console.info("compDef", compDef);
+        //
+        let qbtn = vm.component("q-btn")
+        console.info("q-btn", qbtn);
+        let qBtn = vm.component("QBtn")
+        console.info("QBtn", qBtn);
+    });
+
+
 })
 
