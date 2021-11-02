@@ -1,4 +1,8 @@
-export default function() {
+/**
+ * params.color - цвет
+ */
+export default function(params) {
+    params = params || {}
     let option
     {
         // https://echarts.apache.org/examples/en/editor.html?c=area-time-axis
@@ -56,11 +60,14 @@ export default function() {
                     smooth: true,
                     symbol: 'none',
                     areaStyle: {},
-                    data: data
+                    data: data,
                 }
             ]
         };
         ////////////////////////////////////////////////////////
+        if (params.color) {
+            option.series[0].color = params.color
+        }
     }
     return option
 }

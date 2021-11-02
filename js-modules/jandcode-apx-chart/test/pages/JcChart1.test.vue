@@ -3,6 +3,9 @@
         <tst-multi-panels>
             <jc-chart :options="options"></jc-chart>
         </tst-multi-panels>
+        <tst-multi-panels cfgKey="key2">
+            <jc-chart :options="options"></jc-chart>
+        </tst-multi-panels>
     </tst-panel>
 </template>
 
