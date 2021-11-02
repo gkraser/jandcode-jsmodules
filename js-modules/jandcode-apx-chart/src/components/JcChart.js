@@ -1,5 +1,5 @@
 import {apx, echarts} from '../vendor'
-import * as chartHolder from '../chart-holder'
+import * as chartHolder from './chart-holder'
 
 let {h} = apx.Vue
 
@@ -104,8 +104,10 @@ export default {
         if (this.chartInst != null) {
             this.__destroyChartInst(this.chartInst)
         }
-        this.rsw.destroy()
-        this.rsw = null
+        if (this.rsw != null) {
+            this.rsw.destroy()
+            this.rsw = null
+        }
         if (this.chartInst != null) {
             this.chartInst.dispose()
             this.chartInst = null
@@ -140,6 +142,9 @@ export default {
             this.chartInst.resize({height: newHeight, width: newWidth})
         },
 
+        /**
+         * Создает экземпляр echarts
+         */
         __createChartInst() {
             let theme = this.theme || apx.jcBase.cfg.echarts.theme
             let locale = getLocale()

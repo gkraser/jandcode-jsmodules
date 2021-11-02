@@ -1,39 +1,31 @@
 /* Хранилище всех jc-chart, которые работают сейчас.
 ----------------------------------------------------------------------------- */
 
-let _chartHolder = {}
+let _chartHolder = new Set()
 
 export function registerChart(jcChart) {
     if (!jcChart) {
         return
     }
-    let uid = jcChart._uid
-    if (!uid) {
-        return
-    }
-    _chartHolder[uid] = jcChart
+    _chartHolder.add(jcChart)
 }
 
 export function unregisterChart(jcChart) {
     if (!jcChart) {
         return
     }
-    let uid = jcChart._uid
-    if (!uid) {
-        return
-    }
-    delete _chartHolder[uid]
+    _chartHolder.delete(jcChart)
 }
 
 export function getAllRregistredChart() {
-    return _chartHolder
+    return Array.from(_chartHolder)
 }
 
 /**
  * Скрыть все tooltip
  */
 export function hideAllTooltip() {
-    for (let ch of Object.values(_chartHolder)) {
+    for (let ch of _chartHolder) {
         let chartInst = ch.chartInst
         if (!chartInst) {
             continue
