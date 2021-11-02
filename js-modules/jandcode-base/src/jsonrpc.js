@@ -26,10 +26,17 @@ export class JsonRpcClient {
     /**
      * Вызвать метод json rpc
      * @param methodName имя метода
-     * @param methodParams параметры
+     * @param methodParams параметры. Может быть массивом или объектом.
+     * Массив для позиционных параметров, объект для поименнованных.
      * @return {Promise}
      */
-    invoke(methodName, ...methodParams) {
+    invoke(methodName, methodParams) {
+        if (arguments.length !== 2) {
+            throw new Error('Не верное число агрументов')
+        }
+        if (!cnv.isArray(methodParams) && !cnv.isObject(methodParams)) {
+            throw new Error('Параметры метода должны быть массивом или объектом')
+        }
         let th = this
         let params = {}
         let id = base.nextId('json-rpc-')
