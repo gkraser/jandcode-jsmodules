@@ -12,6 +12,7 @@ builder.merge(new WpbApxPlugin({
         '@jandcode/apx-ui',
         '@jandcode/base',
         '@jandcode/apx-map',
+        '@jandcode/apx-chart',
     ],
     apxModules: [
         '@jandcode/apx-map'
