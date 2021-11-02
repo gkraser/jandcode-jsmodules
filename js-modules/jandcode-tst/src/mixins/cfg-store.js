@@ -4,7 +4,7 @@ import {getCfgStore} from '../cfg-store'
 
 export default {
 
-    created() {
+    beforeMount() {
         // за конфигурацией следим
         this.$watch('cfg', () => this.applyCfg(), {deep: true, immediate: true})
     },

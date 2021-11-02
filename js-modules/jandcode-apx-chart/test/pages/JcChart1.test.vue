@@ -1,8 +1,8 @@
 <template>
     <tst-panel class="chart1-test-36127fde">
-        <!--        <tst-panels>-->
-        <jc-chart :options="options"></jc-chart>
-        <!--        </tst-panels>-->
+        <tst-multi-panels>
+            <jc-chart :options="options"></jc-chart>
+        </tst-multi-panels>
     </tst-panel>
 </template>
 
