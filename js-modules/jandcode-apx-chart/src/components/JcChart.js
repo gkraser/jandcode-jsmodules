@@ -1,5 +1,5 @@
 import {apx, echarts} from '../vendor'
-import * as chartHolder from './chart-holder'
+import * as chartHolder from '../utils/chart-holder'
 
 let {h} = apx.Vue
 
@@ -26,16 +26,11 @@ export default {
          * В качестве значения можно передать:
          *
          * 1) простой объект с параметрами диаграммы, как прописано в документации echarts
-         *
-         * 2) объект с методом getOptions(). Тогда в качестве опцию будет братся то, что
-         * вернет этот метод.
+         * 2) экземпляра класса Chart
          *
          * Следует иметь ввиду, что экземпляр диаграммы может рендерится столько раз,
          * сколько захочет vue. Так что, getOptions может вызыватся много раз,
          * и для разных экземпляров vue.
-         *
-         * Если объект имеет метод setChartInst(chartInst, compInst),
-         * то метод будет вызван при создании экземпляра echarts.
          */
         options: {
             type: Object,
@@ -187,17 +182,6 @@ export default {
                 this.$emit('destroy-chart-inst', chartInst, this)
             }
         },
-
-        /**
-         * Экспортировать данные из диаграммы
-         */
-        __exportData() {
-            if (apx.jcBase.isFunction(this.options.exportData)) {
-                return this.options.exportData()
-            } else {
-                throw new Error("Экспорт данных не поддерживается")
-            }
-        }
 
     },
 }
