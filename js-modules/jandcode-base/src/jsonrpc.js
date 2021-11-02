@@ -86,3 +86,13 @@ export class JsonRpcClient {
         return promise
     }
 }
+
+/**
+ * Создать клиента jsonrpc
+ * @param options
+ * @param {string} options.url где находится обработчик
+ * @return {JsonRpcClient}
+ */
+export function createJsonRpcClient(options) {
+    return new JsonRpcClient(options)
+}
