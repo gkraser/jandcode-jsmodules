@@ -1,19 +1,41 @@
 import {apx} from '../vendor'
 
+let {jcBase} = apx
+
+/**
+ * Определить тип значения
+ * @param v значение
+ * @return {string} тип поля или null, если значение не определено
+ */
+function detectType(v) {
+    if (v == null) {
+        return null
+    }
+    if (jcBase.isNumber(v)) {
+        return 'number'
+    } else if (jcBase.isString(v)) {
+        if (v.length === 10 && v.charAt(4) === '-' && v.charAt(7) === '-') {
+            return 'date'
+        } else {
+            return 'string'
+        }
+    } else {
+        return 'unknown'
+    }
+}
+
 /**
  * Класс для представления данных, экспортируемых из диаграммы
  */
 export class ExportDataset {
 
     constructor() {
-        // данные
+        // данные, массив записей
         this.__data = []
-        // известные поля, определеляется по данным
-        this.__knownFields = null
         // информация о полях
         this.__fields = []
         this.__fieldsByName = {}
-        // автотипы
+        // автотипы, для null-полей значение null, для остальных - строка с типом
         this.__detectedType = {}
         // default fields info
         this.__fieldInfoDefault = {}
@@ -27,49 +49,6 @@ export class ExportDataset {
     }
 
     /**
-     * Все известные поля. Определяется по данным.
-     */
-    __getKnownFields() {
-        if (!this.__knownFields) {
-            let idx = {}
-            for (let rec of this.__data) {
-                for (let fn in rec) {
-                    if (!(fn in idx)) {
-                        idx[fn] = true
-                    }
-                }
-            }
-            this.__knownFields = idx
-        }
-        return this.__knownFields
-    }
-
-    /**
-     * Попытка автоматом определить тип поля
-     */
-    __detectTypes(rec) {
-        for (let fn in rec) {
-            if (!this.__detectedType[fn]) {
-                let v = rec[fn]
-                if (!v) {
-                    continue
-                }
-                if (apx.jcBase.isNumber(v)) {
-                    this.__detectedType[fn] = 'number'
-                } else if (apx.jcBase.isString(v)) {
-                    if (v.length === 10 && v.charAt(4) === '-' && v.charAt(7) === '-') {
-                        this.__detectedType[fn] = 'date'
-                    } else {
-                        this.__detectedType[fn] = 'string'
-                    }
-                } else {
-                    this.__detectedType[fn] = 'unknown'
-                }
-            }
-        }
-    }
-
-    /**
      * Добавить записи из массива записей
      * @param data
      */
@@ -77,7 +56,6 @@ export class ExportDataset {
         if (!apx.jcBase.isArray(data)) {
             return
         }
-        this.__knownFields = null
         for (let rec of data) {
             let z = Object.assign({}, rec)
             this.__data.push(z)
@@ -94,7 +72,6 @@ export class ExportDataset {
         if (!apx.jcBase.isArray(data)) {
             return
         }
-        this.__knownFields = null
         // индексируем текущие данные
         let curIdx = {}
         for (let rec of this.__data) {
@@ -106,11 +83,11 @@ export class ExportDataset {
         }
         // добавляем
         for (let rec of data) {
-            let z = Object.assign({}, rec)
-            let key = z[keyField]
+            let key = rec[keyField]
             if (!key) {
                 continue
             }
+            let z = Object.assign({}, rec)
             let curRec = curIdx[key]
             if (curRec == null) {
                 curRec = {}
@@ -150,7 +127,7 @@ export class ExportDataset {
      * @param opt ключ - имя поля, значение - объект с информацией
      */
     setFieldInfoDefault(opt) {
-        apx.jcBase.extend(true, this.__fieldInfoDefault, opt)
+        jcBase.extend(true, this.__fieldInfoDefault, opt)
     }
 
     /**
@@ -175,7 +152,7 @@ export class ExportDataset {
         }
 
         // остаток
-        for (let fn in this.__getKnownFields()) {
+        for (let fn in this.__detectedType) {
             if (used[fn]) {
                 continue
             }
@@ -194,10 +171,27 @@ export class ExportDataset {
             if (!f.type) {
                 if (this.__detectedType[f.name]) {
                     f.type = this.__detectedType[f.name]
+                } else {
+                    f.type = 'unknown'
                 }
             }
         }
 
         return res
     }
+
+    ////// private
+
+    /**
+     * Попытка автоматом определить тип поля
+     */
+    __detectTypes(rec) {
+        for (let fn in rec) {
+            if (!this.__detectedType[fn]) {
+                let v = rec[fn]
+                this.__detectedType[fn] = detectType(v)
+            }
+        }
+    }
+
 }

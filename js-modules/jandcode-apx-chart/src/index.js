@@ -4,6 +4,7 @@ import * as components from './components'
 import langRU from 'echarts/lib/i18n/langRU'
 import {hideAllTooltip} from './utils/chart-holder'
 import {Chart} from './utils/chart'
+import {ExportDataset} from './utils/export-dataset'
 
 export * from './components'
 //
@@ -30,4 +31,5 @@ export {
     echarts,
     hideAllTooltip,
     Chart,
+    ExportDataset,
 }
