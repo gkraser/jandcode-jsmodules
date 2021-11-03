@@ -1,5 +1,4 @@
 import cfg from './cfg';
-import {jQuery} from "./vendor"
 
 // для формирования абсолютных url
 let _tmp_TAG_A = document.createElement('a');
@@ -36,7 +35,10 @@ export function deparams(str) {
  * @param params объект с параметрами
  */
 export function params(params) {
-    return jQuery.param(params);
+    if (!params) {
+        return ''
+    }
+    return new URLSearchParams(params).toString()
 }
 
 /**
