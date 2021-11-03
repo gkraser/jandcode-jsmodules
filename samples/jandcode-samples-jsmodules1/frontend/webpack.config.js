@@ -13,9 +13,11 @@ builder.merge(new WpbApxPlugin({
         '@jandcode/base',
         '@jandcode/apx-map',
         '@jandcode/apx-chart',
+        '@jandcode/apx-datagrid',
     ],
     apxModules: [
-        '@jandcode/apx-map'
+        '@jandcode/apx-map',
+        '@jandcode/apx-datagrid',
     ],
     themes: [
         'app',
