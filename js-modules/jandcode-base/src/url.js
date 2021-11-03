@@ -31,7 +31,7 @@ export function deparams(str) {
 }
 
 /**
- * Формирует строку параметров для url (jQuery.param)
+ * Формирует строку параметров для url
  * @param params объект с параметрами
  */
 export function params(params) {

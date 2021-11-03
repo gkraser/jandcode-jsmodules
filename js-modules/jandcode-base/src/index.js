@@ -16,7 +16,7 @@ import * as svgicons from './svgicons'
 import * as jsonrpc from './jsonrpc'
 import * as moduleRegistry from './module-registry'
 import * as css from './css'
-import {jQuery, axios} from './vendor'
+import {axios} from './vendor'
 import * as path from './path'
 import * as lang from './lang'
 
@@ -30,7 +30,6 @@ export {
     svgicons,
     jsonrpc,
     cfg,
-    jQuery,
     axios,
     moduleRegistry,
     css,
@@ -60,6 +59,4 @@ Jc.loadModule = moduleRegistry.loadModule
 Jc.applyTheme = theme.applyTheme
 Jc.applyCss = css.applyCss
 Jc.defineCssPlace = css.defineCssPlace
-global.$ = jQuery
-global.jQuery = jQuery
 
