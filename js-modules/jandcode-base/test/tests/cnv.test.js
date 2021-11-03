@@ -46,7 +46,7 @@ describe("utils/cnv", function() {
         assert.ok(!m.isEmpty([1]));
         assert.ok(!m.isEmpty({a: 1}));
     })
-
+    
     it("toBoolean", function() {
         assert.ok(m.toBoolean('4') === false);
         assert.ok(m.toBoolean('') === false);
@@ -68,6 +68,15 @@ describe("utils/cnv", function() {
         assert.ok(!m.isStartNumChar(null));
         assert.ok(!m.isStartNumChar('a'));
         assert.ok(!m.isStartNumChar('a1'));
+    })
+
+    it("isFunction", function() {
+        assert.ok(m.isFunction(function(){}));
+        assert.ok(m.isFunction(()=>{}));
+        class A1{}
+        assert.ok(!m.isFunction(new A1()));
+        assert.ok(!m.isFunction({}));
+        assert.ok(!m.isFunction(null));
     })
 
 })

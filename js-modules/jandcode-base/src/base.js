@@ -1,7 +1,6 @@
 /* Базовые функции и объекты
 ----------------------------------------------------------------------------- */
 
-import {jQuery} from "./vendor"
 import lodashMerge from 'lodash/merge'
 
 // счетчик для nextId
@@ -30,9 +29,12 @@ export function mergeDeep(dest, ...src) {
 }
 
 /**
- * Синоним для jQuery.ready
+ * Вызов функции callback после окончания загрузки dom
  */
 export function ready(callback) {
-    jQuery(callback)
+    if (document.readyState !== 'loading') {
+        callback()
+    } else {
+        document.addEventListener('DOMContentLoaded', callback)
+    }
 }
-

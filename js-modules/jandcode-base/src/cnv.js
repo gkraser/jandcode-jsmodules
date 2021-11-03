@@ -1,13 +1,15 @@
 /* Конверторы значений
 ----------------------------------------------------------------------------- */
 
-import {jQuery} from "./vendor"
+import lodashIsFunction from 'lodash/isFunction'
+import lodashIsPlainObject from 'lodash/isPlainObject'
+import lodashIsEmpty from 'lodash/isEmpty'
 
 /**
  * Проверка на функцию
  */
 export function isFunction(a) {
-    return jQuery.isFunction(a);
+    return lodashIsFunction(a);
 }
 
 /**
@@ -28,7 +30,7 @@ export function isString(a) {
  * Проверка на простой объект '{}'
  */
 export function isObject(a) {
-    return jQuery.isPlainObject(a);
+    return lodashIsPlainObject(a);
 }
 
 /**
@@ -79,7 +81,7 @@ export function isEmpty(a) {
         return a.length === 0
     }
     if (isObject(a)) {
-        return jQuery.isEmptyObject(a)
+        return lodashIsEmpty(a)
     }
     return false
 }
