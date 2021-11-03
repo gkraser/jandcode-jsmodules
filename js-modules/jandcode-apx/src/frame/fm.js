@@ -41,7 +41,7 @@ export class FrameManagerService extends jcBase.AppService {
         if (ri != null) {
             this.app.frameManager.showFrame({
                 frame: hash,
-                __page__hash: hash, // hash, который привел к покаку фрейма, сохраняем
+                __page__hash: hash, // hash, который привел к показу фрейма, сохраняем
             })
         }
         //
@@ -151,7 +151,7 @@ export class FrameManager {
                 //
                 if (fw.options.__page__hash) {
                     // фрейм пришел по настоянию адресной строки
-                    fw.routeInfo.pageHash = fw.options.__page__hash
+                    fw.fromUrl = true
                     delete fw.options.__page__hash
                 }
             }
@@ -197,6 +197,9 @@ export class FrameManager {
      */
     async showFrame(options) {
         let frameWrapper = Vue.markRaw(new FrameWrapper(options))
+        if (jcBase.cfg.envDev) {
+            console.info("showFrame", frameWrapper.id, Object.assign({}, options))
+        }
 
         // получаем shower
         let showerName = frameWrapper.options.shower || 'main'
@@ -223,6 +226,10 @@ export class FrameManager {
                 }
             }
 
+            if (jcBase.cfg.envDev) {
+                console.info("|--> frameWrapper", frameWrapper.id, frameWrapper)
+            }
+            
             // монтируем
             frameWrapper.vueMountEl = jcBase.dom.createTmpElement()
             frameWrapper.vueInst = vueApp.mount(frameWrapper.vueMountEl)

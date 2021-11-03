@@ -43,6 +43,9 @@ export class FrameWrapper {
         // el, куда примонтирован экземпляр vue
         this.vueMountEl = null
 
+        // при значении true этот фрейм собирается показыватся по настоянию адресной строки
+        this.fromUrl = false
+
         // события
         // show - фрейм показан на экране
         // hide - фрейм убран с экрана

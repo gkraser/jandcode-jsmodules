@@ -64,9 +64,11 @@ export class FrameShower_page extends FrameShower {
     }
 
     _activateFw(fw) {
-        // меняем url
-        let routeHash = fw.getRouteHash()
-        jcBase.app.frameManager.history.updateHash(routeHash)
+        // меняем url, если фрейм не текущего url был получен
+        if (!fw.fromUrl) {
+            let routeHash = fw.getRouteHash()
+            jcBase.app.frameManager.history.updateHash(routeHash)
+        }
 
         // уведомляем заинтересованных в смене состава фреймов
         this.own.$emit('change', this)
