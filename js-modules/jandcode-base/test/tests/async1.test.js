@@ -1,6 +1,3 @@
-import {assert} from 'chai'
-import * as m from '../../src/base'
-
 // асинхронные тесты
 
 describe("utils/async1", function() {

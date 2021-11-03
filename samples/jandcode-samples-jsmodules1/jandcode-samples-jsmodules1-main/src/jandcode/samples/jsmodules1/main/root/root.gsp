@@ -8,7 +8,7 @@
   BaseGsp th = this
   //
   def ctx = th.inst(JsIndexGspContext)
-  def wpCtx = th.inst(WebpackIndexGspContext)
+  def wpCtx = th.inst(FrontendIndexGspContext)
   //
   ctx.title = "Jandcode Samples Jsmodules1"
 

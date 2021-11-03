@@ -18,6 +18,7 @@ import * as moduleRegistry from './module-registry'
 import * as css from './css'
 import {jQuery, axios} from './vendor'
 import * as path from './path'
+import * as lang from './lang'
 
 export {
     Jc,
@@ -34,6 +35,7 @@ export {
     moduleRegistry,
     css,
     path,
+    lang,
 }
 
 // модули на верхний уровень
