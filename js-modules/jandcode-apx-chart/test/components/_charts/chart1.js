@@ -66,7 +66,7 @@ export default function(params) {
         };
         ////////////////////////////////////////////////////////
         if (params.color) {
-            option.series[0].color = params.color
+            option.series[0].color = 'red'
         }
     }
     return option

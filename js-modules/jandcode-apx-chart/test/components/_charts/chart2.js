@@ -1,4 +1,4 @@
-import {apxChart} from './vendor'
+import {apxChart} from '../../pages/vendor'
 
 export default class extends apxChart.Chart {
 
