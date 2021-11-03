@@ -21,7 +21,7 @@ builder.merge(new WpbApxPlugin({
     ],
     themes: [
         'app',
-        'apx-std',
+        'apx-base',
     ],
     themeDefault: 'app',
 }))
