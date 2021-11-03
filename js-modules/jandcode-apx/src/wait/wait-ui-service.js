@@ -12,7 +12,7 @@ class ApxWaitUI extends jcBase.WaitUI {
             spinnerColor: 'deep-orange-6',
             backgroundColor: 'white',
         }
-        let loadingProps2 = jcBase.extend({}, loadingProps, {backgroundColor: 'black'})
+        let loadingProps2 = Object.assign({}, loadingProps, {backgroundColor: 'black'})
         Quasar.Loading.show(loadingProps)
         this.timerId = setTimeout(() => {
             Quasar.Loading.show(loadingProps2)

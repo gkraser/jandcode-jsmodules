@@ -51,7 +51,7 @@ export class FrameRouter {
                 queryParams: queryParams,   // параметры полученные из '?params'
                 params: {},                 // все параметры urlParams+queryParams
             }
-            jcBase.extend(res.params, res.urlParams, res.queryParams);
+            Object.assign(res.params, res.urlParams, res.queryParams);
             //
             return res
         }

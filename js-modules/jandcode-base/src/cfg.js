@@ -48,8 +48,8 @@ class Cfg {
         if (!cnv.isObject(cfg)) {
             throw new Error('Cfg.set: need object')
         }
-        base.extend(true, this.__values, copyCfgObject(cfg))
-        base.extend(true, this, this.__valuesDefault, this.__values)
+        base.mergeDeep(this.__values, copyCfgObject(cfg))
+        base.mergeDeep(this, this.__valuesDefault, this.__values)
     }
 
     /**
@@ -65,8 +65,8 @@ class Cfg {
         if (!cnv.isObject(cfg)) {
             throw new Error('Cfg.set: need object')
         }
-        base.extend(true, this.__valuesDefault, copyCfgObject(cfg))
-        base.extend(true, this, this.__valuesDefault, this.__values)
+        base.mergeDeep(this.__valuesDefault, copyCfgObject(cfg))
+        base.mergeDeep(this, this.__valuesDefault, this.__values)
     }
 
 }

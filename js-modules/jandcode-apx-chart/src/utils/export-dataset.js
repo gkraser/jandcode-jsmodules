@@ -127,7 +127,7 @@ export class ExportDataset {
      * @param opt ключ - имя поля, значение - объект с информацией
      */
     setFieldInfoDefault(opt) {
-        jcBase.extend(true, this.__fieldInfoDefault, opt)
+        jcBase.mergeDeep(this.__fieldInfoDefault, opt)
     }
 
     /**

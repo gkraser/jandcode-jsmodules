@@ -62,14 +62,14 @@ export function applyTheme(theme, replace = false) {
             if (it.default) {
                 it = it.default
             }
-            base.extend(true, config, it)
+            base.mergeDeep(config, it)
         }
     } else if (cnv.isObject(theme.config)) {
         let it = theme.config
         if (it.default) {
-            it = it.default
+            it = it.default                 
         }
-        base.extend(true, config, it)
+        base.mergeDeep(config, it)
     }
 
     // заменяем на новый config

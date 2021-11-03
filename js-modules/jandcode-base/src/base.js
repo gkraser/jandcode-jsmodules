@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------------- */
 
 import {jQuery} from "./vendor"
+import lodashMerge from 'lodash/merge'
 
 // счетчик для nextId
 let _nextId_cnt = 0
@@ -21,10 +22,11 @@ export function nextId(prefix) {
 }
 
 /**
- * Синоним для jQuery.extend, параметры - такие же.
+ * Рекурсивное объедиенени объектов src в dest.
+ * @return {Object} dest с наложенными рекурсивно свойствами из srs
  */
-export function extend(dest, o1) {
-    return jQuery.extend.apply(jQuery, arguments);
+export function mergeDeep(dest, ...src) {
+    return lodashMerge(dest, ...src)
 }
 
 /**

@@ -147,7 +147,7 @@ export class FrameManager {
                 // это фрейм
                 fw.frame = routeInfo.frame
                 // это параметры, объединяем с переданными, от route - важнее!
-                fw.props = jcBase.extend(fw.props, routeInfo.params)
+                fw.props = Object.assign(fw.props, routeInfo.params)
                 //
                 if (fw.options.__page__hash) {
                     // фрейм пришел по настоянию адресной строки

@@ -20,7 +20,7 @@ export class JsonRpcClient {
          */
         this.url = 'unknown'
 
-        base.extend(this, options)
+        Object.assign(this, options)
     }
 
     /**
