@@ -30,6 +30,13 @@ export class Chart {
          */
         this.params = Object.assign({}, params)
 
+        /**
+         * Имя темы echarts для этой диаграммы. Если не указано, то будет браться
+         * из настроек по умолчанию.
+         * @type {string}
+         */
+        this.theme = ''
+
         // конфигурация для echarts, доступна через getOptions()
         this.__options = null
         // экспортируемые данные диаграммы

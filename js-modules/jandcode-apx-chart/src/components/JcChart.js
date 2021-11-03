@@ -4,7 +4,17 @@ import * as chartHolder from '../utils/chart-holder'
 let {h} = apx.Vue
 
 function getLocale() {
-    return 'RU' // todo locale нужно как то по правильному определять...
+    return apx.jcBase.lang.getLang().toUpperCase()
+}
+
+/**
+ * Получить тему для JcChart.
+ * Приоритет: определенная в JcChart, определенная в Chart, cfg, 'default'
+ * @param jcChart
+ * @return {string|string|{default: null, type: String | StringConstructor}|*}
+ */
+function getTheme(jcChart) {
+    return jcChart.theme || jcChart.options.theme || apx.jcBase.cfg.echarts.theme || 'default'
 }
 
 /**
@@ -29,7 +39,7 @@ export default {
          * 2) экземпляра класса Chart
          *
          * Следует иметь ввиду, что экземпляр диаграммы может рендерится столько раз,
-         * сколько захочет vue. Так что, getOptions может вызыватся много раз,
+         * сколько захочет vue. Так что, getOptions у Chart может вызыватся много раз,
          * и для разных экземпляров vue.
          */
         options: {
@@ -39,7 +49,7 @@ export default {
 
         /**
          * Тема echarts для этого графика.
-         * Если не указано, берется из Jc.cfg.echarts.theme
+         * Если не указано, берется из Chart.theme или Jc.cfg.echarts.theme
          */
         theme: {
             type: String,
@@ -47,7 +57,7 @@ export default {
         },
 
         /**
-         * Высота диаграммы
+         * Высота диаграммы для первоначального рендеринга
          */
         height: {
             default: 200,
@@ -59,12 +69,12 @@ export default {
     emmits: {
 
         /**
-         * см. {@link ChartBuilder.setChartInst}
+         * см. {@link Chart.setChartInst}
          */
         'set-chart-inst': null,
 
         /**
-         * см. {@link ChartBuilder.destroyChartInst}
+         * см. {@link Chart.destroyChartInst}
          */
         'destroy-chart-inst': null,
     },
@@ -141,7 +151,7 @@ export default {
          * Создает экземпляр echarts
          */
         __createChartInst() {
-            let theme = this.theme || apx.jcBase.cfg.echarts.theme
+            let theme = getTheme(this)
             let locale = getLocale()
             let chartInst = echarts.init(this.$el, theme, {
                 locale: locale,

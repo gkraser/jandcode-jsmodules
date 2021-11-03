@@ -14,8 +14,12 @@ apx.initVueApp((vueApp) => {
 // настройки echarts по умолчанию
 apx.jcBase.cfg.setDefault({
     echarts: {
-        // тема echarts по умолчанию
+
+        /**
+         * Тема echarts по умолчанию
+         */
         theme: 'default'
+
     }
 })
 
