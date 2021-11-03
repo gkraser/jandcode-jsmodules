@@ -22,18 +22,20 @@
   font-size: @font-size-norm;
   line-height: @body-line-height;
   font-weight: normal;
+  padding: 0 0.8em;
 
   .q-icon, .q-spinner {
     font-size: 1em * @icon-font-size-kfc;
   }
 
-  &__wrapper {
-    padding: 0 0.8em;
+  &__content {
+    // это высота на самом деле меньшеЮ чем фактическая высота кнопки по умолчанию
     min-height: @button-height;
   }
 
-  &__wrapper:before {
-    box-shadow: @shadow-1;
+  &:before {
+    // тень кнопки
+    // box-shadow: @shadow-1;
   }
 
 }
