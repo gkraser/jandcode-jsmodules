@@ -53,8 +53,6 @@ export default {
 
         let attrs = adaptInput(this)
 
-        attrs.class.push(nm)
-
         // model
         attrs.modelValue = this.inpValue
         attrs['onUpdate:modelValue'] = value => this.inpValue = value

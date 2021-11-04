@@ -16,6 +16,12 @@ export function adaptInput(th) {
     if (attrs.stackLabel == null) {
         attrs.stackLabel = true
     }
+    if (attrs.clearIcon == null) {
+        attrs.clearIcon = 'clear'
+    }
+    if (attrs.noErrorIcon == null) {
+        attrs.noErrorIcon = true
+    }
 
     attrs.class.push('jc-input')
 

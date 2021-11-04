@@ -12,8 +12,6 @@ export default {
         let QInput = resolveComponent('q-input')
         let attrs = adaptInput(this)
 
-        attrs.class.push(nm)
-
         attrs.type = 'password'
 
         return h(QInput, attrs)
