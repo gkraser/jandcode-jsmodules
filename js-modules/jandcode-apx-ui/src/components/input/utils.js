@@ -22,6 +22,12 @@ export function adaptInput(th) {
     if (attrs.noErrorIcon == null) {
         attrs.noErrorIcon = true
     }
+    if (attrs.hideBottomSpace == null) {
+        attrs.hideBottomSpace = true
+    }
+    if (attrs.lazyRules == null) {
+        attrs.lazyRules = true
+    }
 
     attrs.class.push('jc-input')
 

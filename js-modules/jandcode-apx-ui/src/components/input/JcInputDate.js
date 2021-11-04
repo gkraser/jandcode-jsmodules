@@ -39,9 +39,7 @@ export default {
         inpValue: function(v, old) {
             this.showPopup = false
             let s = apx.date.parse(v, displayFormat)
-            if (s != null) {
-                this.$emit('update:modelValue', s)
-            }
+            this.$emit('update:modelValue', s)
         }
     },
 
@@ -59,6 +57,7 @@ export default {
 
         //
         attrs.mask = this.inputMask
+        attrs.rules = [val => !!!val || apx.date.parse(val, displayFormat) != null || 'Дата неправильная']
 
         // popup
         let nDate = h(QDate, {
