@@ -13,6 +13,6 @@ export default {
 
         attrs.class.push(nm)
 
-        return h(BaseComp, attrs)
+        return h(BaseComp, attrs, this.$slots)
     }
 }

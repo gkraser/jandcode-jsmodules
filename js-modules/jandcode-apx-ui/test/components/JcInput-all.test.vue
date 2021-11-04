@@ -20,6 +20,14 @@
             <div>model:[{{ passwd1 }}]</div>
         </div>
 
+        <div class="row items-center q-gutter-x-md q-mb-lg">
+            <jc-input-date v-model="date1"/>
+            <jc-input-date v-model="date1"/>
+            <jc-btn label="change model" @click="date1='2020-12-21'"/>
+            <div>jc-input-date</div>
+            <div>model:[{{ date1 }}]</div>
+        </div>
+
     </tst-panel>
 </template>
 
