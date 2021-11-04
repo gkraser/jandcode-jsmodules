@@ -13,6 +13,9 @@ export function adaptInput(th) {
     if (attrs.outlined == null) {
         attrs.outlined = true
     }
+    if (attrs.stackLabel == null) {
+        attrs.stackLabel = true
+    }
 
     attrs.class.push('jc-input')
 
