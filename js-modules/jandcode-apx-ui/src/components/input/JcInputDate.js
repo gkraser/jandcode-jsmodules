@@ -11,16 +11,37 @@ export default {
     name: nm,
     inheritAttrs: false, // это обязательно для полного перекрытия attrs
     props: {
-        //modelValue: {}
+        modelValue: {}
     },
-    created() {
-        //this.inpValue = apx.date.format(this.modelValue, displayFormat)
+    beforeMount() {
+        this.inpValue = apx.date.format(this.modelValue, displayFormat)
     },
 
     data() {
         return {
-            inpValue: '12',
+            inpValue: null,
             showPopup: false,
+        }
+    },
+
+    computed: {
+        inputMask() {
+            let s = displayFormat
+            s = s.replace(/[DMY]/g, '#')
+            return s
+        },
+    },
+
+    watch: {
+        modelValue: function(v, old) {
+            this.inpValue = apx.date.format(v, displayFormat)
+        },
+        inpValue: function(v, old) {
+            this.showPopup = false
+            let s = apx.date.parse(v, displayFormat)
+            if (s != null) {
+                this.$emit('update:modelValue', s)
+            }
         }
     },
 
@@ -38,10 +59,14 @@ export default {
         attrs.modelValue = this.inpValue
         attrs['onUpdate:modelValue'] = value => this.inpValue = value
 
+        //
+        attrs.mask = this.inputMask
+
         // popup
         let nDate = h(QDate, {
             yearsInMonthView: true,
             todayBtn: true,
+            mask: displayFormat,
             modelValue: this.inpValue,
             'onUpdate:modelValue': value => this.inpValue = value
         })
