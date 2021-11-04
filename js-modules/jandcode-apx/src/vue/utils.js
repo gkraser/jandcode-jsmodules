@@ -1,7 +1,9 @@
 /* Утилиты для vue
 ----------------------------------------------------------------------------- */
 
-import {jcBase} from '../vendor'
+import {jcBase, Vue} from '../vendor'
+
+let {mergeProps} = Vue
 
 /**
  * Регистрация компонентов
@@ -37,16 +39,25 @@ export function registerVueComponent(vueApp, name, comp) {
  * @param props свойства функционального компонента
  * @return {*} копия свойств, адаптированная для модификации
  */
-export function adaptProps(props) {
-    let res = Object.assign({}, props)
+export function adaptProps(...props) {
+    let res = mergeProps(...props)
+    //
     if (jcBase.isArray(res.class)) {
         res.class = [...res.class]
-    }
-    if (res.class == null) {
+    } else if (res.class == null) {
         res.class = []
     } else {
         res.class = [res.class]
     }
+    //
+    if (jcBase.isArray(res.style)) {
+        res.style = [...res.style]
+    } else if (res.style == null) {
+        res.style = []
+    } else {
+        res.style = [res.style]
+    }
+    //
     return res
 }
 

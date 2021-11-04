@@ -3,22 +3,29 @@ import {adaptInput} from './utils'
 
 let {h, resolveComponent} = apx.Vue
 
-let nm = 'jc-input-password'
+let nm = 'jc-input-date'
 
 let displayFormat = apx.jcBase.cfg.date.displayFormat
 
 export default {
     name: nm,
+    inheritAttrs: false, // это обязательно для полного перекрытия attrs
+    props: {
+        //modelValue: {}
+    },
+    created() {
+        //this.inpValue = apx.date.format(this.modelValue, displayFormat)
+    },
 
     data() {
         return {
-            inpValue: null,
+            inpValue: '12',
             showPopup: false,
         }
     },
 
     render() {
-        let BaseComp = resolveComponent('q-input')
+        let QInput = resolveComponent('q-input')
         let QIcon = resolveComponent('q-icon')
         let QMenu = resolveComponent('q-menu')
         let QDate = resolveComponent('q-date')
@@ -27,6 +34,9 @@ export default {
 
         attrs.class.push(nm)
 
+        // model
+        attrs.modelValue = this.inpValue
+        attrs['onUpdate:modelValue'] = value => this.inpValue = value
 
         // popup
         let nDate = h(QDate, {
@@ -45,7 +55,7 @@ export default {
             'onUpdate:modelValue': value => this.showPopup = value
         }, {default: () => [nDate]})
 
-        return h(BaseComp, attrs, {
+        return h(QInput, attrs, {
             default: () => [nMenu],
             append: () => [h(QIcon, {
                 name: 'calendar',

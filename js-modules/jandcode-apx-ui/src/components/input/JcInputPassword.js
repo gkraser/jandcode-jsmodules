@@ -7,14 +7,15 @@ let nm = 'jc-input-password'
 
 export default {
     name: nm,
+    inheritAttrs: false, // это обязательно для полного перекрытия attrs
     render() {
-        let BaseComp = resolveComponent('q-input')
+        let QInput = resolveComponent('q-input')
         let attrs = adaptInput(this)
 
         attrs.class.push(nm)
 
         attrs.type = 'password'
 
-        return h(BaseComp, attrs)
+        return h(QInput, attrs)
     }
 }
