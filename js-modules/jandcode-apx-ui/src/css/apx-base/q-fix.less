@@ -1,0 +1,163 @@
+/* fix для стилей quasar, px->rem например
+----------------------------------------------------------------------------- */
+@import "./vars";
+
+/* on-left, on-right: используется для отступа между иконкой и текстом кнопки
+----------------------------------------------------------------------------- */
+
+.on-left {
+  margin-right: 0.5em;
+}
+
+.on-right {
+  margin-left: 0.5em;
+}
+
+
+/* q-btn
+----------------------------------------------------------------------------- */
+
+.q-btn {
+
+  font-size: @font-size-norm;
+  line-height: 1;
+  font-weight: normal;
+  min-height: @button-height;
+
+  // сверху/снизу padding убираем от quasar
+  padding: 0 0.8em;
+
+  .q-icon, .q-spinner {
+    font-size: 1em * @icon-font-size-kfc;
+  }
+
+  &__content {
+    min-height: @button-height;
+  }
+
+  &:before {
+    // тень кнопки
+    // box-shadow: @shadow-1;
+  }
+
+  &--round {
+    min-width: 3em;
+    min-height: 3em;
+  }
+
+}
+
+/* q-badge
+----------------------------------------------------------------------------- */
+
+.q-badge {
+  font-size: @font-size-small-2;
+  line-height: 1;
+  padding: 0.25em 0.4em;
+}
+
+/* q-tooltip
+----------------------------------------------------------------------------- */
+
+.q-tooltip--style {
+  font-size: @font-size-small-2;
+}
+
+/* q-item
+----------------------------------------------------------------------------- */
+
+.q-item {
+  min-height: @r48px;
+  padding: @r8px @r16px;
+}
+
+.q-item__section--side > .q-icon {
+  font-size: @r24px;
+}
+
+.q-item__section--side > .q-avatar {
+  font-size: @r40px;
+}
+
+.q-item__section--avatar {
+  min-width: @r56px;
+}
+
+.q-item__section--thumbnail img {
+  width: @r104px;
+  height: @r56px;
+}
+
+.q-item > .q-item__section--thumbnail:first-child,
+.q-item > .q-focus-helper + .q-item__section--thumbnail {
+  margin-left: -@r16px;
+}
+
+.q-item > .q-item__section--thumbnail:last-of-type {
+  margin-right: -@r16px;
+}
+
+.q-separator--spaced + .q-item__label--header,
+.q-list--padding .q-item__label--header {
+  padding-top: @r8px;
+}
+
+.q-item__label + .q-item__label {
+  margin-top: @r4px;
+}
+
+.q-item__section--main + .q-item__section--main {
+  margin-left: @r8px;
+}
+
+.q-item__section--main ~ .q-item__section--side {
+  padding-left: @r16px;
+}
+
+.q-item__section--main.q-item__section--thumbnail {
+  margin-right: -@r16px;
+}
+
+.q-list--padding {
+  padding: @r8px 0;
+}
+
+/* q-checkbox
+----------------------------------------------------------------------------- */
+
+.q-checkbox__inner {
+  font-size: @font-size-norm;
+  width: @button-height;
+  height: @button-height;
+}
+
+/* q-dialog
+----------------------------------------------------------------------------- */
+
+.q-dialog__backdrop {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 600px) {
+  .q-dialog__inner--minimized > div {
+    max-width: calc(100vw - 48px);
+  }
+}
+
+/* q-loading
+----------------------------------------------------------------------------- */
+
+.q-loading__backdrop.bg-white {
+  opacity: 0.1;
+}
+
+.q-loading__backdrop.bg-black {
+  opacity: 0.1;
+}
+
+/* q-input
+----------------------------------------------------------------------------- */
+
+.jc-input {
+  font-size: @font-size-norm;
+}

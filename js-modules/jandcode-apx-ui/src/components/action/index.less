@@ -1,0 +1,39 @@
+@import "../vars";
+
+.jc-action {
+
+  // caret для dropdown, если только икона, без метки
+  .q-icon + .q-icon {
+    margin-left: 0.3em;
+    opacity: 0.5;
+  }
+
+  .q-icon.on-right {
+    margin-left: 0.3em;
+    opacity: 0.5;
+  }
+
+  &--dropdown {
+    padding-right: 0.3em;
+  }
+
+  // пункт меню
+
+  &--menuitem {
+
+    .q-btn__content {
+      span {
+        flex-grow: 1;
+        text-align: left;
+      }
+    }
+
+    .q-icon.on-left {
+      opacity: 0.5;
+    }
+
+    .q-icon.on-right {
+    }
+  }
+
+}

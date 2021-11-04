@@ -1,0 +1,43 @@
+
+#mocha {
+  margin: 0;
+  padding: 20px;
+}
+
+#mocha-stats {
+  position: relative;
+  top: inherit;
+  right: inherit;
+}
+
+.tst-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.tst-wrapper--mocha {
+  flex-grow: 1;
+  flex-basis: 200px;
+  overflow: auto;
+}
+
+.tst-wrapper--jc-app {
+  flex-grow: 1;
+  flex-basis: 200px;
+
+  border-left: 1px solid silver;
+  padding: 16px;
+  overflow: auto;
+}
+
+.tst-hide {
+  display: none;
+}
+
+.tst-vuecomp-separator {
+  border-top: 1px dashed silver;
+  margin-top: 8px;
+  padding-bottom: 8px;
+}
