@@ -73,7 +73,7 @@
         </div>
 
         <div class="row items-start q-gutter-x-md q-mb-lg">
-            <jc-input-date v-model="date1" v-bind="bindAttrs"/>
+            <jc-input-date v-model="date1" v-bind="bindAttrs" style="width:9rem"/>
             <jc-input-date v-model="date1" v-bind="bindAttrs"/>
             <jc-btn label="change model" @click="date1='2020-12-21'"/>
             <div>jc-input-date</div>
