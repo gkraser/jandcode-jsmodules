@@ -1,4 +1,5 @@
 import {apx} from '../vendor'
+import {adaptInput} from './utils'
 
 let {h, resolveComponent} = apx.Vue
 
@@ -8,13 +9,9 @@ export default {
     name: nm,
     render() {
         let BaseComp = resolveComponent('q-input')
-        let attrs = apx.vueUtils.adaptProps(this.$attrs)
+        let attrs = adaptInput(this)
 
-        if (attrs.outlined == null) {
-            attrs.outlined = true
-        }
-
-        attrs.class.push('jc-input', nm)
+        attrs.class.push(nm)
 
         return h(BaseComp, attrs)
     }

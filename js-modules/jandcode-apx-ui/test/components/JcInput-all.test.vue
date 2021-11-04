@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             bool: true,
-            str1: '',
+            str1: 'Это строка',
             passwd1: '',
             date1: '1999-12-23',
         }
