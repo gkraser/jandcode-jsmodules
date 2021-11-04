@@ -82,6 +82,11 @@ export default {
             }
         }
 
+        //
+        if (attrs.icon && !attrs.label) {
+            cls.push('jc-btn--icon-only')
+        }
+
         // ссылку правим, если есть
         if (attrs.href) {
             attrs.href = apx.jcBase.url.ref(attrs.href)

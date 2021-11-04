@@ -2,6 +2,14 @@
 
 .jc-btn {
 
+  // padding слева/справа, что бы кнопка-иконка была квадратной
+  @pad-icon: (@button-height - (1em * @icon-font-size-kfc)) * 0.5;
+
+  &--icon-only {
+    padding-left: @pad-icon;
+    padding-right: @pad-icon;
+  }
+
   &--default {
     background: @color-primary;
     color: @color-primary-100;
