@@ -19,17 +19,22 @@
 
 .q-btn {
 
+  // padding слева/справа, что бы кнопка-иконка была квадратной
+  @pad-btn: (@button-height - (1em * @icon-font-size-kfc)) * 0.5;
+
   font-size: @font-size-norm;
-  line-height: @body-line-height;
+  line-height: 1;
   font-weight: normal;
-  padding: 0 0.8em;
+  min-height: @button-height;
+
+  // сверху/снизу padding убираем от quasar
+  padding: 0 @pad-btn;
 
   .q-icon, .q-spinner {
     font-size: 1em * @icon-font-size-kfc;
   }
 
   &__content {
-    // это высота на самом деле меньшеЮ чем фактическая высота кнопки по умолчанию
     min-height: @button-height;
   }
 
