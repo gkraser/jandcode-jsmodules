@@ -117,11 +117,11 @@ export class FrameWrapper {
         }
         let res = this.routeInfo.path
         let prms = {}
-        for (let p in this.vueInst.$props) {
+        for (let p in this.props) {
             if (p in this.routeInfo.urlParams) {
                 continue // этот параметр и так есть в url
             }
-            let v = this.vueInst.$props[p]
+            let v = this.props[p]
             // берем только простые значения
             if (jcBase.isString(v) || jcBase.isNumber(v) || jcBase.isBoolean(v)) {
                 prms[p] = v
