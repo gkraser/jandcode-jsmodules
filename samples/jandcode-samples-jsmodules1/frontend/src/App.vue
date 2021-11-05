@@ -23,6 +23,15 @@
                     <jc-side-menu-item label="fileInit in dialog with error" icon="frame"
                                        @click="frameInit1_dialog_withError"/>
 
+                    <jc-side-menu-item label="router" icon="frame"
+                                       @click="router1"/>
+
+                    <jc-side-menu-item label="router stack" icon="frame"
+                                       @click="routerStack1"/>
+
+                    <jc-side-menu-item label="router stack replace" icon="frame"
+                                       @click="routerStackReplace1"/>
+
                 </jc-side-menu-item>
             </jc-side-menu>
         </template>
@@ -32,6 +41,8 @@
 
 <script>
 import {apx} from './vendor'
+
+let cnt = 1
 
 export default {
     extends: apx.JcApp,
@@ -71,6 +82,27 @@ export default {
                 frame: import('./frames/FrameInit-dialog'),
                 shower: 'dialog',
                 props: {cnt: 500}
+            })
+        },
+        router1() {
+            apx.showFrame({
+                frame: '/router',
+                props: {prop1: cnt++}
+            })
+        },
+        routerStack1() {
+            apx.showFrame({
+                frame: '/router',
+                stack: true,
+                props: {prop1: cnt++}
+            })
+        },
+        routerStackReplace1() {
+            apx.showFrame({
+                frame: '/router',
+                stack: true,
+                replace: true,
+                props: {prop1: cnt++}
             })
         },
 

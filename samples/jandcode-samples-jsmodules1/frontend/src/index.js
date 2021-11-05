@@ -11,6 +11,7 @@ export function run() {
 
     let routes = [
         {path: '', frame: Home},
+        {path: '/router', frame: import('./frames/Router')},
     ]
 
     apx.app.run(() => {
