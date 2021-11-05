@@ -39,8 +39,7 @@
             <div>frame:</div>
             <div class="row q-gutter-x-sm">
                 <jc-btn label="frame"
-                        :frameProps="{prop1:'assigned prop1'}"
-                        :showFrame="{frame:import('./_frames/Dialog1'),shower:'dialog'}"/>
+                        @click="apx.showFrame({frame:import('./_frames/Dialog1'),shower:'dialog',props:{prop1:'assigned prop1'}})"/>
             </div>
         </div>
 
@@ -83,7 +82,7 @@
 
 <script>
 import {config as btnConfig} from '../../src/components/btn/JcBtn'
-import {tst} from '../vendor'
+import {tst, apx} from '../vendor'
 
 let btnKinds = []
 for (let z in btnConfig.kind) {
@@ -94,6 +93,9 @@ let icons = ['quasar.arrow.right', 'quasar.arrow.down', 'quasar.arrow.left', 'qu
 
 export default {
     mixins: [tst.mixins.cfgStore],
+    setup() {
+        return {apx}
+    },
     data() {
         return {
             sizes: ['xs', 'sm', 'md', 'lg', 'xl', 'large-6', 'small-3'],

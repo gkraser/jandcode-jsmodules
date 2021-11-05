@@ -1,5 +1,4 @@
 import {apx} from '../vendor'
-import {grabShowFrameOptions} from '../../utils/frame'
 
 let {h, resolveComponent} = apx.Vue
 
@@ -19,18 +18,6 @@ export let config = {
 
 /**
  * Обертка вокруг QBtn. Все ее свойства применимы.
- *
- * ### frame, frameProps, showFrame
- *
- * Если не определен `onClick` и указан атрибут `frame` или `showFrame`, то при клике делаем:
- *
- * ```
- * showFrame({
- *      frame:props.frame,
- *      props: attrs.frameProps,
- *      ...props.showFrame
- * })
- * ```
  *
  * ### kind: String
  *
@@ -96,15 +83,6 @@ export default {
         if (!attrs.type) {
             if (!attrs.onClick) {
                 attrs.type = 'a'
-            }
-        }
-
-        if (!attrs.onClick) {
-            let sfp = grabShowFrameOptions(attrs)
-            if (sfp) {
-                attrs.onClick = (ev) => {
-                    apx.showFrame(sfp)
-                }
             }
         }
 

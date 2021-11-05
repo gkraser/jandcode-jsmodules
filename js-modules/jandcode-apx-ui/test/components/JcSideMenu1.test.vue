@@ -24,8 +24,7 @@
             </div>
             <div class="block">
                 <jc-side-menu-item label="showFrame"
-                                   :frameProps="{prop1:'assigned prop1'}"
-                                   :showFrame="{frame:import('./_frames/Dialog1'),shower:'dialog'}"/>
+                                   @click="apx.showFrame({frame:import('./_frames/Dialog1'),shower:'dialog',props:{prop1:'assigned prop1'}})"/>
             </div>
         </div>
 
@@ -118,6 +117,9 @@ let itemsSet = {
 export default {
     components: {
         SideMenu1
+    },
+    setup() {
+        return {apx}
     },
     data() {
         return {

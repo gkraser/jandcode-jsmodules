@@ -39,7 +39,6 @@
 
 <script>
 import {apx} from '../vendor';
-import {grabShowFrameOptions} from '../../utils/frame'
 
 let nm = 'jc-side-menu-item'
 
@@ -67,22 +66,6 @@ export default {
         opened: {
             type: Boolean,
             default: false
-        },
-
-        /**
-         * Если указана - то при клике делаем:
-         * showFrame({frame:this.frame, props: frameProps, ...showFrame})
-         */
-        frame: {
-            default: null,
-        },
-
-        frameProps: {
-            default: null,
-        },
-
-        showFrame: {
-            default: null,
         },
 
         href: {
@@ -187,15 +170,10 @@ export default {
     },
     methods: {
         handleClick(ev) {
-            let sfp = grabShowFrameOptions(this)
-            if (sfp) {
-                apx.showFrame(sfp)
-            } else {
-                if (this.parentMenu) {
-                    this.parentMenu.$emit('click', this, ev)
-                }
-                this.$emit('click', this, ev)
+            if (this.parentMenu) {
+                this.parentMenu.$emit('click', this, ev)
             }
+            this.$emit('click', this, ev)
         },
     }
 }
