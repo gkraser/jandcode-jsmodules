@@ -70,7 +70,7 @@ export default {
         },
 
         /**
-         * Если указана - топри клике делаем:
+         * Если указана - то при клике делаем:
          * showFrame({frame:this.frame, props: frameProps, ...showFrame})
          */
         frame: {

@@ -8,6 +8,13 @@
 
         <template #left>
             <q-item-label header>Меню</q-item-label>
+            <jc-side-menu>
+                <jc-side-menu-item label="Фреймы" icon="folder" :opened="true">
+                    <jc-side-menu-item label="fileInit" icon="frame"
+                                       :frame="import('./frames/FrameInit')"
+                                       :frameProps="{cnt:5}"/>
+                </jc-side-menu-item>
+            </jc-side-menu>
         </template>
 
     </decor-app>
