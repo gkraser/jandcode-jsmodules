@@ -1,6 +1,6 @@
 <template>
     <div class="showerrors1-ee76c43d">
-        <div class="row q-gutter-sm">
+        <div class="row q-gutter-sm" style="max-width:50%;">
             <q-btn label="throw new Error('msg')"
                    @click="throwError1"/>
             <q-btn label="error in code"
@@ -9,8 +9,10 @@
                    @click="errorInTemplate1"/>
             <q-btn label="axios error"
                    @click="errorAxios1"/>
-            <q-btn label="ajax error"
+            <q-btn label="ajax error 1"
                    @click="errorAjax1"/>
+            <q-btn label="ajax error 2"
+                   @click="errorAjax2"/>
             <q-btn label="promise error"
                    @click="errorPromise1"/>
             <q-btn label="Jc.loadModule error"
@@ -52,6 +54,12 @@ export default {
         errorAjax1() {
             apx.jcBase.ajax.request({
                 url: 'xxx'
+            })
+        },
+        errorAjax2() {
+            apx.jcBase.ajax.request({
+                method: 'get',
+                url: 'https://jsonplaceholder.typicode.com/users111'
             })
         },
         errorPromise1() {

@@ -82,7 +82,7 @@ export class JcError {
 
         if (e instanceof Error) {
             if (cnv.isObject(e.response)) {
-                if (e.response.data) {
+                if (cnv.isString(e.response.data)) {
                     return this.getMessageInternal(e.response.data, devMode)
                 }
             }
