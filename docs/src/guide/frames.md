@@ -104,7 +104,7 @@ apx.showFrame({
 экземпляром фрейма после показа.
 
 frameInit
-=========
+---------
 
 Фрейм может иметь опцию-функцию `frameInit`. Функция может быть асинхронной. Эта функция
 вызывается перед тем, как фрейм будет показан. В качестве параметра в функцию передается
@@ -118,3 +118,13 @@ frameInit
 @@code file=samples1/frontend/src/frames/FrameInit.vue
 title=frontend/src/frames/FrameInit.vue
 
+### frameInit не наследуется
+
+`frameInit` не наследуется при наследовании компонентов! В каждом фрейме должен быть
+собственный `frameInit`.
+
+Пример:
+
+@@code file=samples1/frontend/src/frames/FrameInit-dialog.vue
+title=frontend/src/frames/FrameInit-dialog.vue
+                                          

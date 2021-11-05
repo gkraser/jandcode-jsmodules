@@ -10,9 +10,19 @@
             <q-item-label header>Меню</q-item-label>
             <jc-side-menu>
                 <jc-side-menu-item label="Фреймы" icon="folder" :opened="true">
+
                     <jc-side-menu-item label="fileInit" icon="frame"
-                                       :frame="import('./frames/FrameInit')"
-                                       :frameProps="{cnt:5}"/>
+                                       @click="frameInit1"/>
+
+                    <jc-side-menu-item label="fileInit in dialog" icon="frame"
+                                       @click="frameInit1_dialog"/>
+
+                    <jc-side-menu-item label="fileInit with error" icon="frame"
+                                       @click="frameInit1_withError"/>
+
+                    <jc-side-menu-item label="fileInit in dialog with error" icon="frame"
+                                       @click="frameInit1_dialog_withError"/>
+
                 </jc-side-menu-item>
             </jc-side-menu>
         </template>
@@ -35,6 +45,35 @@ export default {
         this.title = "Samples JsModules"
     },
 
-    methods: {}
+    methods: {
+
+        frameInit1() {
+            apx.showFrame({
+                frame: import('./frames/FrameInit'),
+                props: {cnt: 5}
+            })
+        },
+        frameInit1_dialog() {
+            apx.showFrame({
+                frame: import('./frames/FrameInit-dialog'),
+                shower: 'dialog',
+                props: {cnt: 5}
+            })
+        },
+        frameInit1_withError() {
+            apx.showFrame({
+                frame: import('./frames/FrameInit'),
+                props: {cnt: 500}
+            })
+        },
+        frameInit1_dialog_withError() {
+            apx.showFrame({
+                frame: import('./frames/FrameInit-dialog'),
+                shower: 'dialog',
+                props: {cnt: 500}
+            })
+        },
+
+    }
 }
 </script>
