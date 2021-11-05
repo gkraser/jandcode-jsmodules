@@ -1,5 +1,5 @@
-Сборка проекта
-==============
+Настройка и сборка проекта
+==========================
 
 @@code-info lib=@jandcode/tools ref="../tools/webpack|@jandcode/tools webpack"
 

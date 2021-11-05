@@ -126,5 +126,5 @@ title=frontend/src/frames/FrameInit.vue
 Пример:
 
 @@code file=samples1/frontend/src/frames/FrameInit-dialog.vue
-title=frontend/src/frames/FrameInit-dialog.vue
+title=frontend/src/frames/FrameInit-dialog.vue part=script
                                           
