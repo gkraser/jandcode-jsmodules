@@ -53,6 +53,7 @@ module.exports = builder.build()
 *.dyn.js
 --------
 
-Файлы с суффиксом `.dyn.js` обрабатываются `val-loader`, т.е. результат их выполнения
-является кодом модуля.
+Файлы с суффиксом `.dyn.js`
+обрабатываются [val-loader](https://webpack.js.org/loaders/val-loader/), т.е. результат их
+выполнения является кодом модуля.
 

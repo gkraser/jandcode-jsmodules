@@ -1,4 +1,4 @@
-<%@ page import="jandcode.core.apx.web.gsp.*; jandcode.commons.*; jandcode.core.*; jandcode.core.web.*; jandcode.core.web.gsp.*;jandcode.core.web.std.gsp.*;" %>
+<%@ page import="jandcode.core.apx.web.gsp.*; jandcode.core.web.gsp.*;jandcode.core.web.std.gsp.*;" %>
 <!doctype html>
 <%
   /*
@@ -11,7 +11,7 @@
   def wpCtx = th.inst(FrontendIndexGspContext)
   //
   ctx.title = "Jandcode Samples Jsmodules1"
-
+  // добавляем в ссылки entry с именем 'main'
   wpCtx.addLink("main")
 %>
 <html>
@@ -24,7 +24,9 @@
 
 <body>
 <div id="jc-app"></div>
+%{-- выводим все ссылки, которые были добавлены в addLink выше--}%
 <% ctx.outLinks() %>
+%{-- выводим запуск entry, фактически генерируется JcEntry.run() --}%
 <script>
     ${wpCtx.libraryName}.run()
 </script>
