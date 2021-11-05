@@ -3,6 +3,7 @@
 
     <toc-root topic="index.md">
         <toc topic="intro/intro">
+            <toc topic="intro/install"/>
         </toc>
         <include toc="guide/toc.xml"/>
         <toc title="Модули">

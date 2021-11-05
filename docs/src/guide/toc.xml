@@ -2,6 +2,8 @@
 <root>
 
     <toc-root topic="./index.md">
+        <toc topic="./intro.md"/>
+        <toc topic="./samples.md"/>
         <toc topic="./**/*"/>
     </toc-root>
 

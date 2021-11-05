@@ -24,6 +24,19 @@ class P extends ProjectScript {
             )
             //
             addSrc('src')
+            addSrc('../samples/jandcode-samples-jsmodules1',
+                    prefix: 'samples1', resource: true,
+                    excludes: [
+                            '**/_jc/**/*',
+                            '**/node_modules/**/*',
+                            '**/temp/**/*',
+                            '**/_gen/**/*',
+                            '**/httpRequests/**/*',
+                            '**/*.iml',
+                            '**/*.ipr',
+                            '**/*.iws',
+                    ]
+            )
 
             props['toc'] = 'toc.xml'
             props['title'] = "Jandcode JsModules"

@@ -6,6 +6,7 @@
 
 <script>
 import {apx} from './vendor'
+
 export default {
     extends: apx.JcFrame,
 }
