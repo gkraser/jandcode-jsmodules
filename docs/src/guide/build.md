@@ -132,7 +132,7 @@ module.exports = builder.build()
 * `themes` - список [тем](./theme), которые будет доступны в приложении
 * `themeDefault` - [тема](./theme) по умолчанию
 
-main entry
+main entry  {#main-entry}
 ----------
 
 В качестве основной [точки входа](https://webpack.js.org/concepts/#entry)
@@ -142,7 +142,7 @@ main entry
 Зарезервированной является еще одна entry: `tst`. Остальные, при необходимости, можете
 определять как нужно приложению.
 
-library name
+library name {#library-name}
 ------------
 
 При сборке проекта используется следующая
