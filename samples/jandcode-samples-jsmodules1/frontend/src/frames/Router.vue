@@ -1,5 +1,9 @@
 <template>
     <decor-page>
+        <template #toolbar>
+            <jc-action icon="refresh" tooltip="Refresh this frame"
+                       @click="refreshThisFrame"/>
+        </template>
         <div class="col body-for-fit" style="display:flex;flex-direction: column">
             <div class="row q-gutter-x-md q-pb-md">
                 <jc-panel class="col" title="props">
@@ -51,5 +55,10 @@ export default {
         cnt++
         this.title = 'Router-' + cnt
     },
+    methods: {
+        refreshThisFrame() {
+            this.refreshFrame({prop1: 'refresh-' + cnt})
+        }
+    }
 }
 </script>
