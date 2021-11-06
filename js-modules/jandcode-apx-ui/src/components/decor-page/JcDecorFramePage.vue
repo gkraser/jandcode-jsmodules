@@ -58,7 +58,7 @@ export default {
     },
     computed: {
         classes() {
-            let res = [nm]
+            let res = ['jc-decor-frame', nm]
             if (this.bodyFit) {
                 res.push(nm + '--body-fit')
             }

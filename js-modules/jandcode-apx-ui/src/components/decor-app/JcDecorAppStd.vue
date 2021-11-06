@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="hHh Lpr fff" class="jc-decor-app-std" :container="container">
+    <q-layout view="hHh Lpr fff" class="jc-decor-app jc-decor-app-std" :container="container">
 
         <q-header :elevated="false" class="jc-decor-app-std__header">
             <slot name="top-header"></slot>
@@ -28,7 +28,6 @@
                 </slot>
 
             </q-toolbar>
-            <jc-breadcrumbs-frames :show-one="breadcrumbsShowOne" ref="brf"/>
         </q-header>
 
         <q-drawer v-model="own.left" :elevated="false"
@@ -59,6 +58,7 @@
         <q-page-container class="jc-decor-app-std__main">
             <slot name="main">
                 <q-page :style-fn="fixStyleFn">
+                    <jc-breadcrumbs-frames :show-one="breadcrumbsShowOne" ref="brf"/>
                     <jc-frame-shower-page @change="handle_changeFrames"/>
                 </q-page>
             </slot>

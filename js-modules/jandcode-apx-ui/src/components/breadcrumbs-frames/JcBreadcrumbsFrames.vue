@@ -1,5 +1,5 @@
 <template>
-    <div class="jc-breadcrumbs-frames">
+    <div :class="classes">
         <q-breadcrumbs v-show="showOne || items.length>1">
             <template v-for="it in items">
                 <q-breadcrumbs-el :label="it.title"
@@ -11,11 +11,14 @@
 </template>
 
 <script>
+
+let nm = 'jc-breadcrumbs-frames'
+
 /**
  * Компонент для отображения текущего списка фреймов из shower
  */
 export default {
-    name: 'jc-breadcrumbs-frames',
+    name: nm,
     props: {
         showOne: {
             type: Boolean,
@@ -25,6 +28,15 @@ export default {
     data() {
         return {
             items: [],
+        }
+    },
+    computed: {
+        classes() {
+            let res = [nm]
+            if (!(this.showOne || this.items.length > 1)) {
+                res.push(nm + '--hidden')
+            }
+            return res
         }
     },
     methods: {

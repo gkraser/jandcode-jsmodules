@@ -66,6 +66,7 @@ export default {
     computed: {
         classes() {
             let res = [
+                'jc-decor-frame',
                 'jc-decor-frame-dialog',
             ]
             if (this.size) {

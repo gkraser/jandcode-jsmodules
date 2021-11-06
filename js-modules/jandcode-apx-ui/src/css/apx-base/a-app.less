@@ -29,12 +29,27 @@
 
   }
 
-  .jc-breadcrumbs-frames {
-    font-size: @font-size-small-2;
-    min-height: 2.3em;
-    padding: 0.5em 1em 0.1em 2em;
-    //!!! если играться с padding top/bottom, можно добится мигания scroll...
+  .q-page {
+
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    .jc-breadcrumbs-frames {
+      justify-content: flex-end;
+      align-items: center;
+
+      font-size: @font-size-small-2;
+      opacity: 0.7;
+
+      min-height: 1.5rem; // эта высота еще и отступ сверху для фрейма
+    }
+
+    .jc-decor-frame {
+      padding-bottom: 1.5rem;
+    }
+
   }
+
 }
 
 /* page
@@ -45,17 +60,6 @@
   &__header {
     background-color: white;
     color: @color-gray-800;
-
-    //border-bottom: 1px solid @color-gray-400;
-
-    padding-top: 1.5em;
-    padding-right: 2em;
-    padding-bottom: 1em;
-    padding-left: 2em;
-
-    .jc-toolbar {
-      min-height: 32px;
-    }
 
     .jc-toolbar-title__text {
       font-size: @font-size-large-4;
@@ -73,10 +77,6 @@
   &__title-icon {
     font-size: @font-size-large-3;
     opacity: 0.5;
-  }
-
-  &__body {
-    padding: 0.5rem 2rem 1.5rem 2rem;
   }
 
 }
@@ -150,16 +150,5 @@
     opacity: 0.5;
   }
 
-}
-
-/* card
------------------------------------------------------------------------------ */
-
-.q-card {
-  box-shadow: @shadow-1;
-}
-
-.q-card__section--vert {
-  padding: @r8px @r16px;
 }
 
