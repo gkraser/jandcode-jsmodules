@@ -176,21 +176,43 @@ export default {
 
         if (this.syncMinHeight) {
             this.$nextTick(() => {
-                this.__rsw = jcBase.dom.resizeWatch(this.$el.parentNode, (ev) => {
+                // несколько отслеживателей: для parentNode и всех ее детей, кроме меня
+                this.__rsw = []
+
+                // для parentNode
+                this.__rsw.push(jcBase.dom.resizeWatch(this.$el.parentNode, (ev) => {
                     this.doSyncMinHeight()
-                })
+                }))
+
+                // для детей parentNode, кроме себя
+                let children = this.$el.parentNode.childNodes;
+                for (let i = 0; i < children.length; i++) {
+                    let child = children[i]
+                    if (child === this.$el) {
+                        continue // себя пропускаем
+                    }
+                    this.__rsw.push(jcBase.dom.resizeWatch(child, (ev) => {
+                        this.doSyncMinHeight()
+                    }))
+                }
             })
         }
 
     },
 
-    unmounted() {
+    beforeUnmount() {
         if (this.__rsw) {
-            this.__rsw.destroy()
+            for (let r of this.__rsw) {
+                r.destroy()
+            }
+            this.__rsw = null
         }
         this.unmountFrame()
         jcBase.app.frameManager.unregisterShower(this.name)
-        this.shower.destroy()
+        if (this.shower) {
+            this.shower.destroy()
+            this.shower = null
+        }
     },
 
     render() {
@@ -210,7 +232,9 @@ export default {
             if (fw == null) {
                 return
             }
-            // добавляем el фрейма как первый элемент в parentNode
+            // метим фрейм
+            fw.vueInst.$el.dataset['jcFrame'] = 'true'
+            // добавляем el фрейма перед собой
             this.$el.parentNode.insertBefore(fw.vueInst.$el, this.$el)
             this.lastMountedFw = fw
             //
@@ -254,7 +278,30 @@ export default {
                 return
             }
 
+            // определяем высоту всех детей у parentNode кроме фрейма
+            let heightFix = 0
+            let children = parentEl.childNodes;
+            for (let i = 0; i < children.length; i++) {
+                let child = children[i]
+                if (child === this.$el) {
+                    continue // себя пропускаем
+                }
+                if (child.dataset['jcFrame']) {
+                    continue // фрейм пропускаем
+                }
+                let bcr = child.getBoundingClientRect()
+                let h = bcr.height // высота вместе с рамкой
+                heightFix = heightFix + h
+            }
+
             // устанавливаем
+            if (heightFix > 0) {
+                let h = parseFloat(parentMh)
+                if (h > 0 && h > heightFix) {
+                    h = h - heightFix
+                    parentMh = '' + h + 'px'
+                }
+            }
             frameEl.style.minHeight = parentMh
         }
 
