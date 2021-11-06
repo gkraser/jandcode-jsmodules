@@ -210,11 +210,18 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
             let m1 = mod + '/' + mask
             masks.push(m1)
         }
+        let masksJs = []
+        let maskJs = 'assets/icons/**/*.js'
+        for (let mod of this.apxModules) {
+            let m1 = mod + '/' + maskJs
+            masksJs.push(m1)
+        }
         return `
 let jcTools = require("@jandcode/tools")
 module.exports = (options, loaderContext) => {
     return jcTools.svgUtils.genSvgIconsJs({
-        masks: ${JSON.stringify(masks)}
+        masks: ${JSON.stringify(masks)},
+        masksJs: ${JSON.stringify(masksJs)},
     })
 }        
         `
