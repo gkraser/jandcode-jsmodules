@@ -13,7 +13,6 @@
     "@jandcode/tools": "^1.0.0"
   },
   "dependencies": {
-    "axios": "^0.24.0",
-    "lodash": "^4.17.21"
+    "axios": "^0.24.0"
   }
 }
