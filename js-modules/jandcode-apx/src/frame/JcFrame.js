@@ -75,6 +75,19 @@ export default {
         },
 
         /**
+         * Обновить фрейм: показать фрейм заново с измененными свойствами
+         * @param props свойства, которые наложатся на существующие
+         */
+        async refreshFrame(props) {
+            let opts = this.frameWrapper.copyOptions()
+            opts.replace = true
+            if (props) {
+                Object.assign(opts.props, props)
+            }
+            return await this.showFrame(opts)
+        },
+
+        /**
          * Закрыть фрейм с указанной командой.
          * @param cmd команда
          */

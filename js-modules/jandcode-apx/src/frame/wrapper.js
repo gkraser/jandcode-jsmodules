@@ -134,6 +134,16 @@ export class FrameWrapper {
         return res
     }
 
+    /**
+     * Создает копию options, переданные фрейму при показе. props также копируется.
+     * @return {*}
+     */
+    copyOptions() {
+        let res = Object.assign({}, this.options)
+        res.props = Object.assign({}, this.options.props)
+        return res
+    }
+
     //////
 
     /**

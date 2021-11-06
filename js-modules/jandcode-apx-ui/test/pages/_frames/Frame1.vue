@@ -1,5 +1,9 @@
 <template>
     <component :is="decor" size="big" :bodyFit="bodyFit">
+        <template #toolbar>
+            <jc-action icon="reload" @click="reloadThisFrame"
+                       tooltip="Reload this frame"/>
+        </template>
         <div class="col body-for-fit" style="display:flex;flex-direction: column">
             <div class="row q-gutter-x-md q-pb-md">
                 <jc-panel class="col" title="props">
@@ -107,7 +111,11 @@ export default {
     data() {
         return {}
     },
-    methods: {},
+    methods: {
+        reloadThisFrame() {
+            this.refreshFrame({prop1: 'reload-' + cnt, reload: true})
+        },
+    },
     computed: {
         bodyFit() {
             return tst.getCfgStore().cfg.bodyFit
