@@ -83,7 +83,7 @@ export default {
 
         breadcrumbsShowOne: {
             type: Boolean,
-            default: true,
+            default: false,
         }
     },
 
