@@ -1,33 +1,37 @@
 <template>
-    <q-layout view="hHh Lpr fff" class="jc-decor-app jc-decor-app-std" :container="container">
+    <q-layout view="hHh Lpr fff" class="jc-decor-app jc-decor-app-std"
+              :container="container">
 
         <q-header :elevated="false" class="jc-decor-app-std__header">
             <slot name="top-header"></slot>
-            <q-toolbar>
-                <slot name="toolbar-left">
-                    <jc-toolbar>
-                        <jc-action
-                            icon="menu" @click="own.left = !own.left"/>
-                        <slot name="title">
-                            <q-icon v-if="own.icon" :name="own.icon"
-                                    class="cursor-pointer jc-decor-app-std__logo"
-                                    @click="own.home()"/>
-                            <jc-toolbar-title :text="own.title" :text2="own.title2"
-                                              @click="own.home()"/>
-                        </slot>
-                    </jc-toolbar>
-                </slot>
+            <slot name="header">
+                <q-toolbar>
+                    <slot name="toolbar-left">
+                        <jc-toolbar>
+                            <jc-action
+                                icon="menu" @click="own.left = !own.left"/>
+                            <slot name="title">
+                                <q-icon v-if="own.icon" :name="own.icon"
+                                        class="cursor-pointer jc-decor-app-std__logo"
+                                        @click="own.home()"/>
+                                <jc-toolbar-title :text="own.title" :text2="own.title2"
+                                                  @click="own.home()"/>
+                            </slot>
+                        </jc-toolbar>
+                    </slot>
 
-                <q-space/>
+                    <q-space/>
 
-                <slot name="toolbar-right">
-                    <jc-toolbar>
-                        <slot name="toolbar">
-                        </slot>
-                    </jc-toolbar>
-                </slot>
+                    <slot name="toolbar-right">
+                        <jc-toolbar>
+                            <slot name="toolbar">
+                            </slot>
+                        </jc-toolbar>
+                    </slot>
 
-            </q-toolbar>
+                </q-toolbar>
+            </slot>
+            <slot name="bottom-header"></slot>
         </q-header>
 
         <q-drawer v-model="own.left" :elevated="false"
