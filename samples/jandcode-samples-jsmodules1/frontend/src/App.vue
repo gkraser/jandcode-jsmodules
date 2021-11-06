@@ -33,6 +33,13 @@
                                        @click="routerStackReplace1"/>
 
                 </jc-side-menu-item>
+
+                <jc-side-menu-item label="Разное" icon="folder">
+
+                    <jc-side-menu-item label="Иконки" icon="frame"
+                                       @click="icons1"/>
+
+                </jc-side-menu-item>
             </jc-side-menu>
         </template>
 
@@ -103,6 +110,11 @@ export default {
                 stack: true,
                 replace: true,
                 props: {prop1: cnt++}
+            })
+        },
+        icons1() {
+            apx.showFrame({
+                frame: import('./frames/Icons'),
             })
         },
 
