@@ -3,11 +3,12 @@
 
         <template #tools>
             <tst-checkbox label="bodyFit" v-model="cfg.bodyFit"/>
+            <tst-checkbox label="breadcrumbsShowOne" v-model="cfg.breadcrumbsShowOne"/>
         </template>
 
         <div class="wrap-app">
             <jc-decor-app-std container style="height: calc(100vh - 72px);"
-                              :ownComp="this" :breadcrumbsShowOne="true">
+                              :ownComp="this" :breadcrumbsShowOne="cfg.breadcrumbsShowOne">
 
                 <template #left>
                     <q-item-label header>Меню</q-item-label>
@@ -48,6 +49,7 @@ export default {
         this.title = 'ShowFrame test'
         this.cfgStore.applyDefault({
             bodyFit: false,
+            breadcrumbsShowOne: true,
         })
         //
         this.menu1 = [
