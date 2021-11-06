@@ -211,7 +211,7 @@ export default {
                 return
             }
             // добавляем el фрейма как первый элемент в parentNode
-            this.$el.parentNode.prepend(fw.vueInst.$el)
+            this.$el.parentNode.insertBefore(fw.vueInst.$el, this.$el)
             this.lastMountedFw = fw
             //
             this.doSyncMinHeight()
