@@ -1,0 +1,293 @@
+<p>hello привет</p>
+
+<h1>Заголовок h1</h1>
+<h2>Заголовок h2</h2>
+<h3>Заголовок h3</h3>
+<h4>Заголовок h4</h4>
+<h5>Заголовок h5</h5>
+<h6>Заголовок h6</h6>
+
+<p>Параграф paragraf</p>
+
+<h2 id="head1">Настройка среды</h2>
+<p>Перед установкой <strong>Jandcode Core</strong> необходимо настроить среду.
+    Должно быть установлено следующее:</p>
+<ul>
+    <li>Java JDK, версия &gt;=17</li>
+    <li><a href="https://gradle.org/">Gradle</a>, версия 7 или старше</li>
+    <li><a href="https://nodejs.org">Node.js</a>, версия 14.x или старше</li>
+    <li><a href="https://git-scm.com/">Git</a>, версия 2 или старше</li>
+</ul>
+<p>Среда должна быть настроена так, что бы, что бы с командной строки
+    запускались приложения <code>java</code>, <code>javac</code>, <code>gradle</code>,
+    <code>node</code>, <code>npm</code>, <code>git</code>.</p>
+<h2 id="head2">Установка</h2>
+<p>Проект <strong>Jandcode Core</strong> поставляется в исходниках и компилируется на
+    машине
+    пользователя.</p>
+<p>Исходники доступны в репозитории git:
+    <a href="https://github.com/gkraser/jandcode-core2">https://github.com/gkraser/jandcode-core2</a>.
+</p>
+<h3 id="head3">Шаг 1. Создание каталога для проектов</h3>
+<p>Создаем произвольный рабочий каталог для проектов (например
+    <code>D:\jc-projects</code> для Windows или <code>~/jc-projects</code> для Linux)
+    и переходим в него:</p>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Windows</div>
+    <div class="codeblock--content"><pre><code class="language-text">cd /D D:\jc-projects
+</code></pre>
+    </div>
+</div>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Linux</div>
+    <div class="codeblock--content"><pre><code class="language-text">cd ~/jc-projects
+</code></pre>
+    </div>
+</div>
+<h3 id="head4">Шаг 2. Создание jc-env.bat</h3>
+<p>Создайте в каталоге проектов <code>D:\jc-projects</code> файл <code>jc-env.bat</code>
+    со следующим содержимым:</p>
+<div class="codeblock" data-language="txt">
+    <div class="codeblock--title">jc-env.bat</div>
+    <div class="codeblock--content"><pre><code class="language-txt">@echo off
+
+set JAVA_HOME=c:\tools\jdk15
+set GRADLE_HOME=c:\tools\gradle
+set NODE_HOME=c:\tools\nodejs
+
+set PATH=%JAVA_HOME%\bin;%GRADLE_HOME%\bin;%NODE_HOME%;%PATH%
+
+java -version
+call gradle -version
+call npm -version
+
+echo -------------------------------------------------------------------------------------
+
+set JC_RUN=%~dp0jandcode-core2\bin\jc-run.bat
+
+</code></pre>
+    </div>
+</div>
+<p>Измените переменные <code>JAVA_HOME</code>, <code>GRADLE_HOME</code>,
+    <code>NODE_HOME</code>
+    на значения, соответствующие вашей среде.</p>
+<p>Запустите этот файл и убедитесь, что запускаются нужные вам версии
+    <code>java</code>, <code>gradle</code>, <code>npm</code>.</p>
+<p>Строки, запускающие <code>gradle</code> и <code>npm</code>, можно будет потом
+    закоментировать,
+    что бы не мешалось. Показ версии <code>java</code> рекомендую оставить,
+    что бы контролировать среду в случае, когда установлено несколько версий java.</p>
+<h3 id="head5">Шаг 3. Клонирование репозитория</h3>
+<p>Убеждаемся, что находимся в каталоге проектов (<code>D:\jc-projects</code> ).
+    Клонируем репозиторий:</p>
+<div class="codeblock" data-language="txt">
+    <div class="codeblock--content"><pre><code class="language-txt">git clone https://github.com/gkraser/jandcode-core2
+</code></pre>
+    </div>
+</div>
+<h3 id="head6">Шаг 4. Сборка</h3>
+<p>Переходим в каталог <code>D:\jc-projects\jandcode-core2</code>
+    (для Linux <code>~/jc-projects/jandcode-core2</code>) и запускаем сборку проекта:</p>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Windows</div>
+    <div class="codeblock--content"><pre><code class="language-text">build-bin.bat
+</code></pre>
+    </div>
+</div>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Linux</div>
+    <div class="codeblock--content"><pre><code class="language-text">sh ./build-bin.sh
+</code></pre>
+    </div>
+</div>
+<p>После окончания сборки имеем каталог <code>bin</code>, в котором собрана последняя
+    стабильная версия проекта.</p>
+<h3 id="head7">Шаг 5. jc.bat / jc.sh</h3>
+<p>Необходимо обеспечить доступ к <code>jc.bat</code> (<code>jc.sh</code> для Linux) с
+    командной строки.
+    Для этого:</p>
+<ul>
+    <li><strong>Windows</strong>: укажите каталог
+        <code>D:\jc-projects\jandcode-core2\bin</code>
+        в переменной среды <code>PATH</code>, либо скопируйте файл
+        <code>D:\jc-projects\jandcode-core2\bin\jc.bat</code> в каталог, который
+        указан в переменной <code>PATH</code>.
+    </li>
+    <li><strong>Linux</strong>: укажите каталог
+        <code>$HOME/jc-projects/jandcode-core2/bin</code>
+        в переменной среды <code>PATH</code>, либо скопируйте файл
+        <code>$HOME/jc-projects/jandcode-core2/bin/jc.sh</code> в каталог, который
+        указан в переменной <code>PATH</code>.
+    </li>
+</ul>
+<p>Убедитесь, что команда <code>jc</code> доступна:</p>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Windows</div>
+    <div class="codeblock--content"><pre><code class="language-text">where jc
+</code></pre>
+    </div>
+</div>
+<p>В выводе этой команды ваш настроенный <code>jc.bat</code> должен быть первым в списке.
+</p>
+<h3 id="head8">Шаг 6. Проверяем, что все работает</h3>
+<p>Переходим в каталог для проектов <code>D:\jc-projects</code>
+    (для Linux <code>~/jc-projects</code>) и запускаем <code>jc</code>, что бы убедится,
+    что все работает:</p>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Windows</div>
+    <div class="codeblock--content"><pre><code class="language-text">cd /D D:\jc-projects
+jc
+</code></pre>
+    </div>
+</div>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Linux</div>
+    <div class="codeblock--content"><pre><code class="language-text">cd ~/jc-projects
+jc
+</code></pre>
+    </div>
+</div>
+<p>В выводе обращаем внимание, что <code>jc-home</code> указывает на каталог с собранным
+    проектом:</p>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Windows</div>
+    <div class="codeblock--content"><pre><code class="language-text"> * jc-home: D:\jc-projects\jandcode-core2\bin
+</code></pre>
+    </div>
+</div>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Linux</div>
+    <div class="codeblock--content"><pre><code class="language-text"> * jc-home: /home/USERNAME/jc-projects/jandcode-core2/bin
+</code></pre>
+    </div>
+</div>
+<p>Готово.</p>
+<h2 id="head9">Обновление</h2>
+<p>Что бы обновить версию до последней, выполните:</p>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Windows</div>
+    <div class="codeblock--content"><pre><code class="language-text">cd /D D:\jc-projects\jandcode-core2
+build-bin.bat
+</code></pre>
+    </div>
+</div>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Linux</div>
+    <div class="codeblock--content"><pre><code class="language-text">cd ~/jc-projects/jandcode-core2
+sh ./build-bin.sh
+</code></pre>
+    </div>
+</div>
+<p>Если версия изменилась, продукт будет пересобран.</p>
+<h2 id="head10">Ветки master и dev</h2>
+<p>В репозитории имеются 2 основных ветки: <code>master</code> и <code>dev</code>.</p>
+<p>Ветка <code>master</code> содержит последний стабильный релиз.</p>
+<p>Ветка <code>dev</code> содержит текущую версию для разработки.</p>
+<p>Вы можете собирать бинарный вариант продукта из любой ветки, даже из любой ревиизии.
+    Просто обновите рабочий каталог с исходниками <strong>Jandcode Core</strong> до нужной
+    Вам
+    ветки или ревизии. Например для <code>dev</code>:</p>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Windows</div>
+    <div class="codeblock--content"><pre><code class="language-text">cd /D D:\jc-projects\jandcode-core2
+git pull
+git checkout dev
+build-bin.bat
+</code></pre>
+    </div>
+</div>
+<div class="codeblock" data-language="text">
+    <div class="codeblock--title">Linux</div>
+    <div class="codeblock--content"><pre><code class="language-text">cd ~/jc-projects/jandcode-core2
+git pull
+git checkout dev
+sh ./build-bin.sh
+</code></pre>
+    </div>
+</div>
+<h2 id="head11">Поддержка запуска jc версии 1.5</h2>
+<p>Если вы используете Jandcode Core версии 1.5.x, то ее инструменты командной строки
+    так же запускаются через команду <code>jc</code>, которая конфликтует с новой версией.
+</p>
+<p>Для поддержки работоспособности старой версии
+    через новый вариант <code>jc.bat</code> необходимо в рабочем каталоге с проектам
+    на старой версии (в том, который содержит файл <code>jc-run.bat</code>) создать
+    файл <code>jc-env.bat</code> с содержимым:</p>
+<div class="codeblock" data-language="txt">
+    <div class="codeblock--content"><pre><code class="language-txt">set JC_RUN=%~dp0jc-run.bat
+</code></pre>
+    </div>
+</div>
+<p>Если Ваш старый <code>jc-run.bat</code> лежит в каком-то особом и загадочном месте,
+    то создайте файл <code>jc-env.bat</code> в каталоге выше Вашего проекта на старой
+    версии
+    и в нем для переменной <code>JC_RUN</code> установите полный путь до
+    <code>jc-run.bat</code>
+    старой версии.</p>
+<p>Теперь запуск <code>jc</code> в рабочем каталоге с новой версией запустит новую,
+    а в рабочем каталоге со старой - старую.</p>
+<h2 id="head12">Запуск глобально в определенной среде</h2>
+<p>Что бы запустить и использовать <code>jc</code> в конкретной глобальной среде, можно
+    создать
+    специальный bat-файл для запуска в определенной среде. Например такой способ
+    используется,
+    когда производится сборка проектов на сервере сборки.</p>
+<p>Например, мы хотим, что бы bat-файл <code>jc-g.bat</code> запускал <code>jc</code> под
+    конкретной версией
+    java и в определенной среде.</p>
+<p>Для начала собираем или скачиваем бинарный дистрибутив jandcode-core2 в какое-нибуть
+    место, например в <code>d:\jc-projects\jandcode-core2-bin</code>.</p>
+<p>Затем создаем файл <code>jc-g.bat</code> в каталоге, который указан в переменной среды
+    <code>PATH</code>:</p>
+<div class="codeblock" data-language="batch">
+    <div class="codeblock--title">jc-g.bat</div>
+    <div class="codeblock--content"><pre><code class="language-batch">@echo off
+set JAVA_HOME=c:\jdks\jdk17
+set PATH=%JAVA_HOME%\bin;%PATH%
+
+call d:\jc-projects\jandcode-core2-bin\jc-run.bat %*
+</code></pre>
+    </div>
+</div>
+<p>Теперь команда <code>jc-g</code> будет запускать нужный глобальный <code>jc</code>.</p>
+<p>В проекте, который будет использовать этот глобальный <code>jc-g</code> можно создать
+    bat-файл для запуска нужной <code>jc</code>. Например так:</p>
+<div class="codeblock" data-language="batch">
+    <div class="codeblock--content"><pre><code class="language-batch">@echo off
+if exist %~dp0\env.bat call %~dp0\env.bat
+call jc-g -f:%~dp0builder.jc %*
+</code></pre>
+    </div>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Имя атрибута</th>
+        <th>Константа имени</th>
+        <th>Значение</th>
+        <th>Коментарий</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>actionPathInfo</code></td>
+        <td><code>WebConsts.a_actionPathInfo</code></td>
+        <td><code>p1/p2/p3</code></td>
+        <td><code>pathInfo</code>, из которого убрано имя action</td>
+    </tr>
+    <tr>
+        <td><code>actionMethod</code></td>
+        <td><code>WebConsts.a_actionMethod</code></td>
+        <td><code>p1</code></td>
+        <td>Первый фасет из <code>actionPathInfo</code>, имя &quot;метода&quot; для action
+        </td>
+    </tr>
+    <tr>
+        <td><code>actionMethodPathInfo</code></td>
+        <td><code>WebConsts.a_actionMethodPathInfo</code></td>
+        <td><code>p2/p3</code></td>
+        <td><code>actionPathInfo</code>, из которого убран первый фасет</td>
+    </tr>
+    </tbody>
+</table>
