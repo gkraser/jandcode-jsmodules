@@ -2,7 +2,7 @@
     <div :class="classes">
 
         <div class="jc-decor-frame-dialog__header">
-            <jc-toolbar>
+            <jc-toolbar flat>
 
                 <q-icon v-if="hasIcon" :name="own.icon"
                         :class="['jc-decor-frame-dialog__title-icon']">
@@ -16,7 +16,7 @@
                 <slot name="toolbar">
                 </slot>
 
-                <q-btn dense flat icon="close" @click="own.closeFrame('cancel')"/>
+                <jc-action icon="close" @click="own.closeFrame('cancel')"/>
 
             </jc-toolbar>
         </div>

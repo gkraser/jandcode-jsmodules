@@ -7,12 +7,12 @@ import {jcBase} from '../vendor'
  * Описания конкретных кнопок
  */
 export let dialogButtons = {
-    'ok': {label: 'Ок', cmd: 'ok', kind:'primary'},
-    'cancel': {label: 'Отмена', cmd: 'cancel'},
-    'close': {label: 'Закрыть', cmd: 'cancel'},
-    'yes': {label: 'Да', cmd: 'yes'},
-    'no': {label: 'Нет', cmd: 'no'},
-    'save': {label: 'Сохранить', cmd: 'ok'},
+    'ok': {label: 'Ок', cmd: 'ok', kind: 'primary'},
+    'cancel': {label: 'Отмена', cmd: 'cancel', kind: 'primary'},
+    'close': {label: 'Закрыть', cmd: 'cancel', kind: 'primary'},
+    'yes': {label: 'Да', cmd: 'yes', kind: 'primary'},
+    'no': {label: 'Нет', cmd: 'no', kind: 'primary'},
+    'save': {label: 'Сохранить', cmd: 'ok', kind: 'primary'},
 }
 
 /**

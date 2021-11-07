@@ -12,7 +12,7 @@
 
         <jc-decor-frame-dialog :ownComp="this" ref="frm" :buttons="buttons">
             <template #toolbar>
-                <AppToolbarDemoSet :toolbarSet="cfg.frameToolbar"/>
+                <AppToolbarDemoSet :toolbarSet="cfg.frameToolbar" flat/>
             </template>
             <jc-btn label="Просто кнопка"/>
         </jc-decor-frame-dialog>
