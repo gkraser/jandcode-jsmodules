@@ -191,6 +191,11 @@ export default {
         &__header {
             background-color: #C6E2A6 !important;
         }
+
+    }
+
+    .jc-breadcrumbs-frames {
+        background-color: #c0eeee !important;
     }
 
     .body-for-fit {

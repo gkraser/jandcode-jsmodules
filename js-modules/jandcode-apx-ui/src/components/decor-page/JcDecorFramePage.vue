@@ -18,7 +18,7 @@
                 </slot>
 
                 <template v-if="own.closable">
-                    <q-btn dense flat icon="close" @click="own.closeFrame('cancel')"/>
+                    <jc-action flat icon="close" @click="own.closeFrame('cancel')"/>
                 </template>
 
             </jc-toolbar>
