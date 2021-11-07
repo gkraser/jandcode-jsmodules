@@ -7,9 +7,19 @@
 <script>
 export default {
     name: 'jc-toolbar',
+    props: {
+
+        /**
+         * Плоская toolbar. На плоской все jc-action по умолчанию плоские.
+         */
+        flat: {
+            type: Boolean, 
+        }
+
+    },
     provide() {
         return {
-            inToolbar: true
+            parentToolbar: this,
         }
     },
     computed: {

@@ -2,7 +2,7 @@
     <jc-btn v-bind="$attrs"
             v-close-popup="isMenuItem && !hasSubMenu"
             :class="classes"
-            :flat="inToolbar || isMenuItem"
+            :flat="isFlat"
             align="left"
             :stretch="isMenuItem ? true : stretch"
             :label="label"
@@ -26,7 +26,7 @@
 
 <script>
 
-/*
+/*                  
 
 doc:
 
@@ -49,7 +49,7 @@ export default {
     },
     inject: {
         isMenuItem: {default: false},
-        inToolbar: {default: false},
+        parentToolbar: {default: null},
     },
     computed: {
         classes() {
@@ -87,6 +87,15 @@ export default {
         hasSubMenu() {
             return !!this.$slots.default;
         },
+        isFlat() {
+            if (this.isMenuItem) {
+                return true
+            }
+            if (this.parentToolbar == null) {
+                return false
+            }
+            return this.parentToolbar.flat
+        }
     }
 }
 </script>

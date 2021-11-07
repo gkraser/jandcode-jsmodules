@@ -17,11 +17,11 @@
             <jc-decor-app-std container style="height: calc(100vh - 72px);"
                               :ownComp="this">
                 <template #toolbar-left v-if="cfg.toolbarSetLeft">
-                    <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetLeft"/>
+                    <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetLeft" flat/>
                 </template>
 
                 <template #toolbar-right>
-                    <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetRight"/>
+                    <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetRight" flat/>
                 </template>
 
                 <template #left>

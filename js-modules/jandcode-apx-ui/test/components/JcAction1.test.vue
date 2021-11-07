@@ -3,6 +3,7 @@
         <template #tools>
             <tst-select v-model="cfg.toolbarSet" :options="toolbarSets"
                         label="toolbarSet"/>
+            <tst-checkbox label="flatToolbar" v-model="cfg.flatToolbar"/>
         </template>
 
         <div class="row items-center q-gutter-x-sm q-mb-md">
@@ -24,14 +25,16 @@
             </jc-action>
         </div>
         <div class="column q-mt-sm q-gutter-y-md toolbar-place">
-            <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet"/>
-            <AppToolbarDemoSet toolbarSet="menu1"/>
-            <AppToolbarDemoSet toolbarSet="logo1"/>
+            <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet" :flat="cfg.flatToolbar"/>
+            <AppToolbarDemoSet toolbarSet="menu1" :flat="cfg.flatToolbar"/>
+            <AppToolbarDemoSet toolbarSet="logo1" :flat="cfg.flatToolbar"/>
             <div class="q-mb-lg"/>
             <AppToolbarDemoSet toolbarSet="logo1"
-                               toolbar-class="bg-primary text-white q-pa-md"/>
+                               toolbar-class="bg-primary text-white q-pa-md"
+                               :flat="cfg.flatToolbar"/>
             <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet"
-                               toolbar-class="bg-primary text-white q-pa-md"/>
+                               toolbar-class="bg-primary text-white q-pa-md"
+                               :flat="cfg.flatToolbar"/>
         </div>
     </tst-panel>
 </template>
@@ -49,6 +52,7 @@ export default {
     created() {
         this.cfgStore.applyDefault({
             toolbarSet: 'set1',
+            flatToolbar: true,
         })
     },
     data() {

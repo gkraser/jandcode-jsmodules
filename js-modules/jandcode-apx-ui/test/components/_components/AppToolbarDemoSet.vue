@@ -1,5 +1,5 @@
 <template>
-    <jc-toolbar :key="toolbarSet" :class="toolbarClass">
+    <jc-toolbar :key="toolbarSet" :class="toolbarClass" :flat="flat">
         <template v-if="toolbarSet=='set1'">
             <div style="display:inline-block">М</div>
             <jc-action icon="bus"/>
@@ -187,7 +187,10 @@ export default {
         toolbarSet: {
             default: ''
         },
-        toolbarClass: ''
+        toolbarClass: '',
+        flat: {
+            default: false
+        }
     },
     data() {
         return {}

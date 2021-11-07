@@ -7,7 +7,7 @@
             <slot name="header">
                 <q-toolbar>
                     <slot name="toolbar-left">
-                        <jc-toolbar>
+                        <jc-toolbar flat>
                             <jc-action
                                 icon="menu" @click="own.left = !own.left"/>
                             <slot name="title">
@@ -23,7 +23,7 @@
                     <q-space/>
 
                     <slot name="toolbar-right">
-                        <jc-toolbar>
+                        <jc-toolbar flat>
                             <slot name="toolbar">
                             </slot>
                         </jc-toolbar>
