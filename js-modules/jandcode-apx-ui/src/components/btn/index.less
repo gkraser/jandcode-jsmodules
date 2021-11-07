@@ -10,14 +10,33 @@
     padding-right: @pad-icon;
   }
 
+  // расчитываем, что кнопки outlined
+  
   &--default {
-    background: @color-primary;
-    color: @color-primary-100;
+    background: @color-gray-200 !important;
+    color: @color-gray-900 !important;
+
+    &:before {
+      border-color: @color-gray-500 !important;
+    }
+  }
+
+  &--primary {
+    background: @color-primary-500 !important;
+    color: @color-primary-100 !important;
+
+    &:before {
+      border-color: @color-primary-700 !important;
+    }
   }
 
   &--danger {
-    background: @color-negative;
-    color: @color-negative-100;
+    background: @color-negative-500 !important;
+    color: @color-negative-100 !important;
+
+    &:before {
+      border-color: @color-negative-700 !important;
+    }
   }
 
 }

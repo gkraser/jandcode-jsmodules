@@ -12,6 +12,7 @@ function isAttrTrue(v) {
 export let config = {
     kind: {
         default: {},
+        primary: {},
         danger: {},
     },
 }
@@ -46,6 +47,9 @@ export default {
         if (attrs['no-caps'] == null) {
             attrs['no-caps'] = true
         }
+        if (attrs['outline'] == null) {
+            attrs['outline'] = true
+        }
 
         // размер задаем через классы
         if ('size' in attrs) {
@@ -60,7 +64,6 @@ export default {
 
         //
         if (!isAttrTrue(attrs.flat) &&
-            !isAttrTrue(attrs.outline) &&
             !isAttrTrue(attrs.round)) {
             // обычная кнопка
             cls.push('jc-btn--default')

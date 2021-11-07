@@ -11,7 +11,7 @@
             <jc-action icon="star"/>
             <jc-action icon="mail"/>
             <jc-action label="Конфигурации" icon="config"/>
-            <jc-action label="Конфигурации" icon="config" color="negative"/>
+            <jc-action label="Конфигурации" icon="config" kind="primary"/>
             <jc-action label="Задачи"/>
             <jc-action label="Меню 1">
                 <SubMenu1/>

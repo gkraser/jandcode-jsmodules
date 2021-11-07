@@ -7,8 +7,8 @@ import {jcBase} from '../vendor'
  * Описания конкретных кнопок
  */
 export let dialogButtons = {
-    'ok': {label: 'Ок', cmd: 'ok'},
-    'cancel': {label: 'Отмена', cmd: 'cancel', kind: 'danger'},
+    'ok': {label: 'Ок', cmd: 'ok', kind:'primary'},
+    'cancel': {label: 'Отмена', cmd: 'cancel'},
     'close': {label: 'Закрыть', cmd: 'cancel'},
     'yes': {label: 'Да', cmd: 'yes'},
     'no': {label: 'Нет', cmd: 'no'},
