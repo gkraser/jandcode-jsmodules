@@ -14,7 +14,7 @@
     "@jandcode/apx": "^1.0.0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.11.4",
+    "@quasar/extras": "^1.11.5",
     "@fontsource/roboto": "^4.5.1",
     "@fontsource/roboto-condensed": "^4.5.0",
     "@fontsource/roboto-mono": "^4.5.0"
