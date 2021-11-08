@@ -295,6 +295,21 @@ class WebpackBuilder {
                         ],
                     },
                     {
+                        test: /\.s[ac]ss$/i,
+                        use: [
+                            'css-loader',
+                            cleanCssLoader,
+                            {
+                                loader: 'sass-loader',
+                                options: {
+                                    sassOptions: {
+                                        verbose: true
+                                    }
+                                }
+                            },
+                        ],
+                    },
+                    {
                         test: /\.vue$/,
                         use: [
                             {
