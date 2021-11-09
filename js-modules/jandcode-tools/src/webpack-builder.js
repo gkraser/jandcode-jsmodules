@@ -214,6 +214,9 @@ class WebpackBuilder {
                 disable: !isProd,
             },
         }
+        let cssLoader = {
+            loader: "css-loader",
+        }
 
         let plugins = [
             new webpack.DefinePlugin({
@@ -282,22 +285,24 @@ class WebpackBuilder {
                     {
                         test: /\.css$/i,
                         use: [
-                            'css-loader',
+                            cssLoader,
                             cleanCssLoader
                         ],
                     },
                     {
                         test: /\.less$/i,
                         use: [
-                            'css-loader',
+                            cssLoader,
                             cleanCssLoader,
-                            'less-loader',
+                            {
+                                loader: 'less-loader'
+                            },
                         ],
                     },
                     {
                         test: /\.s[ac]ss$/i,
                         use: [
-                            'css-loader',
+                            cssLoader,
                             cleanCssLoader,
                             {
                                 loader: 'sass-loader',
@@ -323,7 +328,9 @@ class WebpackBuilder {
                     {
                         test: /.dyn.js$/,
                         use: [
-                            'val-loader',
+                            {
+                                loader: 'val-loader'
+                            },
                         ],
                     },
                     {
