@@ -7,11 +7,11 @@
 
         <div class="row q-gutter-x-md q-mb-md">
 
-            <jc-panel class="col" title="Это панель 1">
+            <jc-panel class="col" title="Это панель 1" tool-fullscreen>
                 тело в секции
             </jc-panel>
 
-            <jc-panel class="col" title="Это панель 2">
+            <jc-panel class="col" title="Это панель 2" tool-fullscreen>
                 <template #toolbar>
                     <jc-action icon="more-v"/>
                     <jc-action icon="bus" label="Привет"/>

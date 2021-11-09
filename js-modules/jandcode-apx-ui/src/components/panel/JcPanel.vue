@@ -9,6 +9,10 @@
                 <jc-panel-bar :title="title">
                     <slot name="toolbar">
                     </slot>
+                    <jc-action v-show="toolFullscreen"
+                               :icon="fullscreen?'fullscreen-close':'fullscreen-open'"
+                               @click="toggleFullscreen()"
+                               :tooltip="fullscreen?'Уменьшить':'Увеличить'"/>
                 </jc-panel-bar>
             </template>
             <jc-panel-body :body-fit="bodyFit" :no-padding="noPadding">
@@ -45,6 +49,22 @@ export default {
          */
         custom: {
             type: Boolean,
+        },
+
+        /**
+         * При значении true появляется инструмент "fullscreen", для распахивания
+         * панели во весь экран
+         */
+        toolFullscreen: {
+            type: Boolean,
+        }
+    },
+    emits: {
+        'change-fullscreen': {}
+    },
+    data() {
+        return {
+            fullscreen: false,
         }
     },
     computed: {
@@ -56,5 +76,19 @@ export default {
             return !!this.title || !!this.$slots.toolbar;
         }
     },
+    methods: {
+        toggleFullscreen() {
+            this.fullscreen = !this.fullscreen
+            if (this.fullscreen) {
+                this.placeHolder = this.$el.cloneNode(false)
+                this.$el.parentElement.insertBefore(this.placeHolder, this.$el)
+                this.$el.classList.toggle('jc-panel--fullscreen', this.fullscreen)
+            } else {
+                this.$el.classList.toggle('jc-panel--fullscreen', this.fullscreen)
+                this.placeHolder.remove()
+            }
+            this.$emit('change-fullscreen', this.fullscreen, this)
+        },
+    }
 }
 </script>
