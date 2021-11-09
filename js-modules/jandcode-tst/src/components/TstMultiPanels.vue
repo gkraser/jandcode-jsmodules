@@ -12,7 +12,7 @@
         <div class="row q-gutter-x-md q-mb-md" :style="bodyStyle">
             <template v-for="n in panels" :key="uniKey(n)">
                 <component :is="panelComp" :title="titleForNum(n)" class="col"
-                           body-fit>
+                           body-fit v-bind="panelProps||{}">
                     <slot name="default">
                         <div>No content for slot default in tst-multi-panels!</div>
                     </slot>
@@ -40,9 +40,17 @@ export default {
             default: 'Панель'
         },
 
+        /**
+         * Какой компонент-панель использовать
+         */
         panelComp: {
             default: 'jc-panel'
-        }
+        },
+
+        /**
+         * Какие свойства передать компоненту-панели
+         */
+        panelProps: {}
 
     },
     created() {

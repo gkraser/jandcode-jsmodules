@@ -6,9 +6,10 @@ import Chance from 'chance'
  */
 export class RndUtils {
 
-    constructor() {
+    constructor(seed) {
         // генератор случайностей
-        this.rnd = new Chance(12331)
+        let seedUse = seed !== void 0 ? seed : 12331
+        this.rnd = new Chance(seedUse)
     }
 
     /**
@@ -22,7 +23,7 @@ export class RndUtils {
 
     /**
      * Возвращает массив дат длинной days-дней.
-     * Даты в формате timestamp (число msec).
+     * Даты в формате 'YYYY-MM-DD' (число msec).
      * Последняя дата в списке - 'сегодня'.
      * Первая - 'сегодня - days'
      * @param days количество дней
@@ -31,7 +32,7 @@ export class RndUtils {
         if (days < 1) {
             days = 1
         }
-        let startDate = apx.date.subDays(date.today(), days)
+        let startDate = apx.date.subDays(apx.date.today(), days)
         let res = []
         for (let i = 0; i < days; i++) {
             let dt = this.dateToStr(apx.date.addDays(startDate, i))
