@@ -21,6 +21,9 @@
  *     }
  * }
  */
+
+import {ExportDataset} from './export-dataset'
+
 export class Chart {
 
     constructor(params) {
@@ -105,27 +108,35 @@ export class Chart {
     }
 
     /**
-     * Сформировать экспортируемые
+     * Сформировать экспортируемые данные
      * .
-     * @param listDataset массив, в который нужно положить экземпляры ExportDataset
+     * @param {ExportDataset} dataset экземпляр ExportDataset, который нужно заполнить данными
      */
-    onExportData(listDataset) {
+    onExportData(dataset) {
     }
 
     /**
      * Экспортируемые данные диаграммы.
      * Данные строятся в момент первого вызова в методе onExportData и кешируются.
-     * @return {ExportDataset[]} данные или пустой массив, если экспорт не поддерживается
+     * @return {ExportDataset} данные, возможно пустые, если экспорт не поддерживается
      */
     getExportData() {
         if (this.__exportData == null) {
             // берем опции, возможно dataset будут строится там
             this.getOptions()
             //
-            this.__exportData = []
+            this.__exportData = new ExportDataset()
             this.onExportData(this.__exportData)
         }
         return this.__exportData
+    }
+
+    /**
+     * Поддерживается ли экспорт данных. По умолчанию - если переопределен onExportData,
+     * то поддерживается.
+     */
+    hasExportData() {
+        return this.onExportData !== Chart.prototype.onExportData
     }
 
 }

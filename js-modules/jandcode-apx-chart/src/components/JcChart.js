@@ -1,5 +1,6 @@
 import {apx, echarts} from '../vendor'
 import * as chartHolder from '../utils/chart-holder'
+import {Chart} from '../utils/chart'
 
 let {h} = apx.Vue
 
@@ -14,7 +15,27 @@ function getLocale() {
  * @return {string|string|{default: null, type: String | StringConstructor}|*}
  */
 function getTheme(jcChart) {
-    return jcChart.theme || jcChart.options.theme || apx.jcBase.cfg.echarts.theme || 'default'
+    return jcChart.theme || jcChart.getChart().theme || apx.jcBase.cfg.echarts.theme || 'default'
+}
+
+/**
+ * Обертка вокруг options, которая превращает их в Chart для унификации.
+ */
+class ChartOptionsWrapper extends Chart {
+
+    /**
+     * @param params.options опции, которые нужно заврапить
+     */
+    constructor(params) {
+        super(params)
+    }
+
+    onBuild(options) {
+        this.__options = this.params.options
+        if (!this.__options) {
+            this.__options = {}
+        }
+    }
 }
 
 /**
@@ -117,10 +138,13 @@ export default {
             this.chartInst.dispose()
             this.chartInst = null
         }
+        if (this.__chart) {
+            this.__chart = null
+        }
     },
 
     render() {
-        return h('div', {class: 'jc-map', style: this.style})
+        return h('div', {class: 'jc-chart', style: this.style})
     },
 
     computed: {
@@ -133,6 +157,16 @@ export default {
     },
 
     methods: {
+
+        getChart() {
+            if (this.options instanceof Chart) {
+                return this.options
+            }
+            if (!this.__chart) {
+                this.__chart = new ChartOptionsWrapper({options: this.options})
+            }
+            return this.__chart
+        },
 
         syncSize() {
             let bcr = this.$el.getBoundingClientRect()
@@ -156,41 +190,24 @@ export default {
             let chartInst = echarts.init(this.$el, theme, {
                 locale: locale,
             })
-            chartInst.setOption(this.__getOptions())
+            chartInst.setOption(this.getChart().getOptions())
             return chartInst
-        },
-
-        /**
-         * Опции для диаграммы
-         */
-        __getOptions() {
-            if (!this.options) {
-                throw new Error("chart options not assigned")
-            }
-            if (apx.jcBase.isFunction(this.options.getOptions)) {
-                return this.options.getOptions()
-            }
-            return this.options
         },
 
         /**
          * Установить chartInst в объекте options, если он это поддерживает
          */
         __setChartInst(chartInst) {
-            if (apx.jcBase.isFunction(this.options.setChartInst)) {
-                this.options.setChartInst(chartInst, this)
-                this.$emit('set-chart-inst', chartInst, this)
-            }
+            this.getChart().setChartInst(chartInst, this)
+            this.$emit('set-chart-inst', chartInst, this)
         },
 
         /**
          * Уведомить объект options, что экземпляр уничтожается, если он это поддерживает
          */
         __destroyChartInst(chartInst) {
-            if (apx.jcBase.isFunction(this.options.destroyChartInst)) {
-                this.options.destroyChartInst(chartInst, this)
-                this.$emit('destroy-chart-inst', chartInst, this)
-            }
+            this.getChart().destroyChartInst(chartInst, this)
+            this.$emit('destroy-chart-inst', chartInst, this)
         },
 
     },
