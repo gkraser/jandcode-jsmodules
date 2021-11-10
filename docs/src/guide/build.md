@@ -111,7 +111,7 @@ builder.merge(new WpbApxPlugin({
         '@jandcode/apx-ui',
     ],
     themes: [
-        'apx-base',
+        'apx-std',
     ],
     themeDefault: 'app',
 }))

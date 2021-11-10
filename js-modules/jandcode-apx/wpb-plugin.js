@@ -128,7 +128,7 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         }
 
         // тема по умолчанию
-        let themeDefaultNameSys = 'apx-base'
+        let themeDefaultNameSys = 'apx-std'
         let themeDefaultName = this.options.themeDefault || themeDefaultNameSys
         let themeDefault = themes[themeDefaultName]
         if (!themeDefault) {
