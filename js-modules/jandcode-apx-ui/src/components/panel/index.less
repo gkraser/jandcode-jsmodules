@@ -46,13 +46,18 @@
 
   &__bar {
     padding: 0.2em 1em 0.2em 1em;
-  }
-
-  &__bar {
 
     .jc-toolbar-title {
       font-size: @font-size-large-1;
       font-weight: 600;
+
+      overflow: hidden;
+
+      &__text {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     }
 
   }

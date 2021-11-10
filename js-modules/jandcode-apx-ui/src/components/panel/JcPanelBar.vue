@@ -1,6 +1,6 @@
 <template>
     <div :class="classes">
-        <jc-toolbar flat>
+        <jc-toolbar flat class="no-wrap">
             <template v-if="hasTitle">
                 <jc-toolbar-title :text="title"/>
                 <q-space/>
