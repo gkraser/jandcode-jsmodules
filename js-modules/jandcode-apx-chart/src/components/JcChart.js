@@ -77,13 +77,6 @@ export default {
             default: null
         },
 
-        /**
-         * Высота диаграммы для первоначального рендеринга
-         */
-        height: {
-            default: 200,
-        }
-
     },
 
 
@@ -101,27 +94,9 @@ export default {
     },
 
     mounted() {
-        let defaultHeight = this.defaultHeight = 200
-        let defaultWidth = this.defaultWidth = 300
-        //
-        let chartInst = this.__createChartInst()
-        //
         this.$nextTick(() => {
-            // приходится.. Если сразу el=(0,0), то потом никто ему размер не меняет
-            let bcr = this.$el.getBoundingClientRect()
-            if (bcr.height === 0 && bcr.width === 0) {
-                this.$el.style.width = '' + defaultWidth + 'px'
-                this.$el.style.height = '' + defaultHeight + 'px'
-            }
-            this.__setChartInst(chartInst)
-        })
-
-        this.chartInst = chartInst
-
-        this.rsw = apx.jcBase.dom.resizeWatch(this.$el, (ev) => {
             this.syncSize()
         })
-
         chartHolder.registerChart(this)
     },
 
@@ -144,16 +119,7 @@ export default {
     },
 
     render() {
-        return h('div', {class: 'jc-chart', style: this.style})
-    },
-
-    computed: {
-        style() {
-            return {
-                height: apx.jcBase.dom.toStyleSize(this.height)
-            }
-        },
-
+        return h('div', {class: 'jc-chart'})
     },
 
     methods: {
@@ -170,15 +136,21 @@ export default {
 
         syncSize() {
             let bcr = this.$el.getBoundingClientRect()
-            let newHeight = null
-            let newWidth = null
-            if (bcr.height === 0) {
-                newHeight = this.defaultHeight
+            if (bcr.height === 0 || bcr.width === 0) {
+                // еще нет размеров
+                return
             }
-            if (bcr.width === 0) {
-                newWidth = this.defaultWidth
+
+            if (this.chartInst == null) {
+                let chartInst = this.__createChartInst()
+                this.__setChartInst(chartInst)
+                this.chartInst = chartInst
+                this.rsw = apx.jcBase.dom.resizeWatch(this.$el, (ev) => {
+                    this.syncSize()
+                })
             }
-            this.chartInst.resize({height: newHeight, width: newWidth})
+
+            this.chartInst.resize({height: null, width: null})
         },
 
         /**
