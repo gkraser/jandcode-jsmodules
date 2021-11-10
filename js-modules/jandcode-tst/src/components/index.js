@@ -6,6 +6,7 @@ import TstPanel from './TstPanel'
 import TstIconBox from './TstIconBox'
 import TstIconList from './TstIconList'
 import TstMultiPanels from './TstMultiPanels'
+import TstShowFrame from './TstShowFrame'
 
 export {
     TstBtn,
@@ -16,6 +17,7 @@ export {
     TstIconBox,
     TstIconList,                            
     TstMultiPanels,
+    TstShowFrame,
 }
 
 
