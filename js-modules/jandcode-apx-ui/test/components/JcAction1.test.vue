@@ -26,6 +26,10 @@
         </div>
         <div class="column q-mt-sm q-gutter-y-md toolbar-place">
             <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet" :flat="cfg.flatToolbar"/>
+            <span>small font-size</span>
+            <div style="font-size:0.7rem">
+                <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet" :flat="cfg.flatToolbar"/>
+            </div>
             <AppToolbarDemoSet toolbarSet="menu1" :flat="cfg.flatToolbar"/>
             <AppToolbarDemoSet toolbarSet="logo1" :flat="cfg.flatToolbar"/>
             <div class="q-mb-lg"/>

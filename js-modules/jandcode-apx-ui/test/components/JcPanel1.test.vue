@@ -99,6 +99,7 @@
 
             <jc-panel class="col" title="Это панель 2" :style="panelStyle" body-fit>
                 <template #toolbar>
+                    <q-checkbox label="check" v-model="check1"/>
                     <jc-action icon="more-v"/>
                     <jc-action icon="bus" label="Привет"/>
                 </template>
@@ -166,7 +167,9 @@ export default {
         })
     },
     data() {
-        return {}
+        return {
+            check1: true
+        }
     },
     computed: {
         classes() {
