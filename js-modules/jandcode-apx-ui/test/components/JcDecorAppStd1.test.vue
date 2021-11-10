@@ -14,7 +14,7 @@
         </template>
 
         <div class="wrap-app">
-            <jc-decor-app-std container style="height: calc(100vh - 72px);"
+            <jc-decor-app-std container class="tst-body-fit"
                               :ownComp="this">
                 <template #toolbar-left v-if="cfg.toolbarSetLeft">
                     <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetLeft" flat/>

@@ -7,7 +7,7 @@
         </template>
 
         <div class="wrap-app">
-            <jc-decor-app-std container style="height: calc(100vh - 72px);"
+            <jc-decor-app-std container class="tst-body-fit"
                               :ownComp="this" :breadcrumbsShowOne="cfg.breadcrumbsShowOne">
 
                 <template #left>

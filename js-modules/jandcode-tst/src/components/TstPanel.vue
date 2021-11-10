@@ -225,4 +225,12 @@ export default {
 .tst-panel--arrow::before {
     content: '\00BB';
 }
+
+/* utils */
+
+.tst-body-fit {
+    height: calc(100vh - 72px);
+    width: 100vw;
+}
+
 </style>
