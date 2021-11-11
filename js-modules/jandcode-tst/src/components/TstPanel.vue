@@ -42,6 +42,7 @@
             <tst-btn @click="resetCfg" label="resetCfg"/>
             <tst-checkbox label="debugBg" v-model="cfg.debugBg" v-if="debugBg"/>
             <tst-fontsize v-if="fontsize"/>
+            <tst-body-fontsize v-if="fontsize"/>
             <slot name="tools"/>
         </div>
 
