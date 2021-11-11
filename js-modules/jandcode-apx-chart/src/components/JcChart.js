@@ -94,9 +94,7 @@ export default {
     },
 
     mounted() {
-        this.$nextTick(() => {
-            this.syncSize()
-        })
+        this.syncSize()
         chartHolder.registerChart(this)
     },
 
@@ -135,6 +133,9 @@ export default {
         },
 
         syncSize() {
+            if (!this.$el) {
+                return
+            }
             let bcr = this.$el.getBoundingClientRect()
             if (bcr.height === 0 || bcr.width === 0) {
                 // еще нет размеров
