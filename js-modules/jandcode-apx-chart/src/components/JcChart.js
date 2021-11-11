@@ -94,7 +94,9 @@ export default {
     },
 
     mounted() {
-        this.syncSize()
+        this.$nextTick(() => {
+            this.syncSize()
+        })
         chartHolder.registerChart(this)
     },
 
