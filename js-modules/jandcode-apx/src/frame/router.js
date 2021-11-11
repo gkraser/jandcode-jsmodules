@@ -59,6 +59,14 @@ export class FrameRouter {
     }
 
     /**
+     * Все зарегистрированные route
+     * @return {[RouteDef]}
+     */
+    getRoutes() {
+        return this._routes
+    }
+
+    /**
      * Добавить routes
      * @param routes {Array} список объектов-описаний route
      */
@@ -81,6 +89,12 @@ export class RouteDef {
 
     constructor(options) {
         /**
+         * Опции, переданные при создании объекта
+         * @type {Object}
+         */
+        this.options = Object.assign({}, options)
+
+        /**
          * Путь. Используется синтаксис path-to-regexp
          * @type {null}
          */
@@ -93,8 +107,8 @@ export class RouteDef {
         this.frame = null
 
         //
-        this.path = options.path
-        this.frame = options.frame
+        this.path = this.options.path
+        this.frame = this.options.frame
 
         if (this.path == null) {
             throw new Error('Parametr path not defined')
