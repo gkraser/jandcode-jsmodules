@@ -7,6 +7,7 @@ import TstIconBox from './TstIconBox'
 import TstIconList from './TstIconList'
 import TstMultiPanels from './TstMultiPanels'
 import TstShowFrame from './TstShowFrame'
+import TstBodyFontsize from './TstBodyFontsize'
 
 export {
     TstBtn,
@@ -18,6 +19,7 @@ export {
     TstIconList,                            
     TstMultiPanels,
     TstShowFrame,
+    TstBodyFontsize,
 }
 
 
