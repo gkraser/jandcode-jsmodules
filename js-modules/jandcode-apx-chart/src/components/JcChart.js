@@ -150,7 +150,7 @@ export default {
                 this.chartInst = chartInst
                 this.rsw = apx.jcBase.dom.resizeWatch(this.$el, (ev) => {
                     this.syncSize()
-                })
+                }, 1)
             }
 
             this.chartInst.resize({height: null, width: null})
