@@ -1,8 +1,5 @@
 <template>
-    <tst-panel>
-        <template #tools>
-            <tst-btn label="in dialog" @click="showInDialog"/>
-        </template>
+    <decor-dialog>
         <div class="row q-gutter-sm q-mb-lg">
             <template v-for="i in 10">
                 <div
@@ -17,23 +14,21 @@
                           style="display: inline-block;width:100px;height:30px;border:1px solid green;"/>
             </template>
         </div>
-    </tst-panel>
+    </decor-dialog>
 </template>
 
 <script>
 import {apx} from '../vendor'
-import chart1 from './_data/chart1-small'
+import chart1 from '../_data/chart1-small'
 
 export default {
+    extends: apx.JcFrame,
+    created() {
+        this.title = 'SmallChartDialog-1'
+    },
     methods: {
         createChart(opts) {
             return chart1(opts)
-        },
-        showInDialog() {
-            apx.showFrame({
-                frame: import('./_frames/SmallChartDialog-1'),
-                shower: 'dialog'
-            })
         }
     }
 }
