@@ -1,9 +1,9 @@
 <template>
     <div :class="classes">
 
-        <div class="jc-decor-frame-page__header">
+        <div class="jc-decor-frame-page__header row">
 
-            <jc-toolbar v-if="hasTitle">
+            <jc-toolbar v-if="hasTitle" class="jc-decor-frame-page__title">
 
                 <q-icon v-if="own.icon" :name="own.icon"
                         :class="[own.title2?'self-start':'', 'jc-decor-frame-page__title-icon']">
@@ -12,7 +12,11 @@
                 <jc-toolbar-title :text="own.title" :text2="own.title2">
                 </jc-toolbar-title>
 
-                <q-space/>
+            </jc-toolbar>
+
+            <q-space/>
+
+            <jc-toolbar class="jc-decor-frame-page__toolbar">
 
                 <slot name="toolbar">
                 </slot>
