@@ -1,8 +1,5 @@
 <template>
-    <tst-panel class="typography2-test-006a96fa">
-        <template #tools>
-            <tst-fontsize/>
-        </template>
+    <tst-panel fontsize>
 
         <div class="row q-gutter-md q-mb-md">
 
@@ -147,12 +144,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-
-.typography2-test-006a96fa {
-
-
-}
-
-</style>

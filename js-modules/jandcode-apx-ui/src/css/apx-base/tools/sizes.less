@@ -6,10 +6,10 @@
 & {
 
   each(@font-sizes, {
-    @v: 'font-size-@{value}';
+    @v: 'font-size-kfc-@{value}';
 
     .text-size-@{value} {
-      font-size: @@v;
+      font-size: 1em * @@v;
     }
   });
 

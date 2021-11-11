@@ -26,7 +26,6 @@ export default {
 
 .content {
     width: 50vw;
-    font-size: 15px;
     line-height: 1.4;
 }
 
