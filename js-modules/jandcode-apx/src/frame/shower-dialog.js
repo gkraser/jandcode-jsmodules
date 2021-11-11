@@ -65,6 +65,7 @@ export let Dialog = {
             transitionShow: null,
             transitionHide: null,
             noBackdropDismiss: true,
+            noShake: true,
             onHide: () => {
                 this.$emit('dialog-close', this)
             }
