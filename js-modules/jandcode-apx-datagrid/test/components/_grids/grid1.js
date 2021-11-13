@@ -12,6 +12,13 @@ let tableColumns = [
     {title: "ID", field: "id"},
     {title: "Имя", field: "name"},
     {title: "Возраст", field: "age", align: 'right'},
+    {
+        title: 'Группа', columns:
+            [
+                {title: "Цв", field: "color"},
+                {title: "Дт", field: "dt"},
+            ]
+    },
     {title: "Цвет", field: "color"},
     {title: "Дата", field: "dt"},
 ]

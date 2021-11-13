@@ -19,7 +19,14 @@ class AgDriver {
     makeOptions() {
         let res = {
             rowData: this.datagrid.data.getData(),
-            columnDefs: []
+            columnDefs: [],
+            // не перемещать колонки
+            suppressMovableColumns: true,
+
+            defaultColDef: {
+                // изменять размер всех колонок
+                resizable: true,
+            }
         }
 
         for (let col of this.datagrid.columns) {
@@ -37,6 +44,12 @@ class AgDriver {
         }
         if (col.align === 'right') {
             res.type = 'rightAligned'
+        }
+        if (col.columns) {
+            res.children = []
+            for (let childCol of col.columns) {
+                res.children.push(this.makeColOptions(childCol))
+            }
         }
         return res
     }

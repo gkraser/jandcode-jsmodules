@@ -73,6 +73,15 @@ export class DatagridColumn {
         // id колонки
         this.colId = opts.colId || apx.jcBase.nextId('col-')
 
+        // дочерние колонки, тогда эта колонка - группа
+        this.columns = null
+        if (apx.jcBase.isArray(opts.columns)) {
+            this.columns = []
+            for (let col of opts.columns) {
+                this.columns.push(new DatagridColumn(col))
+            }
+        }
+
     }
 
 }
