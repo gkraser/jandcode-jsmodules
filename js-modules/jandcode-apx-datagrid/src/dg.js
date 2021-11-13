@@ -3,6 +3,19 @@
 
 import {apx} from './vendor'
 
+let API_cell = {
+    value: Object,
+    data: Object,
+    rowIndex: Number,
+}
+
+/**
+ * Функция для получения html для ячейки.
+ * @param cell для какой ячейки (см {@link API_cell})
+ * @return {VNode} виртуальная vue-node
+ */
+function API_cellRender(cell) {}
+
 /**
  * Грида. Абстрактный класс, который предоставляет интерфейс для настройки и работы
  * реальной гриды.
@@ -81,6 +94,9 @@ export class DatagridColumn {
                 this.columns.push(new DatagridColumn(col))
             }
         }
+
+        // функция API_cellRender для получения содержимого ячейки
+        this.cellRender = opts.cellRender
 
     }
 

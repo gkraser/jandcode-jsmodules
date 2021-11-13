@@ -9,11 +9,6 @@
             <jc-datagrid :options="opt1"/>
         </tst-multi-panels>
 
-<!--        <div class="row q-gutter-x-md">-->
-<!--            <jc-datagrid :options="opt1" style="height:400px" class="col"/>-->
-<!--            <jc-datagrid :options="opt1" style="height:400px" class="col"/>-->
-<!--        </div>-->
-
     </tst-panel>
 </template>
 
@@ -40,3 +35,18 @@ export default {
 }
 </script>
 
+<style lang="less">
+
+.color-red {
+    color: red;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-blue {
+    color: blue;
+}
+
+</style>

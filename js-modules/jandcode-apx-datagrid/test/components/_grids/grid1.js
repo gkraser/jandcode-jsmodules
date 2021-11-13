@@ -1,5 +1,7 @@
 import {tst, apx} from '../vendor'
 
+let {h} = apx.Vue
+
 let tableData = [
     {id: 1, name: "Иван Петров", age: 12, color: "red", dt: "2001-11-30"},
     {id: 2, name: "Mary May", age: 1, color: "blue", dt: "1982-05-14"},
@@ -11,7 +13,21 @@ let tableData = [
 let tableColumns = [
     {title: "ID", field: "id"},
     {title: "Имя", field: "name"},
-    {title: "Возраст", field: "age", align: 'right'},
+    {
+        title: "Возраст", field: "age", align: 'right',
+        cellRender: (cell) => {
+            let v = cell.value
+            let color
+            if (v < 20) {
+                color = 'red'
+            } else if (v < 40) {
+                color = 'green'
+            } else {
+                color = 'blue'
+            }
+            return h('span', {class: ['color-' + color]}, v)
+        }
+    },
     {
         title: 'Группа', columns:
             [
@@ -19,7 +35,12 @@ let tableColumns = [
                 {title: "Дт", field: "dt"},
             ]
     },
-    {title: "Цвет", field: "color"},
+    {
+        title: "Цвет", field: "color",
+        cellRender: (cell) => {
+            return h('span', {style: {color: cell.value}}, cell.value)
+        }
+    },
     {title: "Дата", field: "dt"},
 ]
 
