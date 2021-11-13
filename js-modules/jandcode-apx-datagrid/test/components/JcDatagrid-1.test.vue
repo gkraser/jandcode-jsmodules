@@ -13,9 +13,12 @@
 </template>
 
 <script>
-import {apx} from '../vendor'
+import {apx, apxDatagrid} from '../vendor'
 import grid1 from './_grids/grid1'
 import Dialog1 from './_frames/Dialog1'
+
+console.info("API apxDatagrid", apxDatagrid);
+console.info("column types", apxDatagrid.getColumnTypes());
 
 export default {
     created() {

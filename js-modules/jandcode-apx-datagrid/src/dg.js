@@ -16,6 +16,26 @@ let API_cell = {
  */
 function API_cellRender(cell) {}
 
+
+//////
+
+let _columnTypes = {}
+
+/**
+ * Зарегистрировать тип колонки
+ * @param name имя типа
+ * @param colDef определение колонки
+ */
+export function registerColumnType(name, colDef) {
+    _columnTypes[name] = colDef
+}
+
+export function getColumnTypes() {
+    return _columnTypes
+}
+
+//////
+
 /**
  * Грида. Абстрактный класс, который предоставляет интерфейс для настройки и работы
  * реальной гриды.
@@ -73,6 +93,17 @@ export class DatagridColumn {
         // опции, переданные при создании объекта
         this.options = Object.assign({}, options)
         let opts = this.options
+
+        // тип поля, забираем все, что в типе определено
+        this.type = null
+        if (opts.type) {
+            let type = _columnTypes[opts.type]
+            if (!type) {
+                console.warn("Not found columnt type", opts.type, "for", this.options);
+            }
+            this.type = opts.type
+            Object.assign(opts, type)
+        }
 
         // имя поля из данных
         this.field = opts.field || 'no-field'

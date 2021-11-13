@@ -41,7 +41,7 @@ let tableColumns = [
             return h('span', {style: {color: cell.value}}, cell.value)
         }
     },
-    {title: "Дата", field: "dt"},
+    {title: "Дата", field: "dt", type: 'date'},
 ]
 
 /**
@@ -67,7 +67,7 @@ export default function(opt) {
             id: i,
             name: ut.firstLastName() + ' ' + i,
             age: ut.rnd.integer({min: 1, max: 100}),
-            color: ut.rnd.color(),
+            color: ut.rnd.color({format: 'hex'}),
             dt: apx.date.subDays(startDate, ut.rnd.integer({min: 100, max: 1000})),
         })
     }
