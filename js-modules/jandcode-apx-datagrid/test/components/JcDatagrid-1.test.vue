@@ -5,7 +5,7 @@
             <span>rows: {{ opt1.data.length }}, cols: {{ opt1.columns.length }}</span>
         </template>
 
-        <tst-multi-panels>
+        <tst-multi-panels :panelProps="{noPadding: true}">
             <jc-datagrid :options="opt1"/>
         </tst-multi-panels>
 

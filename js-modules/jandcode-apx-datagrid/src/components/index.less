@@ -11,6 +11,7 @@
 
   //--ag-header-background-color: @color-gray-100;
   //--ag-secondary-foreground-color: @color-gray-700;
+  --ag-row-border-color: #d9dcde;
 
   .ag-theme-balham {
     font-size: 1em;
@@ -19,6 +20,16 @@
     .ag-root-wrapper {
       border: none;
     }
+
+    .ag-ltr .ag-cell {
+      border-right-color: var(--ag-row-border-color);
+    }
+
+    .ag-header-cell::after, .ag-header-group-cell::after {
+      top: 0;
+      height: 100%;
+    }
+
   }
 
 }
