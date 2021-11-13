@@ -1,6 +1,6 @@
 <template>
     <decor-dialog body-fit no-padding style="width: 700px;height:400px" _size="max">
-        <jc-datagrid :options="frameData.opt1" style1="width:500px"/>
+        <jc-datagrid :options="frameData.opt1"/>
     </decor-dialog>
 </template>
 
@@ -15,7 +15,7 @@ export default {
     },
     frameInit(fw) {
         let {frameData} = fw
-        frameData.opt1 = grid1({count1: 20})
+        frameData.opt1 = grid1({countRows: 20})
     },
 }
 </script>

@@ -1,22 +1,24 @@
-import {apx, Tabulator} from '../vendor'
-import css from 'tabulator-tables/dist/css/tabulator_simple.css'
+import {apx} from '../vendor'
+import {AgDatagrid} from '../ag-datagrid'
+
+import agGridCss from 'ag-grid-community/dist/styles/ag-grid.css'
+import agGridCss_theme from 'ag-grid-community/dist/styles/ag-theme-balham.css'
 
 let {h} = apx.Vue
 
-let _tabulatorCssApply = false
+let _themeApply = false
+let themeName = 'ag-theme-balham'
 
 /**
- * Простой vue-binding для tabulator.
- *
- * После mount имеется экземпляр gridInst, делайте с ним что хотите.
+ * Реализация datagrid по умолчанию, на основе ag-grid.
  */
 export default {
     name: 'jc-datagrid',
     props: {
 
         /**
-         * Опции для Tabulator.
-         * Это параметры конструктора Tabulator
+         * Опции для {@link Datagrid}.
+         * Обычно передают опции.
          * Не нужно передавать сюда реактивные данные,
          * реактивность тут не поддерживается.
          */
@@ -28,69 +30,38 @@ export default {
 
     },
     beforeCreate() {
-        if (!_tabulatorCssApply) {
-            _tabulatorCssApply = true
-            apx.jcBase.applyCss(css, 'before-theme')
+        if (!_themeApply) {
+            _themeApply = true
+            apx.jcBase.applyCss(agGridCss, 'before-theme')
+            apx.jcBase.applyCss(agGridCss_theme, 'before-theme')
         }
     },
     mounted() {
-        // убираем padding, ибо его ставить нельзя
-        this.$el.style.padding = '0'
-        this.gridInst = this.createGridInst()
-        //
-        this.rsw = apx.jcBase.dom.resizeWatch(this.$el, (ev) => {
-            let curHeight = this.$refs.table.style.height
-            let newHeight = '' + this.calcGridHeight() + 'px'
-            if (curHeight !== newHeight) {
-                this.gridInst.setHeight(newHeight)
-            }
-        })
+        this.__datagrid = new AgDatagrid(this.options, this.$refs.table)
     },
     beforeUnmount() {
-        if (this.rsw != null) {
-            this.rsw.destroy()
-            this.rsw = null
-        }
-        if (this.gridInst != null) {
-            this.gridInst.destroy()
-            this.gridInst = null
+        if (this.__datagrid != null) {
+            this.__datagrid.destroy()
+            this.__datagrid = null
         }
     },
     render() {
-        return h('div', {class: 'jc-datagrid'}, [
-            h('div', {ref: 'table'})
+        return h('div', {class: 'jc-datagrid row'}, [
+            h('div', {
+                class: ['col', themeName], ref: 'table', 'data-ag-grid-place': true
+            })
         ])
     },
     methods: {
-        createGridInst() {
-            let opts = Object.assign({}, this.options, {
-                height: '' + this.calcGridHeight() + 'px',
-            })
-            return new Tabulator(this.$refs.table, opts)
+        /**
+         * Экземпляр {@link Datagrid}
+         * @return {Datagrid}
+         */
+        getDatagrid() {
+            if (this.__datagrid == null) {
+                throw new Error('datagrid not inited')
+            }
+            return this.__datagrid
         },
-
-        calcGridHeight() {
-            let defaultHeight = 150
-
-            let el = this.$el
-            let bcr = el.getBoundingClientRect()
-            let cst = window.getComputedStyle(el)
-            //
-            let h = bcr.height // высота вместе с рамкой
-
-            if (h === 0 || !cst.borderBottomWidth || !cst.borderTopWidth) {
-                // нет размера
-                return defaultHeight
-            }
-
-            let bt = parseFloat(cst.borderBottomWidth)
-            let bb = parseFloat(cst.borderTopWidth)
-
-            let h1 = h - bt - bb
-            if (h1 <= 0) {
-                return defaultHeight
-            }
-            return h1
-        }
     },
 }
