@@ -1,7 +1,7 @@
 import {tst, apx} from '../vendor'
 
 let tableData = [
-    {id: 1, name: "Oli Bob", age: 12, color: "red", dt: "2001-11-30"},
+    {id: 1, name: "Иван Петров", age: 12, color: "red", dt: "2001-11-30"},
     {id: 2, name: "Mary May", age: 1, color: "blue", dt: "1982-05-14"},
     {id: 3, name: "Christine Lobowski", age: 42, color: "green", dt: "1982-05-22"},
     {id: 4, name: "Brendon Philips", age: 125, color: "orange", dt: "1980-01-08"},
@@ -37,7 +37,7 @@ export default function(opt) {
     for (let i = 100; i < 100 + countRows; i++) {
         data.push({
             id: i,
-            name: ut.rnd.first() + ' ' + ut.rnd.last() + ' ' + i,
+            name: ut.firstLastName() + ' ' + i,
             age: ut.rnd.integer({min: 1, max: 100}),
             color: ut.rnd.color(),
             dt: apx.date.subDays(startDate, ut.rnd.integer({min: 100, max: 1000})),

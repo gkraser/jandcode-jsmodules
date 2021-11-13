@@ -46,9 +46,9 @@ export default {
         }
     },
     render() {
-        return h('div', {class: 'jc-datagrid row'}, [
+        return h('div', {class: 'jc-datagrid'}, [
             h('div', {
-                class: ['col', themeName], ref: 'table', 'data-ag-grid-place': true
+                class: [themeName], ref: 'table', 'data-ag-grid-place': true
             })
         ])
     },
