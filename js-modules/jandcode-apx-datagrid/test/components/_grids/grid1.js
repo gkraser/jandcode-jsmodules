@@ -49,7 +49,7 @@ let tableColumns = [
         title: 'Группа', columns:
             [
                 {title: "Цв", field: "color"},
-                {title: "Дт", field: "dt"},
+                {title: "Дт", field: "dt", type: "date"},
             ]
     },
     {

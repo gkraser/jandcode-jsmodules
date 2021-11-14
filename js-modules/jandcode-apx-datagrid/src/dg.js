@@ -127,6 +127,14 @@ export class Datagrid {
         return this.__columns
     }
 
+    /**
+     * Экспортировать данные из текущего состояния гриды
+     * @param options параметры экспорта
+     */
+    exportData(options) {  //todo переделать
+        return null
+    }
+
     ////// private
 
     __createColumns(columns) {

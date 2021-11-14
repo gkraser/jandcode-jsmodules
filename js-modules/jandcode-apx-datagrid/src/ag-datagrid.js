@@ -162,4 +162,11 @@ export class AgDatagrid extends Datagrid {
         this.driver.destroy()
     }
 
+    exportData(options) { //todo переделать
+        let api = this.driver.agGrid.gridOptions.api
+        let s = api.getDataAsCsv({
+            skipColumnGroupHeaders: true
+        })
+        return s
+    }
 }
