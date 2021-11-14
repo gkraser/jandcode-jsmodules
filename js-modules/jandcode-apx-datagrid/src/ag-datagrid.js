@@ -19,8 +19,9 @@ class AgDriver {
     }
 
     makeOptions() {
+        let dg = this.datagrid
         let res = {
-            rowData: this.datagrid.data.getData(),
+            rowData: dg.data.getData(),
             columnDefs: [],
             // не перемещать колонки
             suppressMovableColumns: true,
@@ -28,11 +29,52 @@ class AgDriver {
             defaultColDef: {
                 // изменять размер всех колонок
                 resizable: true,
+            },
+
+            // выделение строки
+            rowSelection: 'single',
+        }
+
+        for (let col of dg.columns) {
+            res.columnDefs.push(this.makeColOptions(col))
+        }
+
+        // events
+
+        //
+        if (dg.onRowSelect) {
+            res.onSelectionChanged = (ev) => {
+                let nodes = ev.api.getSelectedNodes()
+                if (nodes) {
+                    let rowIndexes = nodes.map(n => n.rowIndex)
+                    let ev = {
+                        datagrid: dg,
+                        rowIndexes: rowIndexes
+                    }
+                    dg.onRowSelect(ev)
+                }
             }
         }
 
-        for (let col of this.datagrid.columns) {
-            res.columnDefs.push(this.makeColOptions(col))
+        //
+        res.onCellClicked = (ev) => {
+            let col = dg.getColumnById(ev.colDef.colId)
+            if (col) {
+                let cell = {
+                    value: ev.value,
+                    data: ev.data,
+                    rowIndex: ev.rowIndex,
+                    column: col,
+                    datagrid: dg,
+                    event: ev.event,
+                }
+                if (col.onCellClick) {
+                    col.onCellClick(cell)
+                }
+                if (dg.onCellClick) {
+                    dg.onCellClick(cell)
+                }
+            }
         }
 
         return res

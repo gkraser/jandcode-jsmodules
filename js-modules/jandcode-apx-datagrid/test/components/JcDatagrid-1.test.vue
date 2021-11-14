@@ -52,4 +52,11 @@ export default {
     color: blue;
 }
 
+.part-link {
+    font-size: 0.8em;
+    text-decoration: underline;
+    cursor: pointer;
+    color: navy;
+}
+
 </style>

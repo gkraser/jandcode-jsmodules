@@ -25,7 +25,21 @@ let tableColumns = [
             } else {
                 color = 'blue'
             }
-            return h('span', {class: ['color-' + color]}, v)
+            let n1 = h('span', {class: 'part-link', 'data-el': 't'}, 'правда')
+            let n2 = h('span', {class: 'part-link', 'data-el': 'f'}, 'ложь')
+            let n3 = h('span', {
+                class: ['color-' + color],
+                style: {minWidth: '30px', display: 'inline-block'}
+            }, v)
+            return h('span', {}, [n1, ' ', n2, ' ', n3])
+        },
+        onCellClick: (ev) => {
+            console.info("click cell in 'age' column", ev);
+            let el = ev.event.target.closest('[data-el]')
+            if (el) {
+                let flag = el.dataset.el
+                console.info("FLAG", flag);
+            }
         }
     },
     {
@@ -84,6 +98,13 @@ export default function(opt) {
     let res = {
         data: data,
         columns: cols,
+
+        onRowSelect: (ev) => {
+            console.info("selected rows", ev.rowIndexes);
+        },
+        onCellClick: (ev) => {
+            console.info("click cell in datagrid", ev);
+        }
     }
 
     console.timeEnd("generate grid1");

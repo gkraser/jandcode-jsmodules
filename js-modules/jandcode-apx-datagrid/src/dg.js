@@ -3,20 +3,46 @@
 
 import {apx} from './vendor'
 
-let API_cell = {
-    value: Object,
-    data: Object,
-    rowIndex: Number,
-    column: 'DatagridColumn',
-    datagrid: 'Datagrid',
-}
 
-/**
- * Функция для получения html для ячейки.
- * @param cell для какой ячейки (см {@link API_cell})
- * @return {VNode} виртуальная vue-node
- */
-function API_cellRender(cell) {}
+let API = {
+
+    /**
+     * Параметр для обработчиков, которые работают с ячейкой
+     */
+    cell: {
+        value: Object,
+        data: Object,
+        rowIndex: Number,
+        column: 'DatagridColumn',
+        datagrid: 'Datagrid',
+        event: 'DomEvent',
+    },
+
+    rows: {
+        datagrid: 'Datagrid',
+        rowIndexes: Array
+    },
+
+    /**
+     * Функция для получения html для ячейки.
+     * @param cell для какой ячейки (см {@link API.cell})
+     * @return {VNode} виртуальная vue-node
+     */
+    cellRender: function(cell) {},
+
+    /**
+     * Обработчик события: изменились выделенные строки
+     * @param ev информация о выделенных строках (см {@link API.rows})
+     */
+    onRowSelect: function(ev) {},
+
+    /**
+     * Обработчик события: click по ячейке
+     * @param ev информация о ячейке (см {@link API.cell})
+     */
+    onCellClick: function(ev) {},
+
+}
 
 
 //////
@@ -61,6 +87,13 @@ export class Datagrid {
         for (let col of columns) {
             this.__columnsById[col.colId] = col
         }
+        this.__columns = this.__getFlatColumns(true)
+
+        // событие: изменились выделенные строки
+        this.onRowSelect = opts.onRowSelect
+
+        // событие: click по ячейке
+        this.onCellClick = opts.onCellClick
 
     }
 
@@ -75,6 +108,13 @@ export class Datagrid {
      */
     getColumnById(colId) {
         return this.__columnsById[colId]
+    }
+
+    /**
+     * Все колонки, группы исключены
+     */
+    getColumns() {
+        return this.__columns
     }
 
     ////// private
@@ -170,6 +210,8 @@ export class DatagridColumn {
         // функция API_cellRender для получения содержимого ячейки
         this.cellRender = opts.cellRender
 
+        // событие: click по ячейке
+        this.onCellClick = opts.onCellClick
     }
 
 }
