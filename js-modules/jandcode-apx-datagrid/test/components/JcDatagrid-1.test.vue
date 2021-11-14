@@ -23,8 +23,8 @@ console.info("column types", apxDatagrid.getColumnTypes());
 
 export default {
     created() {
-        //this.opt1 = grid1({countRows: 10000, countCols: 50})
-        this.opt1 = grid1({countRows: 2, countCols: 1})
+        this.opt1 = grid1({countRows: 10000, countCols: 50})
+        // this.opt1 = grid1({countRows: 2, countCols: 1})
     },
     data() {
         return {}

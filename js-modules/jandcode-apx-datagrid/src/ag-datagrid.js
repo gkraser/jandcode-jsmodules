@@ -33,6 +33,10 @@ class AgDriver {
 
             // выделение строки
             rowSelection: 'single',
+
+            // что бы текст в ячейках выделялся как обычный текст
+            enableCellTextSelection: true,
+            ensureDomOrder: true,
         }
 
         for (let col of dg.columns) {
