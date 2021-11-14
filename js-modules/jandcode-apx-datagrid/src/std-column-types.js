@@ -7,7 +7,7 @@ let {h} = apx.Vue
  */
 export let date = {
     align: 'right',
-    cellRender: function(cell) {
+    onCellRender: function(cell) {
         let v = cell.value
         let s = apx.date.toDisplayStr(v)
         return h('span', null, s)

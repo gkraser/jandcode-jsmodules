@@ -15,7 +15,7 @@ let tableColumns = [
     {title: "Имя", field: "name"},
     {
         title: "Возраст", field: "age", align: 'right',
-        cellRender: (cell) => {
+        onCellRender: (cell) => {
             let v = cell.value
             let color
             if (v < 20) {
@@ -51,7 +51,7 @@ let tableColumns = [
     },
     {
         title: "Цвет", field: "color",
-        cellRender: (cell) => {
+        onCellRender: (cell) => {
             return h('span', {style: {color: cell.value}}, cell.value)
         }
     },

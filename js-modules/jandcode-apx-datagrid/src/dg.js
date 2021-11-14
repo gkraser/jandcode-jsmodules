@@ -28,7 +28,7 @@ let API = {
      * @param cell для какой ячейки (см {@link API.cell})
      * @return {VNode} виртуальная vue-node
      */
-    cellRender: function(cell) {},
+    onCellRender: function(cell) {},
 
     /**
      * Обработчик события: изменились выделенные строки
@@ -197,8 +197,8 @@ export class DatagridColumn {
             }
         }
 
-        // функция API_cellRender для получения содержимого ячейки
-        this.cellRender = opts.cellRender
+        // функция для получения содержимого ячейки
+        this.onCellRender = opts.onCellRender
 
         // событие: click по ячейке
         this.onCellClick = opts.onCellClick

@@ -96,8 +96,9 @@ class AgDriver {
             }
         }
 
-        if (apx.jcBase.isFunction(col.cellRender)) {
+        if (apx.jcBase.isFunction(col.onCellRender)) {
             res.cellRenderer = (params) => {
+                console.info("cell render",params);
                 let cell = {
                     value: params.value,
                     data: params.data,
@@ -105,7 +106,7 @@ class AgDriver {
                     column: this.datagrid.getColumnById(params.colDef.colId),
                     datagrid: this.datagrid,
                 }
-                let vnode = col.cellRender(cell)
+                let vnode = col.onCellRender(cell)
                 if (!vnode && apx.jcBase.isObject(vnode)) {
                     console.warn("render not return vnode", col);
                 }
