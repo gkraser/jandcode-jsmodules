@@ -78,8 +78,8 @@ export class Datagrid {
         // колонки
         this.columns = this.__createColumns(opts.columns)
 
-        // данные
-        this.data = this.__createData(opts.data)
+        // данные, могут быть массивом или {data:[],dictdata:{}}
+        this.data = new DatagridData(opts.data)
 
         //
         this.__columnsById = {}
@@ -127,16 +127,6 @@ export class Datagrid {
         for (let col of columns) {
             let z = new DatagridColumn(col)
             res.push(z)
-        }
-        return res
-    }
-
-    __createData(data) {
-        let res = null
-        if (apx.jcBase.isArray(data)) {
-            res = new DatagridData({data: data})
-        } else {
-            res = new DatagridData({data: []})
         }
         return res
     }
@@ -221,30 +211,30 @@ export class DatagridColumn {
  */
 export class DatagridData {
 
-    constructor(options) {
-        // опции, переданные при создании объекта
-        this.options = Object.assign({}, options)
-        let opts = this.options
+    constructor(data) {
+        this.__rows = []
+        this.__dictdata = {}
 
-        //
-        this.data = opts.data
-    }
-
-    /**
-     * Данные в виде массива записей
-     */
-    getData() {
-        return this.data
-    }
-
-    /**
-     * Количество строк
-     */
-    getSize() {
-        if (!this.data) {
-            return 0
+        if (data) {
+            if (apx.jcBase.isArray(data)) {
+                this.__rows = data
+            } else {
+                // это объект
+                if (apx.jcBase.isArray(data.data)) {
+                    this.__rows = data.data
+                }
+                if (data.dictdata) {
+                    this.__dictdata = data.dictdata
+                }
+            }
         }
-        return this.data.length
+    }
+
+    /**
+     * Строки данных. Каждая строка - объект.
+     */
+    getRows() {
+        return this.__rows
     }
 
     /**
@@ -252,10 +242,14 @@ export class DatagridData {
      * Возвращает данные для указанной строки.
      */
     getRow(rowNum) {
-        if (!this.data) {
-            return {}
-        }
-        return this.data[rowNum] || {}
+        return this.__rows[rowNum] || {}
+    }
+
+    /**
+     * Данные словарей
+     */
+    getDictdata() {
+        return this.__dictdata
     }
 
 }

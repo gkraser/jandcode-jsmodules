@@ -21,7 +21,7 @@ class AgDriver {
     makeOptions() {
         let dg = this.datagrid
         let res = {
-            rowData: dg.data.getData(),
+            rowData: dg.data.getRows(),
             columnDefs: [],
             // не перемещать колонки
             suppressMovableColumns: true,

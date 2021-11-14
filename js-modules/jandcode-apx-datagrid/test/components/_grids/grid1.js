@@ -75,9 +75,9 @@ export default function(opt) {
     // данные
 
     let startDate = '2021-11-11'
-    let data = tableData.slice()
+    let rows = tableData.slice()
     for (let i = 100; i < 100 + countRows; i++) {
-        data.push({
+        rows.push({
             id: i,
             name: ut.firstLastName() + ' ' + i,
             age: ut.rnd.integer({min: 1, max: 100}),
@@ -96,7 +96,10 @@ export default function(opt) {
     }
 
     let res = {
-        data: data,
+        data: {
+            data: rows,
+            dictdata: {}
+        },
         columns: cols,
 
         onRowSelect: (ev) => {
