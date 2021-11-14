@@ -7,6 +7,8 @@ let API_cell = {
     value: Object,
     data: Object,
     rowIndex: Number,
+    column: 'DatagridColumn',
+    datagrid: 'Datagrid',
 }
 
 /**
@@ -52,7 +54,30 @@ export class Datagrid {
 
         // данные
         this.data = this.__createData(opts.data)
+
+        //
+        this.__columnsById = {}
+        let columns = this.__getFlatColumns(false)
+        for (let col of columns) {
+            this.__columnsById[col.colId] = col
+        }
+
     }
+
+    /**
+     * Деструктор
+     */
+    destroy() {
+    }
+
+    /**
+     * Получить колонку по id
+     */
+    getColumnById(colId) {
+        return this.__columnsById[colId]
+    }
+
+    ////// private
 
     __createColumns(columns) {
         let res = []
@@ -77,9 +102,25 @@ export class Datagrid {
     }
 
     /**
-     * Деструктор
+     * Получить список колонок
+     * @param leaf true - только листья, группы пропускаем
      */
-    destroy() {
+    __getFlatColumns(leaf) {
+        let res = []
+        let step = (columns) => {
+            for (let col of columns) {
+                if (col.columns != null) {
+                    if (!leaf) {
+                        res.push(col)
+                    }
+                    step(col.columns)
+                } else {
+                    res.push(col)
+                }
+            }
+        }
+        step(this.columns)
+        return res
     }
 
 }

@@ -60,8 +60,10 @@ class AgDriver {
                     value: params.value,
                     data: params.data,
                     rowIndex: params.rowIndex,
+                    column: this.datagrid.getColumnById(params.colDef.colId),
+                    datagrid: this.datagrid,
                 }
-                let vnode = col.cellRender(params)
+                let vnode = col.cellRender(cell)
                 if (!vnode && apx.jcBase.isObject(vnode)) {
                     console.warn("render not return vnode", col);
                 }
