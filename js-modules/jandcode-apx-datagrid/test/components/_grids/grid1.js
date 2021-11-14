@@ -64,6 +64,7 @@ let tableColumns = [
 /**
  * @param opt.countRows сколько записей
  * @param opt.countCols сколько блоков колонок
+ * @param opt.pinnedColumns сколько колонок закреплено
  */
 export default function(opt) {
     console.time("generate grid1");
@@ -73,6 +74,7 @@ export default function(opt) {
 
     let countRows = opt.countRows || 5
     let countCols = opt.countCols || 2
+    let pinnedColumns = opt.pinnedColumns || 0
 
 
     // данные
@@ -104,6 +106,7 @@ export default function(opt) {
             dictdata: {}
         },
         columns: cols,
+        pinnedColumns: pinnedColumns,
 
         onRowSelect: (ev) => {
             console.info("selected rows", ev.rowIndexes);

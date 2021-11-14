@@ -99,6 +99,9 @@ export class Datagrid {
         }
         this.__columns = this.__getFlatColumns(true)
 
+        // сколько столбцов закреплено
+        this.pinnedColumns = opts.pinnedColumns || 0
+
         // событие: изменились выделенные строки
         this.onRowSelect = opts.onRowSelect
 

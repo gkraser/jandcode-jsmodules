@@ -43,6 +43,29 @@ class AgDriver {
             res.columnDefs.push(this.makeColOptions(col))
         }
 
+        let makeFlatColumns = (columnDef) => {
+            let res = []
+            let step = (columns) => {
+                for (let col of columns) {
+                    if (col.children != null) {
+                        step(col.children)
+                    } else {
+                        res.push(col)
+                    }
+                }
+            }
+            step(columnDef)
+            return res
+        }
+
+        // pinned
+        if (dg.pinnedColumns > 0) {
+            let flatColumnDef = makeFlatColumns(res.columnDefs)
+            for (let i = 0; i < dg.pinnedColumns; i++) {
+                flatColumnDef[i].pinned = 'left'
+            }
+        }
+
         // events
 
         //

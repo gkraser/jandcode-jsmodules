@@ -23,7 +23,8 @@ console.info("column types", apxDatagrid.getColumnTypes());
 
 export default {
     created() {
-        this.opt1 = grid1({countRows: 10000, countCols: 50})
+        this.opt1 = grid1({countRows: 10000, countCols: 50, pinnedColumns: 3})
+        //this.opt1 = grid1({countRows: 10000, countCols: 2, pinnedColumns: 1})
         // this.opt1 = grid1({countRows: 2, countCols: 1})
     },
     data() {
@@ -38,8 +39,8 @@ export default {
         },
         export1() {
             let grid1 = this.$refs.grid1
-            let s=grid1.getDatagrid().exportData()
-            console.info("s",s);
+            let s = grid1.getDatagrid().exportData()
+            console.info("s", s);
         }
     }
 }
