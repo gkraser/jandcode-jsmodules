@@ -62,6 +62,7 @@ class AgDriver {
             if (col) {
                 let cell = {
                     value: ev.value,
+                    displayValue: ev.valueFormatted,
                     data: ev.data,
                     rowIndex: ev.rowIndex,
                     column: col,
@@ -96,16 +97,28 @@ class AgDriver {
             }
         }
 
+        // ставим для всех, что бы у всех появилось valueFormatted
+        res.valueFormatter = (params) => {
+            if (params.value == null) {
+                return ''
+            }
+            return '' + params.value
+        }
+
+        let makeCell = (params) => {
+            return {
+                value: params.value,
+                displayValue: params.valueFormatted,
+                data: params.data,
+                rowIndex: params.rowIndex,
+                column: this.datagrid.getColumnById(params.colDef.colId),
+                datagrid: this.datagrid,
+            }
+        }
+
         if (apx.jcBase.isFunction(col.onCellRender)) {
             res.cellRenderer = (params) => {
-                console.info("cell render",params);
-                let cell = {
-                    value: params.value,
-                    data: params.data,
-                    rowIndex: params.rowIndex,
-                    column: this.datagrid.getColumnById(params.colDef.colId),
-                    datagrid: this.datagrid,
-                }
+                let cell = makeCell(params)
                 let vnode = col.onCellRender(cell)
                 if (!vnode && apx.jcBase.isObject(vnode)) {
                     console.warn("render not return vnode", col);
@@ -113,6 +126,13 @@ class AgDriver {
                 let el = document.createElement('div')
                 vueRender(vnode, el)
                 return el.firstElementChild
+            }
+        }
+
+        if (apx.jcBase.isFunction(col.onDisplayValue)) {
+            res.valueFormatter = (params) => {
+                let cell = makeCell(params)
+                return col.onDisplayValue(cell)
             }
         }
 

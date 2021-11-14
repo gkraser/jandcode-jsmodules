@@ -4,7 +4,7 @@ let {h} = apx.Vue
 
 let tableData = [
     {id: 1, name: "Иван Петров", age: 12, color: "red", dt: "2001-11-30"},
-    {id: 2, name: "Mary May", age: 1, color: "blue", dt: "1982-05-14"},
+    {id: 2, name: null, age: 1, color: "blue", dt: "1982-05-14"},
     {id: 3, name: "Christine Lobowski", age: 42, color: "green", dt: "1982-05-22"},
     {id: 4, name: "Brendon Philips", age: 125, color: "orange", dt: "1980-01-08"},
     {id: 5, name: "Margret Marmajuke", age: 16, color: "yellow", dt: "1999-01-31"},
@@ -15,6 +15,9 @@ let tableColumns = [
     {title: "Имя", field: "name"},
     {
         title: "Возраст", field: "age", align: 'right',
+        onDisplayValue: (cell) => {
+            return '' + cell.value + ' лет'
+        },
         onCellRender: (cell) => {
             let v = cell.value
             let color
@@ -29,8 +32,8 @@ let tableColumns = [
             let n2 = h('span', {class: 'part-link', 'data-el': 'f'}, 'ложь')
             let n3 = h('span', {
                 class: ['color-' + color],
-                style: {minWidth: '30px', display: 'inline-block'}
-            }, v)
+                style: {minWidth: '50px', display: 'inline-block'}
+            }, cell.displayValue)
             return h('span', {}, [n1, ' ', n2, ' ', n3])
         },
         onCellClick: (ev) => {

@@ -11,6 +11,7 @@ let API = {
      */
     cell: {
         value: Object,
+        diaplayValue: String,
         data: Object,
         rowIndex: Number,
         column: 'DatagridColumn',
@@ -22,6 +23,15 @@ let API = {
         datagrid: 'Datagrid',
         rowIndexes: Array
     },
+
+    /**
+     * Функция для получения текстовоко представления значения.
+     * Например дата может быть преобразовано в определенный формат, значение
+     * словаря может быть получено.
+     * @param cell для какой ячейки (см {@link API.cell})
+     * @return {String} текст значения
+     */
+    onDisplayValue: function(cell) {},
 
     /**
      * Функция для получения html для ячейки.
@@ -196,6 +206,9 @@ export class DatagridColumn {
                 this.columns.push(new DatagridColumn(col))
             }
         }
+
+        // функция для получения содержимого ячейки
+        this.onDisplayValue = opts.onDisplayValue
 
         // функция для получения содержимого ячейки
         this.onCellRender = opts.onCellRender
