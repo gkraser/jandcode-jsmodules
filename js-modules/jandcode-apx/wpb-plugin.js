@@ -43,8 +43,14 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
     initBuilder(builder) {
         let opts = this.options
 
+        // нужно ли включать tst
+        this.isTst = jcTools.envFlag('JC_NODE_TST', !builder.isProd)
+
         // подключаем tst
-        if (!builder.isProd && builder.findPlugin(jcTools.WpbTstPlugin) == null) {
+        if (this.isTst) {
+            if (builder.findPlugin(jcTools.WpbTstPlugin) != null) {
+                console.warn("jcTools.WpbTstPlugin already in webpack config");
+            }
             let mask1 = 'test/**/*.test.{js,vue}'
             let masks = [path.resolve(builder.basedir, mask1)]
             if (Array.isArray(opts.tstModules)) {
