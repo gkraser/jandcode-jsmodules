@@ -243,12 +243,23 @@ class WebpackBuilder {
                     }
                 }),
             )
+
+            plugins.push(
+                new webpack.EvalSourceMapDevToolPlugin({
+                    namespace: this.libraryName,
+                    moduleFilenameTemplate: moduleUtils.webpackSourceMapPath,
+                    exclude: [/node_modules/]
+                }),
+            )
+
+
         }
 
 
         let config = {
             mode: isProd ? 'production' : 'development',
-            devtool: isProd ? false : 'eval-source-map',
+            //devtool: isProd ? false : 'eval-source-map',
+            devtool: false,
             context: basedir,
             entry: {
                 main: {
@@ -265,7 +276,7 @@ class WebpackBuilder {
                     name: this.libraryName,
                     type: 'var',
                 },
-                devtoolModuleFilenameTemplate: moduleUtils.webpackSourceMapPath,
+                //devtoolModuleFilenameTemplate: moduleUtils.webpackSourceMapPath,
             },
             optimization: {
                 splitChunks: {},
