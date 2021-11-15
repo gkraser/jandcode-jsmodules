@@ -2,7 +2,7 @@
     <tst-panel>
 
         <jc-btn label="get ref to 'panel in slot'" @click="click1"/>
-        <jc-btn label="fullscreen1'" @click="fullscreen1"/>
+        <jc-btn label="fullscreen1" @click="fullscreen1"/>
 
         <PanelWithRefComp1 ref="comp1" title="own panel">
             <jc-panel :title="titlePanel1" ref="panel1" tool-fullscreen/>

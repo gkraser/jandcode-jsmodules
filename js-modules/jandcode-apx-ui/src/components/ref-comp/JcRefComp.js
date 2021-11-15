@@ -18,19 +18,22 @@ export default {
             return 'no slot default'
         }
         let nodes = slotDefault()
-        let node = nodes[0]
-        let refComp
-        for (let z of node.children) {
-            if (typeof z.type === 'symbol') {
-                continue
+
+        // ищем первый дочерний не символ, в глубину
+        let step = (nodes) => {
+            for (let z of nodes) {
+                if (typeof z.type === 'symbol') {
+                    if (z.children) {
+                        return step(z.children)
+                    }
+                    continue
+                }
+                return z
             }
-            if (refComp == null) {
-                refComp = z
-            } else {
-                console.warn("Only the first child will be shown, this will be ignored:", z);
-            }
+            return null
         }
-        this.__refComp = refComp
+
+        this.__refComp = step(nodes)
 
         return nodes
     },
@@ -43,7 +46,11 @@ export default {
 
     methods: {
         getRefComp() {
-            return this.__refComp.component.ctx
+            if (this.__refComp && this.__refComp.component) {
+                return this.__refComp.component.ctx
+            } else {
+                return null
+            }
         }
     }
 
