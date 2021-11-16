@@ -8,7 +8,8 @@ let moduleUtils = require('./module-utils')
 let svgUtils = require('./svg-utils')
 let webpackBuilder = require('./webpack-builder')
 let WpbTstPlugin = require('./wpb-tst-plugin')
-let ModuleIdsPlugin = require('./webpack-moduleids')
+let ModuleIdsWebpackPlugin = require('./webpack-moduleids')
+let ShowChangedWebpackPlugin = require('./webpack-show-changed')
 
 module.exports = {
     jcModules,
@@ -20,5 +21,6 @@ module.exports = {
     svgUtils,
     ...webpackBuilder,
     WpbTstPlugin,
-    ModuleIdsPlugin,
+    ModuleIdsWebpackPlugin,
+    ShowChangedWebpackPlugin,
 }

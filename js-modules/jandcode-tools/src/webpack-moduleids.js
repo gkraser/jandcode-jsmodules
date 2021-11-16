@@ -6,7 +6,7 @@ let moduleUtils = require('./module-utils')
  * Проставляем id для модулей, привязанных к расположению файла относительно модуля.
  * Для модулей из node_modules ставит префикс node_modules.
  */
-class ModuleIdsPlugin {
+class ModuleIdsWebpackPlugin {
 
     constructor(options) {
         this.options = {}
@@ -62,4 +62,4 @@ class ModuleIdsPlugin {
     }
 }
 
-module.exports = ModuleIdsPlugin
+module.exports = ModuleIdsWebpackPlugin

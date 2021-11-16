@@ -20,6 +20,7 @@ let jcVueLoader = require.resolve('./vue-loader')
 let WebpackNotifierPlugin = require('webpack-notifier')
 let moduleUtils = require("./module-utils")
 let WebpackAssetsManifest = require('webpack-assets-manifest');
+let ShowChangedWebpackPlugin = require('./webpack-show-changed')
 
 /**
  * Базовый плагин для WebpackBuilder
@@ -242,6 +243,10 @@ class WebpackBuilder {
                         error: require.resolve('../assets/error.png'),
                     }
                 }),
+            )
+
+            plugins.push(
+                new ShowChangedWebpackPlugin()
             )
         }
 
