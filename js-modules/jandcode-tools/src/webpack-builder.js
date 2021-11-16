@@ -249,6 +249,7 @@ class WebpackBuilder {
         let config = {
             mode: isProd ? 'production' : 'development',
             devtool: isProd ? false : 'eval-source-map',
+            stats: 'minimal',
             context: basedir,
             entry: {
                 main: {
