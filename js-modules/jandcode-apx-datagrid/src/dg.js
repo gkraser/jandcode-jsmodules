@@ -89,7 +89,7 @@ export class Datagrid {
         this.columns = this.__createColumns(opts.columns)
 
         // данные, могут быть массивом или {data:[],dictdata:{}}
-        this.data = new DatagridData(opts.data)
+        this.__data = new DatagridData(opts.data)
 
         //
         this.__columnsById = {}
@@ -128,6 +128,14 @@ export class Datagrid {
      */
     getColumns() {
         return this.__columns
+    }
+
+    /**
+     * Данные для гриды
+     * @return {DatagridData}
+     */
+    getData() {
+        return this.__data
     }
 
     /**
