@@ -224,7 +224,7 @@ export class AgDatagridDriver extends DatagridDriver {
 
             for (let col of cols) {
                 cellParam.column = col.jcCol
-                cellParam.value = agApi.getValue(col.agCol, node)
+                cellParam.value = agApi.getValue(col.agCol, node)  //todo это очень медленно!
                 cellParam.displayValue = null
                 cellParam.displayValue = col.jcCol.getDisplayValue(cellParam)
                 //

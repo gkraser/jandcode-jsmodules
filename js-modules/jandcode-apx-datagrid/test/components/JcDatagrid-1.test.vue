@@ -24,8 +24,9 @@ console.info("column types", apxDatagrid.getColumnTypes());
 
 export default {
     created() {
-        this.opt1 = grid1({countRows: 10, countCols: 2, pinnedColumns: 2})
-        //this.opt1 = grid1({countRows: 10000, countCols: 2, pinnedColumns: 1})
+        // this.opt1 = grid1({countRows: 10, countCols: 2, pinnedColumns: 2})
+        // this.opt1 = grid1({countRows: 10000, countCols: 50, pinnedColumns: 1})
+        this.opt1 = grid1({countRows: 5000, countCols: 10, pinnedColumns: 1})
         // this.opt1 = grid1({countRows: 2, countCols: 1})
     },
     data() {
@@ -39,8 +40,6 @@ export default {
             let grid = this.$refs.grid1.getDatagrid()
             this.countRows = grid.getData().getRows().length
             this.countCols = grid.getColumnsFlat().length
-
-            this.export1()
         })
     },
     methods: {
@@ -52,18 +51,19 @@ export default {
         },
         export1() {
             let datagrid = this.$refs.grid1.getDatagrid()
-            let exdata = datagrid.exportData()
-            console.info(exdata);
-            let exs = apxDatagrid.exportDataToCvsText(exdata)
-            console.info(exs);
-            //apxDatagrid.exportDataToCvsDownload(exdata, 'table.csv')
+            console.time("export");
+            let exportData = datagrid.exportData()
+            console.timeEnd("export");
+
+            console.time("toCsv");
+            apxDatagrid.exportDataToCvsDownload(exportData, 'export1.csv')
+            console.timeEnd("toCsv");
         },
         export2() {
             let datagrid = this.$refs.grid1.getDatagrid()
             let exdata = datagrid.exportData()
             let exs = apxDatagrid.exportDataToHtmlText(exdata)
             console.info(exs);
-            //apxDatagrid.exportDataToCvsDownload(exdata, 'table.csv')
         }
 
     }
