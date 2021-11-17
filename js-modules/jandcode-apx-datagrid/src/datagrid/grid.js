@@ -166,12 +166,14 @@ export class Datagrid {
         return this.__pinnedColumns
     }
 
+    ///
+
     /**
      * Экспортировать данные из текущего состояния гриды
      * @param options параметры экспорта
      */
-    exportData(options) {  //todo переделать
-        return null
+    exportData(options) {
+        return this.getDriver().exportData(options)
     }
 
 }

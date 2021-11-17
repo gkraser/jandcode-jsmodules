@@ -18,4 +18,11 @@ export class DatagridDriver {
         this.datagrid = datagrid
     }
 
+
+    exportData(options) {
+        return {
+            columns: [],
+            rows: [],
+        }
+    }
 }

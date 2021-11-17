@@ -50,60 +50,11 @@ export default {
             })
         },
         export1() {
-            console.info("===== export1");
-            // let grid1 = this.$refs.grid1
-            // let s = grid1.getDatagrid().exportData()
-            // console.info("s", s);
-
             let datagrid = this.$refs.grid1.getDatagrid()
-
-            console.info("datagrid",datagrid);
-
-            let agApi = datagrid.getDriver().agGrid.gridOptions.api
-            let agColumnApi = datagrid.getDriver().agGrid.gridOptions.columnApi
-
-            console.info("agGrid", this.$refs.grid1.getDatagrid().getDriver().agGrid);
-            console.info("agApi", agApi);
-
-            let m1 = agApi.getModel()
-            console.info("m1", m1);
-            let n = 0
-
-            let cols = agColumnApi.getAllDisplayedColumns()
-            console.info("cols", cols);
-
-            let res = {
-                columns: [],
-                rows: [],
-            }
-
-            console.info("jcCols",datagrid.getColumnsFlat());
-
-            let index = 0
-            for (let col of cols) {
-                console.info("col", col);
-                let jcCol = datagrid.getColumnById(col.colId)
-                console.info("jcCol",jcCol);
-                let z = {
-                    index: index++,
-                    colId: col.getColId(),
-                    title: jcCol.getTitle(),
-                    field: jcCol.getField(),
-                }
-                res.columns.push(z)
-            }
-
-            m1.forEachNodeAfterFilterAndSort((node, index) => {
-                let row = []
-                for (let col of cols) {
-                    let v = agApi.getValue(col, node)
-                    row.push(v)
-                }
-                res.rows.push(row)
-            });
-            console.info(res);
-
+            let exdata = datagrid.exportData()
+            console.info(exdata);
         }
+
     }
 }
 </script>
