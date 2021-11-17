@@ -69,17 +69,15 @@ class AgDriver {
         // events
 
         //
-        if (dg.getOnRowSelect()) {
-            res.onSelectionChanged = (ev) => {
-                let nodes = ev.api.getSelectedNodes()
-                if (nodes) {
-                    let rowIndexes = nodes.map(n => n.rowIndex)
-                    let ev = {
-                        datagrid: dg,
-                        rowIndexes: rowIndexes
-                    }
-                    dg.getOnRowSelect()(ev)
+        res.onSelectionChanged = (ev) => {
+            let nodes = ev.api.getSelectedNodes()
+            if (nodes) {
+                let rowIndexes = nodes.map(n => n.rowIndex)
+                let ev = {
+                    datagrid: dg,
+                    rowIndexes: rowIndexes
                 }
+                dg.getEventBus().emit('rowSelect', ev)
             }
         }
 
@@ -96,12 +94,8 @@ class AgDriver {
                     datagrid: dg,
                     event: ev.event,
                 }
-                if (col.getOnClickCell()) {
-                    col.getOnClickCell()(cell)
-                }
-                if (dg.getOnClickCell()) {
-                    dg.getOnClickCell()(cell)
-                }
+                col.getEventBus().emit('clickCell', cell)
+                dg.getEventBus().emit('clickCell', cell)
             }
         }
 

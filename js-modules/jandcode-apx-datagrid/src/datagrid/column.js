@@ -1,4 +1,5 @@
 import {apx} from '../vendor'
+import mitt from 'mitt'
 
 //////
 
@@ -22,6 +23,8 @@ export function getColumnTypes() {
 }
 
 //////
+
+let events = ['clickCell']
 
 /**
  * Колонка гриды
@@ -72,12 +75,37 @@ export class DatagridColumn {
         // функция для получения содержимого ячейки
         this.__onRenderCell = opts.onRenderCell
 
-        // событие: click по ячейке
-        this.__onClickCell = opts.onClickCell
+        this.__eventBus = mitt()
+
+        for (let evName of events) {
+            let hName = 'on' + apx.vueUtils.capitalize(evName)
+            let h = opts[hName]
+            if (h) {
+                this.__eventBus.on(evName, h)
+            }
+        }
+
+    }
+
+    destroy() {
+        if (this.__eventBus != null) {
+            this.__eventBus.all.clear()
+            this.__eventBus = null
+        }
+        if (apx.jcBase.isArray(this.__columns)) {
+            for (let col of this.__columns) {
+                col.destroy()
+            }
+            this.__columns = null
+        }
     }
 
     getOptions() {
         return this.__options
+    }
+
+    getEventBus() {
+        return this.__eventBus
     }
 
     getField() {
@@ -98,10 +126,6 @@ export class DatagridColumn {
 
     getColumns() {
         return this.__columns
-    }
-
-    getOnClickCell() {
-        return this.__onClickCell
     }
 
     //////

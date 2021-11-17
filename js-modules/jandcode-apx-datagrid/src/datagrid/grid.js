@@ -1,7 +1,7 @@
 import {apx} from '../vendor'
 import {DatagridData} from './data'
 import {DatagridColumn} from './column'
-
+import mitt from 'mitt'
 
 /**
  * По описанию columns в опциях datagrid создает массив объектов DaragridColumn
@@ -42,6 +42,8 @@ function expandColumns(columns, leaf) {
     return res
 }
 
+let events = ['rowSelect', 'clickCell']
+
 /**
  * Грида. Абстрактный класс, который предоставляет интерфейс для настройки и работы
  * реальной гриды.
@@ -71,11 +73,15 @@ export class Datagrid {
         // сколько столбцов закреплено
         this.__pinnedColumns = opts.pinnedColumns || 0
 
-        // событие: изменились выделенные строки
-        this.__onRowSelect = opts.onRowSelect
+        this.__eventBus = mitt()
 
-        // событие: click по ячейке
-        this.__onClickCell = opts.onClickCell
+        for (let evName of events) {
+            let hName = 'on' + apx.vueUtils.capitalize(evName)
+            let h = opts[hName]
+            if (h) {
+                this.__eventBus.on(evName, h)
+            }
+        }
 
     }
 
@@ -83,10 +89,26 @@ export class Datagrid {
      * Деструктор
      */
     destroy() {
+        if (this.__eventBus != null) {
+            this.__eventBus.all.clear()
+            this.__eventBus = null
+        }
+        if (apx.jcBase.isArray(this.__columns)) {
+            for (let col of this.__columns) {
+                col.destroy()
+            }
+            this.__columns = null
+            this.__columnsById = null
+            this.__columnsFlat = null
+        }
     }
 
     getOptions() {
         return this.__options
+    }
+
+    getEventBus() {
+        return this.__eventBus
     }
 
     /**
@@ -123,22 +145,6 @@ export class Datagrid {
      */
     getPinnedColumns() {
         return this.__pinnedColumns
-    }
-
-    /**
-     * Обработчик события rowSelect
-     * @return {API.datagrid_options.onRowSelect}
-     */
-    getOnRowSelect() {
-        return this.__onRowSelect
-    }
-
-    /**
-     * Обработчик события clickCell
-     * @return {API.datagrid_options.onClickCell}
-     */
-    getOnClickCell() {
-        return this.__onClickCell
     }
 
     /**

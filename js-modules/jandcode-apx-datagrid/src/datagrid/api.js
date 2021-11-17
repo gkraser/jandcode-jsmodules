@@ -22,6 +22,7 @@ export let API = {
 
         onDisplayValue: function() {},
         onRenderCell: function() {},
+
         onClickCell: function() {},
     },
 
