@@ -1,6 +1,7 @@
 import {apx} from '../vendor'
 import {DatagridData} from './data'
 import {DatagridColumn} from './column'
+import {DatagridDriver} from './driver'
 import mitt from 'mitt'
 
 /**
@@ -83,12 +84,18 @@ export class Datagrid {
             }
         }
 
+        this.setDriver(new DatagridDriver())
+
     }
 
     /**
      * Деструктор
      */
     destroy() {
+        if (this.__driver != null) {
+            this.__driver.destroy()
+            this.__driver = null
+        }
         if (this.__eventBus != null) {
             this.__eventBus.all.clear()
             this.__eventBus = null
@@ -109,6 +116,18 @@ export class Datagrid {
 
     getEventBus() {
         return this.__eventBus
+    }
+
+    getDriver() {
+        return this.__driver
+    }
+
+    setDriver(driver) {
+        if (this.__driver != null) {
+            this.__driver.destroy()
+        }
+        this.__driver = driver
+        this.__driver.init(this)
     }
 
     /**

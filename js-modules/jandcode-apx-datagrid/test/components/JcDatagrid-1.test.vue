@@ -59,10 +59,10 @@ export default {
 
             console.info("datagrid",datagrid);
 
-            let agApi = datagrid.driver.agGrid.gridOptions.api
-            let agColumnApi = datagrid.driver.agGrid.gridOptions.columnApi
+            let agApi = datagrid.getDriver().agGrid.gridOptions.api
+            let agColumnApi = datagrid.getDriver().agGrid.gridOptions.columnApi
 
-            console.info("agGrid", this.$refs.grid1.getDatagrid().driver.agGrid);
+            console.info("agGrid", this.$refs.grid1.getDatagrid().getDriver().agGrid);
             console.info("agApi", agApi);
 
             let m1 = agApi.getModel()

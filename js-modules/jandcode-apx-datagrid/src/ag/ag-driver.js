@@ -1,14 +1,18 @@
-import {apx} from './vendor'
-import {Datagrid} from './datagrid'
+import {apx} from '../vendor'
+import {DatagridDriver} from '../datagrid'
 import {Grid as AgGrid} from 'ag-grid-community';
 
 let {render: vueRender} = apx.Vue
 
-class AgDriver {
+export class AgDatagridDriver extends DatagridDriver {
 
-    constructor(datagrid, el) {
-        this.datagrid = datagrid
-        this.agGrid = new AgGrid(el, this.makeOptions())
+    /**
+     * @param options.el где создавать гриду
+     */
+    constructor(options) {
+        super(options)
+        //
+        this.el = this.options.el
     }
 
     destroy() {
@@ -16,6 +20,14 @@ class AgDriver {
             this.agGrid.destroy()
             this.agGrid = null
         }
+        //
+        super.destroy();
+    }
+
+    init(datagrid) {
+        super.init(datagrid);
+        //
+        this.agGrid = new AgGrid(this.el, this.makeOptions())
     }
 
     makeOptions() {
@@ -156,34 +168,4 @@ class AgDriver {
         return res
     }
 
-}
-
-/**
- * Реализация Datagrid для ag-grid
- */
-export class AgDatagrid extends Datagrid {
-
-    /**
-     * @param options опции для {@link Datagrid}
-     * @param el элемент, где будет жить ag-grid
-     */
-    constructor(options, el) {
-        super(options)
-        //
-        this.driver = new AgDriver(this, el)
-    }
-
-    destroy() {
-        super.destroy();
-        //
-        this.driver.destroy()
-    }
-
-    exportData(options) { //todo переделать
-        let api = this.driver.agGrid.gridOptions.api
-        let s = api.getDataAsCsv({
-            skipColumnGroupHeaders: true
-        })
-        return s
-    }
 }
