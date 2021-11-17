@@ -20,6 +20,7 @@ import {axios} from './vendor'
 import * as path from './path'
 import * as lang from './lang'
 import * as csv from './csv'
+import * as clipboard from './clipboard'
 
 export {
     Jc,
@@ -37,6 +38,7 @@ export {
     path,
     lang,
     csv,
+    clipboard,
 }
 
 // модули на верхний уровень
