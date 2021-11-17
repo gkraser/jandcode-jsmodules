@@ -19,6 +19,7 @@ import * as css from './css'
 import {axios} from './vendor'
 import * as path from './path'
 import * as lang from './lang'
+import * as csv from './csv'
 
 export {
     Jc,
@@ -35,6 +36,7 @@ export {
     css,
     path,
     lang,
+    csv,
 }
 
 // модули на верхний уровень
