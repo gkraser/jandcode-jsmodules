@@ -1,5 +1,5 @@
 import {apx} from './vendor'
-import {Datagrid} from './dg'
+import {Datagrid} from './datagrid'
 import {Grid as AgGrid} from 'ag-grid-community';
 
 let {render: vueRender} = apx.Vue
@@ -39,7 +39,7 @@ class AgDriver {
             ensureDomOrder: true,
         }
 
-        for (let col of dg.columns) {
+        for (let col of dg.getColumns()) {
             res.columnDefs.push(this.makeColOptions(col))
         }
 
@@ -59,9 +59,9 @@ class AgDriver {
         }
 
         // pinned
-        if (dg.pinnedColumns > 0) {
+        if (dg.getPinnedColumns() > 0) {
             let flatColumnDef = makeFlatColumns(res.columnDefs)
-            for (let i = 0; i < dg.pinnedColumns; i++) {
+            for (let i = 0; i < dg.getPinnedColumns(); i++) {
                 flatColumnDef[i].pinned = 'left'
             }
         }
@@ -69,7 +69,7 @@ class AgDriver {
         // events
 
         //
-        if (dg.onRowSelect) {
+        if (dg.getOnRowSelect()) {
             res.onSelectionChanged = (ev) => {
                 let nodes = ev.api.getSelectedNodes()
                 if (nodes) {
@@ -78,7 +78,7 @@ class AgDriver {
                         datagrid: dg,
                         rowIndexes: rowIndexes
                     }
-                    dg.onRowSelect(ev)
+                    dg.getOnRowSelect()(ev)
                 }
             }
         }
@@ -96,11 +96,11 @@ class AgDriver {
                     datagrid: dg,
                     event: ev.event,
                 }
-                if (col.onCellClick) {
-                    col.onCellClick(cell)
+                if (col.getOnClickCell()) {
+                    col.getOnClickCell()(cell)
                 }
-                if (dg.onCellClick) {
-                    dg.onCellClick(cell)
+                if (dg.getOnClickCell()) {
+                    dg.getOnClickCell()(cell)
                 }
             }
         }
@@ -110,26 +110,18 @@ class AgDriver {
 
     makeColOptions(col) {
         let res = {
-            field: col.field,
-            headerName: col.title,
-            colId: col.colId,
+            field: col.getField(),
+            headerName: col.getTitle(),
+            colId: col.getColId(),
         }
-        if (col.align === 'right') {
+        if (col.getAlign() === 'right') {
             res.type = 'rightAligned'
         }
-        if (col.columns) {
+        if (col.getColumns()) {
             res.children = []
-            for (let childCol of col.columns) {
+            for (let childCol of col.getColumns()) {
                 res.children.push(this.makeColOptions(childCol))
             }
-        }
-
-        // ставим для всех, что бы у всех появилось valueFormatted
-        res.valueFormatter = (params) => {
-            if (params.value == null) {
-                return ''
-            }
-            return '' + params.value
         }
 
         let makeCell = (params) => {
@@ -143,24 +135,28 @@ class AgDriver {
             }
         }
 
-        if (apx.jcBase.isFunction(col.onCellRender)) {
-            res.cellRenderer = (params) => {
-                let cell = makeCell(params)
-                let vnode = col.onCellRender(cell)
-                if (!vnode && apx.jcBase.isObject(vnode)) {
-                    console.warn("render not return vnode", col);
-                }
+        res.cellRenderer = (params) => {
+            let cell = makeCell(params)
+            let vnode = col.renderCell(cell)
+
+            if (apx.jcBase.isString(vnode)) {
+                return vnode
+            }
+
+            if (apx.jcBase.isObject(vnode)) {
                 let el = document.createElement('div')
                 vueRender(vnode, el)
                 return el.firstElementChild
             }
+
+            console.warn("render not return string or vnode", col);
+
+            return ''
         }
 
-        if (apx.jcBase.isFunction(col.onDisplayValue)) {
-            res.valueFormatter = (params) => {
-                let cell = makeCell(params)
-                return col.onDisplayValue(cell)
-            }
+        res.valueFormatter = (params) => {
+            let cell = makeCell(params)
+            return col.getDisplayValue(cell)
         }
 
         return res

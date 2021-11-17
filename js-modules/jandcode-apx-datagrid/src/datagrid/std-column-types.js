@@ -1,4 +1,4 @@
-import {apx} from './vendor'
+import {apx} from '../vendor'
 
 let {h} = apx.Vue
 

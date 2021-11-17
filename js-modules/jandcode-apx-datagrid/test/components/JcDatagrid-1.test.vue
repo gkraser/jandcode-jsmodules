@@ -3,7 +3,7 @@
         <template #tools>
             <tst-btn label="dialog1" @click="dialog1"/>
             <tst-btn label="export" @click="export1"/>
-            <span>rows: {{ opt1.data.length }}, cols: {{ opt1.columns.length }}</span>
+            <span>rows: {{ countRows }}, cols: {{ countCols }}</span>
         </template>
 
         <tst-multi-panels :panelProps="{noPadding: true}">
@@ -23,12 +23,24 @@ console.info("column types", apxDatagrid.getColumnTypes());
 
 export default {
     created() {
-        this.opt1 = grid1({countRows: 10000, countCols: 50, pinnedColumns: 3})
+        this.opt1 = grid1({countRows: 10, countCols: 2, pinnedColumns: 2})
         //this.opt1 = grid1({countRows: 10000, countCols: 2, pinnedColumns: 1})
         // this.opt1 = grid1({countRows: 2, countCols: 1})
     },
     data() {
-        return {}
+        return {
+            countRows: 0,
+            countCols: 0,
+        }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            let grid = this.$refs.grid1.getDatagrid()
+            this.countRows = grid.getData().getRows().length
+            this.countCols = grid.getColumnsFlat().length
+
+            this.export1()
+        })
     },
     methods: {
         dialog1() {
@@ -38,9 +50,59 @@ export default {
             })
         },
         export1() {
-            let grid1 = this.$refs.grid1
-            let s = grid1.getDatagrid().exportData()
-            console.info("s", s);
+            console.info("===== export1");
+            // let grid1 = this.$refs.grid1
+            // let s = grid1.getDatagrid().exportData()
+            // console.info("s", s);
+
+            let datagrid = this.$refs.grid1.getDatagrid()
+
+            console.info("datagrid",datagrid);
+
+            let agApi = datagrid.driver.agGrid.gridOptions.api
+            let agColumnApi = datagrid.driver.agGrid.gridOptions.columnApi
+
+            console.info("agGrid", this.$refs.grid1.getDatagrid().driver.agGrid);
+            console.info("agApi", agApi);
+
+            let m1 = agApi.getModel()
+            console.info("m1", m1);
+            let n = 0
+
+            let cols = agColumnApi.getAllDisplayedColumns()
+            console.info("cols", cols);
+
+            let res = {
+                columns: [],
+                rows: [],
+            }
+
+            console.info("jcCols",datagrid.getColumnsFlat());
+
+            let index = 0
+            for (let col of cols) {
+                console.info("col", col);
+                let jcCol = datagrid.getColumnById(col.colId)
+                console.info("jcCol",jcCol);
+                let z = {
+                    index: index++,
+                    colId: col.getColId(),
+                    title: jcCol.getTitle(),
+                    field: jcCol.getField(),
+                }
+                res.columns.push(z)
+            }
+
+            m1.forEachNodeAfterFilterAndSort((node, index) => {
+                let row = []
+                for (let col of cols) {
+                    let v = agApi.getValue(col, node)
+                    row.push(v)
+                }
+                res.rows.push(row)
+            });
+            console.info(res);
+
         }
     }
 }

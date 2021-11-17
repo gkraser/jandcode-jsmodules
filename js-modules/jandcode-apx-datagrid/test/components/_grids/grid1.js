@@ -18,7 +18,7 @@ let tableColumns = [
         onDisplayValue: (cell) => {
             return '' + cell.value + ' лет'
         },
-        onCellRender: (cell) => {
+        onRenderCell: (cell) => {
             let v = cell.value
             let color
             if (v < 20) {
@@ -36,7 +36,7 @@ let tableColumns = [
             }, cell.displayValue)
             return h('span', {}, [n1, ' ', n2, ' ', n3])
         },
-        onCellClick: (ev) => {
+        onClickCell: (ev) => {
             console.info("click cell in 'age' column", ev);
             let el = ev.event.target.closest('[data-el]')
             if (el) {
@@ -54,7 +54,7 @@ let tableColumns = [
     },
     {
         title: "Цвет", field: "color",
-        onCellRender: (cell) => {
+        onRenderCell: (cell) => {
             return h('span', {style: {color: cell.value}}, cell.value)
         }
     },
@@ -111,7 +111,7 @@ export default function(opt) {
         onRowSelect: (ev) => {
             console.info("selected rows", ev.rowIndexes);
         },
-        onCellClick: (ev) => {
+        onClickCell: (ev) => {
             console.info("click cell in datagrid", ev);
         }
     }
