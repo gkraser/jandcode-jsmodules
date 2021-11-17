@@ -2,7 +2,8 @@
     <tst-panel fontsize>
         <template #tools>
             <tst-btn label="dialog1" @click="dialog1"/>
-            <tst-btn label="export" @click="export1"/>
+            <tst-btn label="export csv" @click="export1"/>
+            <tst-btn label="export html clipboard" @click="export2"/>
             <span>rows: {{ countRows }}, cols: {{ countCols }}</span>
         </template>
 
@@ -54,6 +55,13 @@ export default {
             let exdata = datagrid.exportData()
             console.info(exdata);
             let exs = apxDatagrid.exportDataToCvsText(exdata)
+            console.info(exs);
+            //apxDatagrid.exportDataToCvsDownload(exdata, 'table.csv')
+        },
+        export2() {
+            let datagrid = this.$refs.grid1.getDatagrid()
+            let exdata = datagrid.exportData()
+            let exs = apxDatagrid.exportDataToHtmlText(exdata)
             console.info(exs);
             //apxDatagrid.exportDataToCvsDownload(exdata, 'table.csv')
         }

@@ -1,4 +1,5 @@
 import {apx} from '../vendor'
+import lodashEscape from 'lodash/escape'
 
 /**
  * Экспортировать данные из гриды в csv-текст
@@ -35,4 +36,28 @@ export function exportDataToCvsDownload(exportData, filename) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+}
+
+/**
+ * Экспортировать данные из гриды в html-текст
+ * @param exportData данные, полученные из Datagrid.exportData
+ */
+export function exportDataToHtmlText(exportData) {
+    let res = []
+    let header = exportData.columns.map((z) => '<td>' + lodashEscape(z.title) + '</td>')
+    res.push('<table>')
+    res.push('<thead>')
+    res.push('<tr>' + header.join('') + '</tr>')
+    res.push('</thead>')
+    res.push('<tbody>')
+    for (let row of exportData.rows) {
+        let r = []
+        for (let cell of row) {
+            r.push('<td>' + lodashEscape(cell) + '</td>')
+        }
+        res.push('<tr>' + r.join('') + '</tr>')
+    }
+    res.push('</tbody>')
+    res.push('</table>')
+    return res.join('')
 }
