@@ -53,6 +53,9 @@ export default {
             let datagrid = this.$refs.grid1.getDatagrid()
             let exdata = datagrid.exportData()
             console.info(exdata);
+            let exs = apxDatagrid.exportDataToCvsText(exdata)
+            console.info(exs);
+            //apxDatagrid.exportDataToCvsDownload(exdata, 'table.csv')
         }
 
     }
