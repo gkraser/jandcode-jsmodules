@@ -21,9 +21,23 @@ export class CsvBuilder {
     appendRowArray(row) {
         let r = []
         for (let v of row) {
-            v = v.replace(regex_quote, '""')
-            v = v.replace(regex_newline, ' ')
-            r.push('"' + v + '"')
+            if (v == null) {
+                v = ''
+            } else {
+                let quote = false
+                if (v.indexOf(',') !== -1) {
+                    quote = true
+                }
+                if (v.indexOf('"') !== -1) {
+                    quote = true
+                    v = v.replace(regex_quote, '""')
+                }
+                v = v.replace(regex_newline, ' ')
+                if (quote) {
+                    v = '"' + v + '"'
+                }
+            }
+            r.push(v)
         }
         this.__rows.push(r.join(','))
     }

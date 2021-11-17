@@ -10,9 +10,14 @@ describe(module.id, function() {
         let b = new m.CsvBuilder()
         b.appendRowArray(['t1', 't"1'])
         b.appendRowArray(['t1,', 't"2'])
+        b.appendRowArray([null, ''])
+        b.appendRowArray([',', '"'])
         let s = b.build()
-        assert.equal(s, `"t1","t""1"
-"t1,","t""2"`)
+        console.info(s);
+        assert.equal(s, `t1,"t""1"
+"t1,","t""2"
+,
+",",""""`)
     })
 
 })
