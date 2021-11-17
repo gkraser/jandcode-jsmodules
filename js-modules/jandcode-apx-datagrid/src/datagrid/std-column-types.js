@@ -12,3 +12,23 @@ export let date = {
     }
 }
 
+/**
+ * Число
+ */
+export let number = {
+    align: 'right',
+}
+
+/**
+ * Строка
+ */
+export let string = {
+}
+
+/**
+ * Неизвестный тип
+ */
+export let unknown = {
+}
+
+
