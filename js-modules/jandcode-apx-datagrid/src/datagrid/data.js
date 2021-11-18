@@ -7,7 +7,7 @@ export class DatagridData {
 
     constructor(data) {
         this.__rows = []
-        this.__dictdata = {}
+        this.__dictdata = new apx.Dictdata()
 
         if (data) {
             if (apx.jcBase.isArray(data)) {
@@ -18,7 +18,7 @@ export class DatagridData {
                     this.__rows = data.data
                 }
                 if (data.dictdata) {
-                    this.__dictdata = data.dictdata
+                    this.__dictdata.updateData(data.dictdata)
                 }
             }
         }
@@ -41,6 +41,7 @@ export class DatagridData {
 
     /**
      * Данные словарей
+     * @type {apx.Dictdata}
      */
     getDictdata() {
         return this.__dictdata
