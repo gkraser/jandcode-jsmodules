@@ -15,5 +15,7 @@ export * from './wait'
 export * from './events'
 export * from './msgbox'
 
+export * from './data'
+
 // иконки
 import './icons'
