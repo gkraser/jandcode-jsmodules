@@ -140,6 +140,11 @@ export class AgDatagridDriver extends DatagridDriver {
             }
         }
 
+        //todo убрать потом
+        if (dg.getOptions().agGridOptionsHandler) {
+            dg.getOptions().agGridOptionsHandler(res)
+        }
+
         return res
     }
 
