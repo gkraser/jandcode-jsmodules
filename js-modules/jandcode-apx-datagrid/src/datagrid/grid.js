@@ -74,6 +74,8 @@ export class Datagrid {
         // сколько столбцов закреплено
         this.__pinnedColumns = opts.pinnedColumns || 0
 
+        this.__rowHeight = opts.rowHeight
+
         this.__eventBus = mitt()
 
         for (let evName of events) {
@@ -164,6 +166,13 @@ export class Datagrid {
      */
     getPinnedColumns() {
         return this.__pinnedColumns
+    }
+
+    /**
+     * Высота строки
+     */
+    getRowHeight() {
+        return this.__rowHeight || '1line'
     }
 
     ///

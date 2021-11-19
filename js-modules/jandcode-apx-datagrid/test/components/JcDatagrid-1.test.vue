@@ -8,7 +8,7 @@
         </template>
 
         <tst-multi-panels :panelProps="{noPadding: true}">
-            <jc-datagrid ref="grid1" :options="opt1"/>
+            <jc-datagrid ref="grid1" :options="opt1" style="font-size1:8px"/>
         </tst-multi-panels>
 
     </tst-panel>

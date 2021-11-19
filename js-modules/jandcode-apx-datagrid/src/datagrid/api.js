@@ -8,6 +8,8 @@ export let API = {
         data: {},
         pinnedColumns: Number,
 
+        rowHeight: String,
+
         onRowSelect: function() {},
         onClickCell: function() {},
     },
@@ -18,6 +20,13 @@ export let API = {
         title: String,
         align: String,
         colId: String,
+
+        width: String | Number,
+        minWidth: String | Number,
+        maxWidth: String | Number,
+
+        wrapText: Boolean,
+
         columns: ['colum_options'],
 
         onDisplayValue: function() {},

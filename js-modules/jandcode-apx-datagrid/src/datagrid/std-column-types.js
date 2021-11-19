@@ -7,6 +7,7 @@ let {h} = apx.Vue
  */
 export let date = {
     align: 'right',
+    width: '10char',
     onDisplayValue: function(cell) {
         return apx.date.toDisplayStr(cell.value)
     }

@@ -13,12 +13,25 @@ export class AgDatagridDriver extends DatagridDriver {
         super(options)
         //
         this.el = this.options.el
+        this.pixelCalc = new apx.jcBase.dom.PixelCalc({
+            parentElements: [
+                this.el,
+                'ag-theme-balham',
+                'ag-row',
+                'ag-cell',
+            ],
+            targetElement: '.ag-cell',
+        })
     }
 
     destroy() {
         if (this.agGrid) {
             this.agGrid.destroy()
             this.agGrid = null
+        }
+        if (this.pixelCalc) {
+            this.pixelCalc.destroy()
+            this.pixelCalc = null
         }
         //
         super.destroy();
@@ -78,6 +91,11 @@ export class AgDatagridDriver extends DatagridDriver {
             }
         }
 
+        // высота строки
+        if (dg.getRowHeight()) {
+            res.rowHeight = this.pixelCalc.getHeight(dg.getRowHeight())
+        }
+
         // events
 
         //
@@ -119,10 +137,24 @@ export class AgDatagridDriver extends DatagridDriver {
             field: col.getField(),
             headerName: col.getTitle(),
             colId: col.getColId(),
+            type: [],
         }
         if (col.getAlign() === 'right') {
-            res.type = 'rightAligned'
+            res.type.push('rightAligned')
         }
+        if (col.getWidth()) {
+            res.width = this.pixelCalc.getWidth(col.getWidth())
+        }
+        if (col.getMinWidth()) {
+            res.minWidth = this.pixelCalc.getWidth(col.getMinWidth())
+        }
+        if (col.getMaxWidth()) {
+            res.maxWidth = this.pixelCalc.getWidth(col.getMaxWidth())
+        }
+        if (col.getWrapText()!=null) {
+            res.wrapText = col.getWrapText()
+        }
+
         if (col.getColumns()) {
             res.children = []
             for (let childCol of col.getColumns()) {

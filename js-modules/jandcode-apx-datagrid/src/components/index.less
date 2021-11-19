@@ -13,9 +13,21 @@
   //--ag-secondary-foreground-color: @color-gray-700;
   --ag-row-border-color: #d9dcde;
 
+  .ag-cell-wrapper {
+    align-items: start; // что бы значения в ячейке прижимались вверх
+  }
+
   .ag-theme-balham {
     font-size: 1em;
     font-family: @font-family-normal;
+
+    .ag-cell {
+      line-height: @body-line-height;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      padding-top: 0.3em;
+      padding-bottom: 0.3em;
+    }
 
     .ag-root-wrapper {
       border: none;

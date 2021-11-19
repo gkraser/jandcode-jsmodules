@@ -60,6 +60,11 @@ export class DatagridColumn {
         // id колонки
         this.__colId = opts.colId || apx.jcBase.nextId('col-')
 
+        this.__width = opts.width
+        this.__minWidth = opts.minWidth
+        this.__maxWidth = opts.maxWidth
+        this.__wrapText = opts.wrapText
+
         // дочерние колонки, тогда эта колонка - группа
         this.__columns = null
         if (apx.jcBase.isArray(opts.columns)) {
@@ -122,6 +127,22 @@ export class DatagridColumn {
 
     getColId() {
         return this.__colId
+    }
+
+    getWidth() {
+        return this.__width
+    }
+
+    getMinWidth() {
+        return this.__minWidth
+    }
+
+    getMaxWidth() {
+        return this.__maxWidth
+    }
+
+    getWrapText() {
+        return this.__wrapText
     }
 
     getColumns() {
