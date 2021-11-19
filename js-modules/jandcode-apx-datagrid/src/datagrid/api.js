@@ -9,6 +9,7 @@ export let API = {
         pinnedColumns: Number,
 
         rowHeight: String,
+        headerHeight: String,
 
         onRowSelect: function() {},
         onClickCell: function() {},

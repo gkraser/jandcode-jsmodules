@@ -12,7 +12,7 @@ let tableData = [
 
 let tableColumns = [
     {title: "ID", field: "id", width: '5char'},
-    {title: "Имя", field: "name", wrapText: true},
+    {title: "Имя и очень длинный заголовок этого", field: "name", wrapText: true},
     {
         title: "Возраст", field: "age", align: 'right',
         onDisplayValue: (cell) => {
@@ -109,6 +109,7 @@ export default function(opt) {
         pinnedColumns: pinnedColumns,
 
         rowHeight: '1line',
+        headerHeight: '1line',
         //rowHeight: 14,
 
         onRowSelect: (ev) => {

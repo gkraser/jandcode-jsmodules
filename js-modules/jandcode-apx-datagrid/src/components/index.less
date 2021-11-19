@@ -29,6 +29,22 @@
       padding-bottom: 0.3em;
     }
 
+    .ag-header-cell {
+      line-height: @body-line-height;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      padding-top: 0.3em;
+      padding-bottom: 0.3em;
+    }
+
+    // перенос для заголовков
+    .ag-cell-wrap-text .ag-header-cell-text {
+      overflow: visible;
+      text-overflow: unset;
+      white-space: normal;
+      // word-break: break-word; // по словам?
+    }
+    
     .ag-root-wrapper {
       border: none;
     }

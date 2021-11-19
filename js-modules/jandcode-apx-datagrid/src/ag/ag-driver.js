@@ -64,8 +64,24 @@ export class AgDatagridDriver extends DatagridDriver {
             ensureDomOrder: true,
         }
 
+        // высота строки
+        if (dg.getRowHeight()) {
+            res.rowHeight = this.pixelCalc.getHeight(dg.getRowHeight())
+        }
+        // высота строки заголовка
+        let needWrapHeaderText = false
+        if (dg.getHeaderHeight()) {
+            res.headerHeight = this.pixelCalc.getHeight(dg.getHeaderHeight())
+            let oneLine = this.pixelCalc.getHeight('1line')
+            needWrapHeaderText = res.headerHeight > oneLine
+        }
+
         for (let col of dg.getColumns()) {
-            res.columnDefs.push(this.makeColOptions(col))
+            let colDef = this.makeColOptions(col)
+            if (needWrapHeaderText) {
+                colDef.headerClass.push('ag-cell-wrap-text')
+            }
+            res.columnDefs.push(colDef)
         }
 
         let makeFlatColumns = (columnDef) => {
@@ -89,11 +105,6 @@ export class AgDatagridDriver extends DatagridDriver {
             for (let i = 0; i < dg.getPinnedColumns(); i++) {
                 flatColumnDef[i].pinned = 'left'
             }
-        }
-
-        // высота строки
-        if (dg.getRowHeight()) {
-            res.rowHeight = this.pixelCalc.getHeight(dg.getRowHeight())
         }
 
         // events
@@ -138,6 +149,7 @@ export class AgDatagridDriver extends DatagridDriver {
             headerName: col.getTitle(),
             colId: col.getColId(),
             type: [],
+            headerClass: [],
         }
         if (col.getAlign() === 'right') {
             res.type.push('rightAligned')
@@ -151,7 +163,7 @@ export class AgDatagridDriver extends DatagridDriver {
         if (col.getMaxWidth()) {
             res.maxWidth = this.pixelCalc.getWidth(col.getMaxWidth())
         }
-        if (col.getWrapText()!=null) {
+        if (col.getWrapText() != null) {
             res.wrapText = col.getWrapText()
         }
 

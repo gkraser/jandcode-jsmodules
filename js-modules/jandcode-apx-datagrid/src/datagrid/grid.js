@@ -75,6 +75,7 @@ export class Datagrid {
         this.__pinnedColumns = opts.pinnedColumns || 0
 
         this.__rowHeight = opts.rowHeight
+        this.__headerHeight = opts.headerHeight
 
         this.__eventBus = mitt()
 
@@ -173,6 +174,13 @@ export class Datagrid {
      */
     getRowHeight() {
         return this.__rowHeight || '1line'
+    }
+
+    /**
+     * Высота строки заголовка
+     */
+    getHeaderHeight() {
+        return this.__headerHeight || '1line'
     }
 
     ///
