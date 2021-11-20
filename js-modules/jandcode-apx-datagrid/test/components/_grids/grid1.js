@@ -62,11 +62,11 @@ let tableColumns = [
     {
         title: "Цвет", field: "color",
         onRenderCell: (cell) => {
-            return {
+            return cell.vue({
                 render() {
                     return h('span', {style: {color: cell.value}}, cell.value)
                 }
-            }
+            })
         }
     },
     {title: "Дата", field: "dt", type: 'date'},

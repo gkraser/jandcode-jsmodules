@@ -10,15 +10,11 @@ export default {
         text: {},
         text2: {},
     },
-    data() {
-        return {}
-    },
     mounted() {
-        console.info("mount", this.text, this);
+        console.info("mount CellSimple1", this.text, this);
     },
     beforeUnmount() {
-        console.info("UNMOUNT", this.text, this);
+        console.info("UNMOUNT CellSimple1", this.text, this);
     },
-    methods: {},
 }
 </script>

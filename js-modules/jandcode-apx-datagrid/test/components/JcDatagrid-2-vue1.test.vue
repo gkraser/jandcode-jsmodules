@@ -14,7 +14,7 @@ import grid1 from './_grids/grid2-vue1'
 
 export default {
     created() {
-        this.opt1 = grid1({countRows: 2, parentVueComp: this})
+        this.opt1 = grid1({countRows: 2})
     },
     data() {
         return {
@@ -22,13 +22,6 @@ export default {
         }
     },
     mounted() {
-        console.info("app",this.$root.$.appContext.app);
-        
-        
-        console.info("this", this);
-        console.info("this.$root", this.$root);
-        console.info("panel", this.$refs.panel1);
-        console.info("this.$root===this", this.$root === this);
     },
     methods: {}
 }

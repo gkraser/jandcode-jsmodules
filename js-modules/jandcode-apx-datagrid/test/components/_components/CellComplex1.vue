@@ -20,18 +20,14 @@ export default {
         text: {},
         text2: {},
     },
-    data() {
-        return {}
-    },
     created() {
         this.chart1 = chart1({})
     },
     mounted() {
-        console.info("mount", this.text, this);
+        console.info("mount CellComplex1", this.text, this);
     },
     beforeUnmount() {
-        console.info("UNMOUNT!!!!!!!!!", this.text, this);
+        console.info("UNMOUNT CellComplex1", this.text, this);
     },
-    methods: {},
 }
 </script>
