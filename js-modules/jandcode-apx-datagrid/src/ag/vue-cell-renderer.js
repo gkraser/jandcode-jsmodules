@@ -1,6 +1,9 @@
 import {apx} from '../vendor'
 import {VueComponentWrapper} from '../datagrid'
 
+/**
+ * Рендер ячейки как строки или как vue-компонента
+ */
 export class AgVueCellRenderer {
 
     init(params) {

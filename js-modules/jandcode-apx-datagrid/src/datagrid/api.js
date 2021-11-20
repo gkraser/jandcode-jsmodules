@@ -30,10 +30,10 @@ export let API = {
 
         columns: ['colum_options'],
 
-        onDisplayValue: function(cell) {},
-        onRenderCell: function(cell) {},
+        onDisplayValue: function() {},
+        onRenderCell: function() {},
 
-        onClickCell: function(cell) {},
+        onClickCell: function() {},
     },
 
     /**

@@ -144,11 +144,6 @@ export class AgDatagridDriver extends DatagridDriver {
             }
         }
 
-        //todo убрать потом
-        if (dg.getOptions().agGridOptionsHandler) {
-            dg.getOptions().agGridOptionsHandler(res)
-        }
-
         return res
     }
 
@@ -182,36 +177,6 @@ export class AgDatagridDriver extends DatagridDriver {
                 res.children.push(this.makeColOptions(childCol))
             }
         }
-
-        // let makeCell = (params) => {
-        //     return {
-        //         value: params.value,
-        //         displayValue: params.valueFormatted,
-        //         data: params.data,
-        //         rowIndex: params.rowIndex,
-        //         column: this.datagrid.getColumnById(params.colDef.colId),
-        //         datagrid: this.datagrid,
-        //     }
-        // }
-
-        // res.cellRenderer = (params) => {
-        //     let cell = makeCell(params)
-        //     let vnode = col.renderCell(cell)
-        //
-        //     if (apx.jcBase.isString(vnode)) {
-        //         return vnode
-        //     }
-        //
-        //     if (apx.jcBase.isObject(vnode)) {
-        //         let el = document.createElement('div')
-        //         vueRender(vnode, el)
-        //         return el.firstElementChild
-        //     }
-        //
-        //     console.warn("render not return string or vnode", col);
-        //
-        //     return ''
-        // }
 
         res.cellRenderer = AgVueCellRenderer
         res.cellRendererParams = {
