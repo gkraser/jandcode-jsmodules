@@ -3,7 +3,7 @@
 
 import {jcBase, Vue} from '../vendor'
 
-let {mergeProps} = Vue
+let {mergeProps, createVNode, render} = Vue
 
 /**
  * Регистрация компонентов
@@ -119,4 +119,66 @@ export function capitalize(str) {
  */
 export function normalizeCompName(str) {
     return capitalize(camelize(str))
+}
+
+
+/**
+ * Для компонента comp возвращает его app
+ * @param comp компонент или app
+ * @return {Object} null, если не удалось определить приложение
+ */
+export function resolveApp(comp) {
+    if (!comp) {
+        return null
+    }
+    if (comp._context) {
+        return comp
+    }
+    if (comp.$root) {
+        if (comp.$root.$) {
+            if (comp.$root.$.appContext) {
+                if (comp.$root.$.appContext.app) {
+                    if (comp.$root.$.appContext.app._context) {
+                        return comp.$root.$.appContext.app
+                    }
+                }
+            }
+        }
+    }
+    return null
+}
+
+/**
+ * Монтирование vue-компонента на лету
+ * @param options.component какой компонент
+ * @param options.props свойства компонента
+ * @param options.el куда монтировать
+ * @param options.app приложение, в контексте которого монтировать. Можно указать экземпляр vue,
+ * тогда приложение вычислится автоматически по нему
+ * @return {{el: HTMLElement, destroy: destroy, vNode: *}}
+ */
+export function mountComponent(options) {
+    let {component, props, el, app} = options
+    let vNode = createVNode(component, props)
+
+    app = resolveApp(app)
+    if (app) {
+        vNode.appContext = app._context
+    }
+
+    if (!el) {
+        el = document.createElement('div')
+    }
+
+    render(vNode, el)
+
+    let destroy = () => {
+        if (el) {
+            render(null, el)
+        }
+        el = null
+        vNode = null
+    }
+
+    return {vNode, destroy, el}
 }
