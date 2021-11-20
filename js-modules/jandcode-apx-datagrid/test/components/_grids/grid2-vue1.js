@@ -72,13 +72,12 @@ class VueRenderer {
         // this.el = document.createElement('div')
         // this.el.innerHTML = params.fn(params)
 
-        let app = params.parentVueComp.$.appContext.app
-        console.info("app", app);
-        this.me = mount(CellComplex1, {
+        this.me = apx.vueUtils.mountComponent({
+            component: CellComplex1,
             props: {
                 text: params.value, texts2: params.data.id
             },
-            app: app
+            app: params.parentVueComp
         })
     }
 
@@ -86,6 +85,7 @@ class VueRenderer {
         console.info("getGui", a);
         // return this.el
         return this.me.el
+        // return '<span>HHH</span>'
     }
 
     destroy(a) {
@@ -119,7 +119,23 @@ export default function(options) {
             title: "Label",
             field: "label",
             onRenderCell: function(cell) {
-                return h(CellSimple1, {text: cell.displayValue, text2: cell.data.id})
+                return cell.vue(CellSimple1, {text: cell.displayValue, text2: cell.data.id})
+            }
+        },
+        {
+            title: "Label2",
+            field: "label",
+            onRenderCell: function(cell) {
+                return '!' + cell.value
+            }
+        },
+        {
+            title: "Label",
+            field: "label",
+            width: 280,
+            minMidth: 280,
+            onRenderCell: function(cell) {
+                return cell.vue(CellComplex1, {text: cell.displayValue+"!", text2: cell.data.id})
             }
         },
     ]
@@ -130,25 +146,26 @@ export default function(options) {
 
         rowHeight: '2.2em',
 
-        agGridOptionsHandler(opts) {
-            console.info("opts", opts);
-            opts.columnDefs.push({
-                headerName: 'f1',
-                field: 'label',
-                // __cellRenderer: function(params) {
-                //     return 'AAA-' + params.value
-                // },
-                width: 260,
-                cellRenderer: VueRenderer,
-                cellRendererParams: {
-                    AAA_color: 'red',
-                    parentVueComp: parentVueComp,
-                    fn: function(params) {
-                        return 'ZZZ' + params.value
-                    }
-                }
-            })
-        }
+        // agGridOptionsHandler(opts) {
+        //     console.info("opts", opts);
+        //     opts.columnDefs.push({
+        //         headerName: 'f1',
+        //         field: 'label',
+        //         // __cellRenderer: function(params) {
+        //         //     return 'AAA-' + params.value
+        //         // },
+        //         width: 270,
+        //         minWidth: 270,
+        //         cellRenderer: VueRenderer,
+        //         cellRendererParams: {
+        //             AAA_color: 'red',
+        //             parentVueComp: parentVueComp,
+        //             fn: function(params) {
+        //                 return 'ZZZ' + params.value
+        //             }
+        //         }
+        //     })
+        // }
     }
 
     return res

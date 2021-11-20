@@ -1,6 +1,7 @@
 import {apx} from '../vendor'
-import {DatagridDriver} from '../datagrid'
+import {DatagridDriver, createVueComponentWrapper} from '../datagrid'
 import {Grid as AgGrid} from 'ag-grid-community';
+import {AgVueCellRenderer} from './vue-cell-renderer'
 
 let {render: vueRender} = apx.Vue
 
@@ -13,6 +14,7 @@ export class AgDatagridDriver extends DatagridDriver {
         super(options)
         //
         this.el = this.options.el
+        this.vueApp = this.options.vueApp
         this.pixelCalc = new apx.jcBase.dom.PixelCalc({
             parentElements: [
                 this.el,
@@ -33,6 +35,8 @@ export class AgDatagridDriver extends DatagridDriver {
             this.pixelCalc.destroy()
             this.pixelCalc = null
         }
+        this.vueApp = null
+        this.el = null
         //
         super.destroy();
     }
@@ -179,42 +183,63 @@ export class AgDatagridDriver extends DatagridDriver {
             }
         }
 
-        let makeCell = (params) => {
-            return {
-                value: params.value,
-                displayValue: params.valueFormatted,
-                data: params.data,
-                rowIndex: params.rowIndex,
-                column: this.datagrid.getColumnById(params.colDef.colId),
-                datagrid: this.datagrid,
-            }
-        }
+        // let makeCell = (params) => {
+        //     return {
+        //         value: params.value,
+        //         displayValue: params.valueFormatted,
+        //         data: params.data,
+        //         rowIndex: params.rowIndex,
+        //         column: this.datagrid.getColumnById(params.colDef.colId),
+        //         datagrid: this.datagrid,
+        //     }
+        // }
 
-        res.cellRenderer = (params) => {
-            let cell = makeCell(params)
-            let vnode = col.renderCell(cell)
+        // res.cellRenderer = (params) => {
+        //     let cell = makeCell(params)
+        //     let vnode = col.renderCell(cell)
+        //
+        //     if (apx.jcBase.isString(vnode)) {
+        //         return vnode
+        //     }
+        //
+        //     if (apx.jcBase.isObject(vnode)) {
+        //         let el = document.createElement('div')
+        //         vueRender(vnode, el)
+        //         return el.firstElementChild
+        //     }
+        //
+        //     console.warn("render not return string or vnode", col);
+        //
+        //     return ''
+        // }
 
-            if (apx.jcBase.isString(vnode)) {
-                return vnode
-            }
-
-            if (apx.jcBase.isObject(vnode)) {
-                let el = document.createElement('div')
-                vueRender(vnode, el)
-                return el.firstElementChild
-            }
-
-            console.warn("render not return string or vnode", col);
-
-            return ''
+        res.cellRenderer = AgVueCellRenderer
+        res.cellRendererParams = {
+            jcDriver: this,
+            jcCol: col,
         }
 
         res.valueFormatter = (params) => {
-            let cell = makeCell(params)
+            let cell = this.makeCell(params)
             return col.getDisplayValue(cell)
         }
 
         return res
+    }
+
+    /**
+     * Создает параметр cell для Datagrid по параметрам params из ag
+     */
+    makeCell(params) {
+        return {
+            value: params.value,
+            displayValue: params.valueFormatted,
+            data: params.data,
+            rowIndex: params.rowIndex,
+            column: this.datagrid.getColumnById(params.colDef.colId),
+            datagrid: this.datagrid,
+            vue: createVueComponentWrapper,
+        }
     }
 
     exportData(options) {

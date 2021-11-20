@@ -5,6 +5,7 @@ export * from './grid'
 export * from './column'
 export * from './data'
 export * from './driver'
+export * from './vue'
 
 //
 for (let colTypeName in stdColumnTypes) {

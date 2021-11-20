@@ -30,10 +30,10 @@ export let API = {
 
         columns: ['colum_options'],
 
-        onDisplayValue: function() {},
-        onRenderCell: function() {},
+        onDisplayValue: function(cell) {},
+        onRenderCell: function(cell) {},
 
-        onClickCell: function() {},
+        onClickCell: function(cell) {},
     },
 
     /**
@@ -47,6 +47,7 @@ export let API = {
         column: 'DatagridColumn',
         datagrid: 'Datagrid',
         event: 'DomEvent',
+        vue: function(component, props) {}
     },
 
     rows: {
@@ -68,7 +69,7 @@ export let API = {
      * @param cell для какой ячейки (см {@link API.cell})
      * @return {VNode} виртуальная vue-node
      */
-    onCellRender: function(cell) {},
+    onRenderCell: function(cell) {},
 
     /**
      * Обработчик события: изменились выделенные строки

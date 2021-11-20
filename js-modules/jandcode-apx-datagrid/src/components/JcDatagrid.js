@@ -37,7 +37,7 @@ export default {
         }
     },
     mounted() {
-        this.__driver = new AgDatagridDriver({el: this.$refs.table})
+        this.__driver = new AgDatagridDriver({el: this.$refs.table, vueApp: this})
         this.getDatagrid().setDriver(this.__driver)
     },
     beforeUnmount() {

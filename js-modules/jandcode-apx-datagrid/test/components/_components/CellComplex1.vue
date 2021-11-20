@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div>cell:{{ text }} = <b>{{ text2 }}</b>
+        <div class="row q-gutter-x-sm no-wrap">
+            <span>cell:{{ text }} = <b>{{ text2 }}</b></span>
             <jc-btn :label="text"/>
             <div
                 style="display: inline-block;width:100px;height:20px;border:1px solid red;">

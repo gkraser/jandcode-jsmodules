@@ -22,22 +22,26 @@ let tableColumns = [
             return '' + cell.value + ' лет'
         },
         onRenderCell: (cell) => {
-            let v = cell.value
-            let color
-            if (v < 20) {
-                color = 'red'
-            } else if (v < 40) {
-                color = 'green'
-            } else {
-                color = 'blue'
-            }
-            let n1 = h('span', {class: 'part-link', 'data-el': 't'}, 'правда')
-            let n2 = h('span', {class: 'part-link', 'data-el': 'f'}, 'ложь')
-            let n3 = h('span', {
-                class: ['color-' + color],
-                style: {minWidth: '50px', display: 'inline-block'}
-            }, cell.displayValue)
-            return h('span', {}, [n1, ' ', n2, ' ', n3])
+            return cell.vue({
+                render() {
+                    let v = cell.value
+                    let color
+                    if (v < 20) {
+                        color = 'red'
+                    } else if (v < 40) {
+                        color = 'green'
+                    } else {
+                        color = 'blue'
+                    }
+                    let n1 = h('span', {class: 'part-link', 'data-el': 't'}, 'правда')
+                    let n2 = h('span', {class: 'part-link', 'data-el': 'f'}, 'ложь')
+                    let n3 = h('span', {
+                        class: ['color-' + color],
+                        style: {minWidth: '50px', display: 'inline-block'}
+                    }, cell.displayValue)
+                    return h('span', {}, [n1, ' ', n2, ' ', n3])
+                }
+            })
         },
         onClickCell: (ev) => {
             console.info("click cell in 'age' column", ev);
@@ -58,7 +62,11 @@ let tableColumns = [
     {
         title: "Цвет", field: "color",
         onRenderCell: (cell) => {
-            return h('span', {style: {color: cell.value}}, cell.value)
+            return {
+                render() {
+                    return h('span', {style: {color: cell.value}}, cell.value)
+                }
+            }
         }
     },
     {title: "Дата", field: "dt", type: 'date'},

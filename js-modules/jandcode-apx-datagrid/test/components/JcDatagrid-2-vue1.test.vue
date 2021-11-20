@@ -1,7 +1,8 @@
 <template>
     <tst-panel>
-        <div class="row q-gutter-x-md q-mb-md" style="height:550px">
-            <jc-panel class="col" body-fit no-padding>
+        <q-checkbox label="show grid" v-model="showGrid" style="overflow: hidden"/>
+        <div v-if="showGrid" class="row q-gutter-x-md q-mb-md" style="height:250px">
+            <jc-panel class="col" body-fit no-padding ref="panel1">
                 <jc-datagrid ref="grid1" :options="opt1" class1="col"/>
             </jc-panel>
         </div>
@@ -13,14 +14,20 @@ import grid1 from './_grids/grid2-vue1'
 
 export default {
     created() {
-        this.opt1 = grid1({countRows: 100, parentVueComp: this})
+        this.opt1 = grid1({countRows: 2, parentVueComp: this})
     },
     data() {
-        return {}
+        return {
+            showGrid: true,
+        }
     },
     mounted() {
+        console.info("app",this.$root.$.appContext.app);
+        
+        
         console.info("this", this);
         console.info("this.$root", this.$root);
+        console.info("panel", this.$refs.panel1);
         console.info("this.$root===this", this.$root === this);
     },
     methods: {}
