@@ -32,7 +32,11 @@ export class AgVueCellRenderer {
             return this.el
         }
         if (this.vueComp) {
-            return this.vueComp.el
+            let el = this.vueComp.el
+            if (el.childElementCount === 1) {
+                el = el.firstElementChild
+            }
+            return el
         }
     }
 
