@@ -50,7 +50,7 @@ export class AgDatagridDriver extends DatagridDriver {
     makeOptions() {
         let dg = this.datagrid
         let res = {
-            rowData: dg.getData().getRows(),
+            rowData: dg.getStore().getRecords(),
             columnDefs: [],
             // не перемещать колонки
             suppressMovableColumns: true,

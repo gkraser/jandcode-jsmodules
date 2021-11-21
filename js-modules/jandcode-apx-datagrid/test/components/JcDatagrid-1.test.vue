@@ -38,7 +38,7 @@ export default {
     mounted() {
         this.$nextTick(() => {
             let grid = this.$refs.grid1.getDatagrid()
-            this.countRows = grid.getData().getRows().length
+            this.countRows = grid.getStore().getRecords().length
             this.countCols = grid.getColumnsFlat().length
         })
     },

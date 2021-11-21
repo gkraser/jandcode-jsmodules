@@ -1,5 +1,4 @@
 import {apx} from '../vendor'
-import {DatagridData} from './data'
 import {DatagridColumn} from './column'
 import {DatagridDriver} from './driver'
 import mitt from 'mitt'
@@ -60,7 +59,7 @@ export class Datagrid {
         let opts = this.__options
 
         // данные, могут быть массивом или {data:[],dictdata:{}}
-        this.__data = new DatagridData(opts.data)
+        this.__store = new apx.Store(opts.data)
 
         // колонки
         this.__columns = createDatagridColumns(opts.columns)
@@ -156,10 +155,10 @@ export class Datagrid {
 
     /**
      * Данные для гриды
-     * @return {DatagridData}
+     * @return {apx.Store}
      */
-    getData() {
-        return this.__data
+    getStore() {
+        return this.__store
     }
 
     /**
