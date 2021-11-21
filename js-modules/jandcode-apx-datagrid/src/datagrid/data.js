@@ -18,7 +18,11 @@ export class DatagridData {
                     this.__rows = data.data
                 }
                 if (data.dictdata) {
-                    this.__dictdata.updateData(data.dictdata)
+                    if (data.dictdata instanceof apx.Dictdata) {
+                        this.__dictdata = data.dictdata
+                    } else {
+                        this.__dictdata.updateData(data.dictdata)
+                    }
                 }
             }
         }
