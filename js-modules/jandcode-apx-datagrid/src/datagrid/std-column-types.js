@@ -23,13 +23,11 @@ export let number = {
 /**
  * Строка
  */
-export let string = {
-}
+export let string = {}
 
 /**
  * Неизвестный тип
  */
-export let unknown = {
-}
+export let unknown = {}
 
 

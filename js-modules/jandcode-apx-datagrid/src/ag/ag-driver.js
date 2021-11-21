@@ -50,7 +50,7 @@ export class AgDatagridDriver extends DatagridDriver {
     makeOptions() {
         let dg = this.datagrid
         let res = {
-            rowData: dg.getStore().getRecords(),
+            rowData: dg.store.getRecords(),
             columnDefs: [],
             // не перемещать колонки
             suppressMovableColumns: true,
@@ -69,18 +69,18 @@ export class AgDatagridDriver extends DatagridDriver {
         }
 
         // высота строки
-        if (dg.getRowHeight()) {
-            res.rowHeight = this.pixelCalc.getHeight(dg.getRowHeight())
+        if (dg.rowHeight) {
+            res.rowHeight = this.pixelCalc.getHeight(dg.rowHeight)
         }
         // высота строки заголовка
         let needWrapHeaderText = false
-        if (dg.getHeaderHeight()) {
-            res.headerHeight = this.pixelCalc.getHeight(dg.getHeaderHeight())
+        if (dg.headerHeight) {
+            res.headerHeight = this.pixelCalc.getHeight(dg.headerHeight)
             let oneLine = this.pixelCalc.getHeight('1line')
             needWrapHeaderText = res.headerHeight > oneLine
         }
 
-        for (let col of dg.getColumns()) {
+        for (let col of dg.columns) {
             let colDef = this.makeColOptions(col)
             if (needWrapHeaderText) {
                 colDef.headerClass.push('ag-cell-wrap-text')
@@ -104,9 +104,9 @@ export class AgDatagridDriver extends DatagridDriver {
         }
 
         // pinned
-        if (dg.getPinnedColumns() > 0) {
+        if (dg.pinnedColumns > 0) {
             let flatColumnDef = makeFlatColumns(res.columnDefs)
-            for (let i = 0; i < dg.getPinnedColumns(); i++) {
+            for (let i = 0; i < dg.pinnedColumns; i++) {
                 flatColumnDef[i].pinned = 'left'
             }
         }
@@ -122,7 +122,7 @@ export class AgDatagridDriver extends DatagridDriver {
                     datagrid: dg,
                     rowIndexes: rowIndexes
                 }
-                dg.getEventBus().emit('rowSelect', ev)
+                dg.eventBus.emit('rowSelect', ev)
             }
         }
 
@@ -139,8 +139,8 @@ export class AgDatagridDriver extends DatagridDriver {
                     datagrid: dg,
                     event: ev.event,
                 }
-                col.getEventBus().emit('clickCell', cell)
-                dg.getEventBus().emit('clickCell', cell)
+                col.eventBus.emit('clickCell', cell)
+                dg.eventBus.emit('clickCell', cell)
             }
         }
 
@@ -149,31 +149,31 @@ export class AgDatagridDriver extends DatagridDriver {
 
     makeColOptions(col) {
         let res = {
-            field: col.getField(),
-            headerName: col.getTitle(),
-            colId: col.getColId(),
+            field: col.field,
+            headerName: col.title,
+            colId: col.colId,
             type: [],
             headerClass: [],
         }
-        if (col.getAlign() === 'right') {
+        if (col.align === 'right') {
             res.type.push('rightAligned')
         }
-        if (col.getWidth()) {
-            res.width = this.pixelCalc.getWidth(col.getWidth())
+        if (col.width) {
+            res.width = this.pixelCalc.getWidth(col.width)
         }
-        if (col.getMinWidth()) {
-            res.minWidth = this.pixelCalc.getWidth(col.getMinWidth())
+        if (col.minWidth) {
+            res.minWidth = this.pixelCalc.getWidth(col.minWidth)
         }
-        if (col.getMaxWidth()) {
-            res.maxWidth = this.pixelCalc.getWidth(col.getMaxWidth())
+        if (col.maxWidth) {
+            res.maxWidth = this.pixelCalc.getWidth(col.maxWidth)
         }
-        if (col.getWrapText() != null) {
-            res.wrapText = col.getWrapText()
+        if (col.wrapText != null) {
+            res.wrapText = col.wrapText
         }
 
-        if (col.getColumns()) {
+        if (col.columns) {
             res.children = []
-            for (let childCol of col.getColumns()) {
+            for (let childCol of col.columns) {
                 res.children.push(this.makeColOptions(childCol))
             }
         }
@@ -235,9 +235,9 @@ export class AgDatagridDriver extends DatagridDriver {
         for (let col of cols) {
             let z = {
                 index: index++,
-                colId: col.jcCol.getColId(),
-                title: col.jcCol.getTitle(),
-                field: col.jcCol.getField(),
+                colId: col.jcCol.colId,
+                title: col.jcCol.title,
+                field: col.jcCol.field,
             }
             res.columns.push(z)
         }

@@ -28,11 +28,11 @@ function expandColumns(columns, leaf) {
     let res = []
     let step = (columns) => {
         for (let col of columns) {
-            if (apx.jcBase.isArray(col.getColumns())) {
+            if (apx.jcBase.isArray(col.columns)) {
                 if (!leaf) {
                     res.push(col)
                 }
-                step(col.getColumns())
+                step(col.columns)
             } else {
                 res.push(col)
             }
@@ -55,34 +55,37 @@ export class Datagrid {
      */
     constructor(options) {
         // опции, переданные при создании объекта
-        this.__options = Object.assign({}, options)
-        let opts = this.__options
+        this.options = Object.assign({}, options)
+        let opts = this.options
+
+        // делаем все опции свойствами
+        Object.assign(this, opts)
 
         // данные, могут быть массивом или {data:[],dictdata:{}}
-        this.__store = new apx.Store(opts.data)
+        this.store = new apx.Store(opts.data)
 
         // колонки
-        this.__columns = createDatagridColumns(opts.columns)
+        this.columns = createDatagridColumns(opts.columns)
         this.__columnsById = {}
-        let columns = expandColumns(this.__columns, false)
+        let columns = expandColumns(this.columns, false)
         for (let col of columns) {
-            this.__columnsById[col.getColId()] = col
+            this.__columnsById[col.colId] = col
         }
-        this.__columnsFlat = expandColumns(this.__columns, true)
+        this.__columnsFlat = expandColumns(this.columns, true)
 
         // сколько столбцов закреплено
-        this.__pinnedColumns = opts.pinnedColumns || 0
+        this.pinnedColumns = opts.pinnedColumns || 0
 
-        this.__rowHeight = opts.rowHeight
-        this.__headerHeight = opts.headerHeight
+        this.rowHeight = opts.rowHeight || '1line'
+        this.headerHeight = opts.headerHeight || '1line'
 
-        this.__eventBus = mitt()
+        this.eventBus = mitt()
 
         for (let evName of events) {
             let hName = 'on' + apx.vueUtils.capitalize(evName)
             let h = opts[hName]
             if (h) {
-                this.__eventBus.on(evName, h)
+                this.eventBus.on(evName, h)
             }
         }
 
@@ -98,26 +101,18 @@ export class Datagrid {
             this.__driver.destroy()
             this.__driver = null
         }
-        if (this.__eventBus != null) {
-            this.__eventBus.all.clear()
-            this.__eventBus = null
+        if (this.eventBus != null) {
+            this.eventBus.all.clear()
+            this.eventBus = null
         }
-        if (apx.jcBase.isArray(this.__columns)) {
-            for (let col of this.__columns) {
+        if (apx.jcBase.isArray(this.columns)) {
+            for (let col of this.columns) {
                 col.destroy()
             }
-            this.__columns = null
+            this.columns = null
             this.__columnsById = null
             this.__columnsFlat = null
         }
-    }
-
-    getOptions() {
-        return this.__options
-    }
-
-    getEventBus() {
-        return this.__eventBus
     }
 
     getDriver() {
@@ -140,46 +135,10 @@ export class Datagrid {
     }
 
     /**
-     * Все колонки, как они были переданы в опции гриды при ее создании
-     */
-    getColumns() {
-        return this.__columns
-    }
-
-    /**
      * Все колонки нижнего уровня, т.е. без групп
      */
     getColumnsFlat() {
         return this.__columnsFlat
-    }
-
-    /**
-     * Данные для гриды
-     * @return {apx.Store}
-     */
-    getStore() {
-        return this.__store
-    }
-
-    /**
-     * Сколько колонок закреплено
-     */
-    getPinnedColumns() {
-        return this.__pinnedColumns
-    }
-
-    /**
-     * Высота строки
-     */
-    getRowHeight() {
-        return this.__rowHeight || '1line'
-    }
-
-    /**
-     * Высота строки заголовка
-     */
-    getHeaderHeight() {
-        return this.__headerHeight || '1line'
     }
 
     ///
