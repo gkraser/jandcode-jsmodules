@@ -9,10 +9,19 @@
 
   ////
 
-  //--ag-header-background-color: @color-gray-100;
+  --ag-header-background-color: @color-gray-100;
+  //--ag-header-background-color: white;
+
   //--ag-secondary-foreground-color: @color-gray-700;
+
   --ag-row-border-color: #d9dcde;
 
+  //--ag-selected-row-background-color: #b7e4ff;
+  --ag-selected-row-background-color: #e8f1ff;
+
+  //--ag-data-color: @color-gray-900;
+  --ag-data-color: #212121;
+  
   .ag-cell-wrapper {
     align-items: start; // что бы значения в ячейке прижимались вверх
   }
@@ -21,20 +30,12 @@
     font-size: 1em;
     font-family: @font-family-normal;
 
-    .ag-cell {
-      line-height: @body-line-height;
+    .ag-cell, .ag-header-cell {
+      line-height: 1.25;
       padding-left: 0.5em;
       padding-right: 0.5em;
-      padding-top: 0.3em;
-      padding-bottom: 0.3em;
-    }
-
-    .ag-header-cell {
-      line-height: @body-line-height;
-      padding-left: 0.5em;
-      padding-right: 0.5em;
-      padding-top: 0.3em;
-      padding-bottom: 0.3em;
+      padding-top: 0.4em;
+      padding-bottom: 0.4em;
     }
 
     // перенос для заголовков
