@@ -17,7 +17,7 @@ function data1(options) {
 
     //
     let res = {
-        data: [],
+        records: [],
         dictadata: {}
     }
 
@@ -26,7 +26,7 @@ function data1(options) {
             id: i,
             label: 'label-' + i,
         }
-        res.data.push(z)
+        res.records.push(z)
     }
 
     return res
@@ -73,7 +73,7 @@ export default function(options) {
     ]
 
     let res = {
-        data: data1(opts),
+        store: data1(opts),
         columns: cols,
 
         rowHeight: '2.2em',

@@ -58,11 +58,19 @@ export class Datagrid {
         this.options = Object.assign({}, options)
         let opts = this.options
 
+        if (opts.data) {
+            throw new Error('Для datagrid данные нужно передавать в свойстве store')
+        }
+
         // делаем все опции свойствами
         Object.assign(this, opts)
 
-        // данные, могут быть массивом или {data:[],dictdata:{}}
-        this.store = new apx.Store(opts.data)
+        // данные, могут быть массивом или {records:[],dictdata:{}}
+        if (opts.store instanceof apx.Store) {
+            this.store = opts.store
+        } else {
+            this.store = new apx.Store(opts.store)
+        }
 
         // колонки
         this.columns = createDatagridColumns(opts.columns)

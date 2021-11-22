@@ -112,8 +112,8 @@ export default function(opt) {
     }
 
     let res = {
-        data: {
-            data: rows,
+        store: {
+            records: rows,
             dictdata: {}
         },
         columns: cols,

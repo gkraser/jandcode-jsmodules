@@ -5,7 +5,7 @@ export let API = {
 
     datagrid_options: {
         columns: ['column_options'],
-        data: {},
+        store: {},
         pinnedColumns: Number,
 
         rowHeight: String,

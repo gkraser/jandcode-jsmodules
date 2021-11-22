@@ -16,7 +16,10 @@ export class Store {
             } else {
                 // это объект
                 if (jcBase.isArray(data.data)) {
-                    this.__records = data.data
+                    throw new Error('Для store записи нужно передавать в поле records')
+                }
+                if (jcBase.isArray(data.records)) {
+                    this.__records = data.records
                 }
                 if (data.dictdata) {
                     if (data.dictdata instanceof Dictdata) {
