@@ -23,14 +23,19 @@ console.info("API apxDatagrid", apxDatagrid);
 console.info("column types", apxDatagrid.getColumnTypes());
 
 export default {
-    created() {
-        // this.opt1 = grid1({countRows: 10, countCols: 2, pinnedColumns: 2})
-        // this.opt1 = grid1({countRows: 10000, countCols: 50, pinnedColumns: 1})
-        this.opt1 = grid1({countRows: 5000, countCols: 10, pinnedColumns: 1})
-        // this.opt1 = grid1({countRows: 2, countCols: 1})
+    beforeMount() {
+        this.opt1 = grid1(this.gridOpts)
     },
     data() {
         return {
+            gridOpts: {
+                countRows: 10000,
+                countCols: 50,
+                pinnedColumns: 2,
+                multiSelect: true,
+                rowHeight: '1line',
+                //headerHeight: '2line',
+            },
             countRows: 0,
             countCols: 0,
         }

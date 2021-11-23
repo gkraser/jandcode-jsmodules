@@ -86,6 +86,7 @@ export class Datagrid {
 
         this.rowHeight = opts.rowHeight || '1line'
         this.headerHeight = opts.headerHeight || '1line'
+        this.multiSelect = opts.multiSelect
 
         this.eventBus = mitt()
 

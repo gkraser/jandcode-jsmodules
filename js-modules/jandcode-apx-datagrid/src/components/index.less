@@ -21,7 +21,7 @@
 
   //--ag-data-color: @color-gray-900;
   --ag-data-color: #212121;
-  
+
   .ag-cell-wrapper {
     align-items: start; // что бы значения в ячейке прижимались вверх
   }
@@ -45,7 +45,7 @@
       white-space: normal;
       // word-break: break-word; // по словам?
     }
-    
+
     .ag-root-wrapper {
       border: none;
     }
@@ -57,6 +57,28 @@
     .ag-header-cell::after, .ag-header-group-cell::after {
       top: 0;
       height: 100%;
+    }
+
+    ////// checkbox select
+
+    .ag-checkbox-input-wrapper {
+      font-size: inherit;
+      line-height: inherit;
+      width: 1em;
+      height: 1em;
+      background-color: transparent;
+    }
+
+    .ag-checkbox .ag-input-wrapper {
+      box-shadow: none;
+    }
+
+    .ag-checkbox-input-wrapper::after {
+      font-size: inherit;
+    }
+
+    .ag-cell-wrapper > *:not(.ag-cell-value):not(.ag-group-value) {
+      height: auto;
     }
 
   }

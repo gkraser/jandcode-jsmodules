@@ -60,9 +60,6 @@ export class AgDatagridDriver extends DatagridDriver {
                 resizable: true,
             },
 
-            // выделение строки
-            rowSelection: 'single',
-
             // что бы текст в ячейках выделялся как обычный текст
             enableCellTextSelection: true,
             ensureDomOrder: true,
@@ -78,6 +75,23 @@ export class AgDatagridDriver extends DatagridDriver {
             res.headerHeight = this.pixelCalc.getHeight(dg.headerHeight)
             let oneLine = this.pixelCalc.getHeight('1line')
             needWrapHeaderText = res.headerHeight > oneLine
+        }
+        //
+        if (dg.multiSelect) {
+            // выделение нескольких строк, с помощью checkbox
+            res.rowSelection = 'multiple'
+            res.suppressRowClickSelection = true
+            let checkBoxCol = {
+                checkboxSelection: true,
+                headerCheckboxSelection: true,
+                width: this.pixelCalc.getWidth("2char"),
+                resizable: false,
+                suppressMovable: true,
+            }
+            res.columnDefs.push(checkBoxCol)
+        } else {
+            // выделение только одной строки
+            res.rowSelection = 'single';
         }
 
         for (let col of dg.columns) {
@@ -105,8 +119,13 @@ export class AgDatagridDriver extends DatagridDriver {
 
         // pinned
         if (dg.pinnedColumns > 0) {
+            let pinCols = dg.pinnedColumns
+            if (dg.multiSelect) {
+                // для multiselect добавили колонку с checkbox, ее тоже пиним
+                pinCols += 1
+            }
             let flatColumnDef = makeFlatColumns(res.columnDefs)
-            for (let i = 0; i < dg.pinnedColumns; i++) {
+            for (let i = 0; i < pinCols; i++) {
                 flatColumnDef[i].pinned = 'left'
             }
         }

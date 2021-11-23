@@ -11,6 +11,8 @@ export let API = {
         rowHeight: String,
         headerHeight: String,
 
+        multiSelect: Boolean,
+
         onRowSelect: function() {},
         onClickCell: function() {},
     },
