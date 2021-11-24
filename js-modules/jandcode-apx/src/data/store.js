@@ -41,6 +41,17 @@ export class Store {
     }
 
     /**
+     * Установить новый вариант набора записей для store
+     * @param records
+     */
+    setRecords(records) {
+        if (!jcBase.isArray(records)) {
+            records = []
+        }
+        this.__records = records
+    }
+
+    /**
      * Данные словарей
      * @type {Dictdata}
      */
