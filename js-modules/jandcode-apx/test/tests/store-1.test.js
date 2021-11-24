@@ -16,5 +16,13 @@ describe(module.id, function() {
         console.info("custom", st);
     })
 
+    it("assign", async function() {
+        let st = await daoApi.invoke('store/small', [])
+        let st2 = new apx.Store()
+        Object.assign(st2, st)
+        console.info("data", st);
+        console.info("new store", st2);
+    })
+
 })
 

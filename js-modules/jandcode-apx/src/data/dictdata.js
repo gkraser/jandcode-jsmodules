@@ -33,6 +33,9 @@ export class Dictdata {
      * @param dictdata данные в виде {dictName:{id:{field1:value, ...}}}
      */
     updateData(dictdata) {
+        if (dictdata instanceof Dictdata) {
+            dictdata = dictdata.__data
+        }
         jcBase.mergeDeep(this.__data, dictdata)
     }
 

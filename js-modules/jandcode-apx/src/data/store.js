@@ -18,16 +18,9 @@ export class Store {
                 if (jcBase.isArray(data.data)) {
                     throw new Error('Для store записи нужно передавать в поле records')
                 }
-                if (jcBase.isArray(data.records)) {
-                    this.__records = data.records
-                }
-                if (data.dictdata) {
-                    if (data.dictdata instanceof Dictdata) {
-                        this.__dictdata = data.dictdata
-                    } else {
-                        this.__dictdata.updateData(data.dictdata)
-                    }
-                }
+
+                // присваиваем все
+                Object.assign(this, data)
             }
         }
     }
@@ -36,7 +29,7 @@ export class Store {
      * Строки данных.
      * @return {[Object]}
      */
-    getRecords() {
+    get records() {
         return this.__records
     }
 
@@ -44,7 +37,7 @@ export class Store {
      * Установить новый вариант набора записей для store
      * @param records
      */
-    setRecords(records) {
+    set records(records) {
         if (!jcBase.isArray(records)) {
             records = []
         }
@@ -55,8 +48,17 @@ export class Store {
      * Данные словарей
      * @type {Dictdata}
      */
-    getDictdata() {
+    get dictdata() {
         return this.__dictdata
+    }
+
+    /**
+     * Установить/обновить данные словарей
+     */
+    set dictdata(value) {
+        if (value) {
+            this.__dictdata.updateData(value)
+        }
     }
 
 }
