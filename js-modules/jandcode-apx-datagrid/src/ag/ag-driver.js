@@ -156,6 +156,7 @@ export class AgDatagridDriver extends DatagridDriver {
                     rowIndex: ev.rowIndex,
                     column: col,
                     datagrid: dg,
+                    store: dg.store,
                     event: ev.event,
                 }
                 col.eventBus.emit('clickCell', cell)
@@ -222,6 +223,7 @@ export class AgDatagridDriver extends DatagridDriver {
             rowIndex: params.rowIndex,
             column: this.datagrid.getColumnById(params.colDef.colId),
             datagrid: this.datagrid,
+            store: this.datagrid.store,
             vue: createVueComponentWrapper,
         }
     }
@@ -271,6 +273,7 @@ export class AgDatagridDriver extends DatagridDriver {
             rowIndex: 0,
             column: null,
             datagrid: this.datagrid,
+            store: this.datagrid.store,
         }
 
         // текущее состояние строк: отфильтрованы и отсортированы

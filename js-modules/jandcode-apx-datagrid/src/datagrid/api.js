@@ -49,6 +49,7 @@ export let API = {
         column: 'DatagridColumn',
         datagrid: 'Datagrid',
         event: 'DomEvent',
+        store: 'Store',
         vue: function(component, props) {}
     },
 
