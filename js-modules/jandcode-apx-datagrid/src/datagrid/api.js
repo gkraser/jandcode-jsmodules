@@ -30,6 +30,9 @@ export let API = {
 
         wrapText: Boolean,
 
+        dict: String,
+        dictField: String,
+
         columns: ['colum_options'],
 
         onDisplayValue: function() {},

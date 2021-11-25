@@ -65,9 +65,12 @@ export class Datagrid {
         // делаем все опции свойствами
         Object.assign(this, opts)
 
-        // данные, могут быть массивом или {records:[],dictdata:{}}
+        // данные, могут быть массивом, или {records:[],dictdata:{}}, или apx.Store, или {store:apx.Store}
         if (opts.store instanceof apx.Store) {
             this.store = opts.store
+        } else if (opts.store.store instanceof apx.Store) {
+            // например в качестве store передали StoreLoader
+            this.store = opts.store.store
         } else {
             this.store = new apx.Store(opts.store)
         }

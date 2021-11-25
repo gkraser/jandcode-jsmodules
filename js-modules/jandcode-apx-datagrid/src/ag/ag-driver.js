@@ -170,7 +170,7 @@ export class AgDatagridDriver extends DatagridDriver {
     makeColOptions(col) {
         let res = {
             field: col.field,
-            headerName: col.title,
+            headerName: col.title || col.field || '',
             colId: col.colId,
             type: [],
             headerClass: [],

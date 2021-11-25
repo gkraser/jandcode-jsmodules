@@ -67,6 +67,7 @@ export class DatagridColumn {
         this.minWidth = opts.minWidth
         this.maxWidth = opts.maxWidth
         this.wrapText = opts.wrapText
+        this.dict = opts.dict
 
         // дочерние колонки, тогда эта колонка - группа
         this.columns = null
@@ -134,7 +135,11 @@ export class DatagridColumn {
         if (cell.value == null) {
             return ''
         }
-        return '' + cell.value
+        if (this.dict) {
+            return '' + cell.store.dictdata.getValue(this.dict, cell.value, this.dictField)
+        } else {
+            return '' + cell.value
+        }
     }
 
 }
