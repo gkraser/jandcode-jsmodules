@@ -27,6 +27,10 @@ export class AgDatagridDriver extends DatagridDriver {
     }
 
     destroy() {
+        if (this.__unwatch_recordsChange) {
+            this.__unwatch_recordsChange()
+            this.__unwatch_recordsChange = null
+        }
         if (this.agGrid) {
             this.agGrid.destroy()
             this.agGrid = null
@@ -45,6 +49,14 @@ export class AgDatagridDriver extends DatagridDriver {
         super.init(datagrid);
         //
         this.agGrid = new AgGrid(this.el, this.makeOptions())
+
+        // отслеживание изменений в store
+        // свойство store.state.recordsChange меняется, когда меняется состав записей
+        let agApi = this.agGrid.gridOptions.api
+        let store = this.datagrid.store
+        this.__unwatch_recordsChange = apx.Vue.watch(() => store.state.recordsChange, () => {
+            agApi.setRowData(store.records)
+        })
     }
 
     makeOptions() {

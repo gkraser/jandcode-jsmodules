@@ -30,6 +30,10 @@ export class Store extends BaseState {
         }
 
         // обновляем состояние
+        this.updateState({
+            // для отслеживания изменения записей
+            recordsChange: 0,
+        })
         this.updateState()
     }
 
@@ -58,6 +62,9 @@ export class Store extends BaseState {
             records = []
         }
         this.__records = records
+        this.updateState({
+            recordsChange: this.state.recordsChange + 1
+        })
     }
 
     /**
