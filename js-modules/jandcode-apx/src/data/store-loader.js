@@ -14,12 +14,17 @@ export class StoreLoader extends BaseState {
 
         // опции конструктора
         this.options = Object.assign({}, options)
+        let opts = Object.assign({}, this.options)
 
         // по умолчанию - собственное store
         this.__store = new Store()
 
+        // параметры загрузчика, это не параметры dao!
+        this.__params = Object.assign({}, opts.params)
+        delete opts.params
+
         // присваиваем все
-        Object.assign(this, this.options)
+        Object.assign(this, opts)
 
         //
         this.updateState()
@@ -28,6 +33,9 @@ export class StoreLoader extends BaseState {
     grabState() {
         let state = super.grabState();
         jcBase.mergeDeep(state, this.store.state)
+        jcBase.mergeDeep(state, {
+            params: this.params
+        })
         return state
     }
 
@@ -67,6 +75,24 @@ export class StoreLoader extends BaseState {
      */
     get store() {
         return this.__store
+    }
+
+    /**
+     * Параметры загрузчика. На основании их отрабатывает load
+     * @return {Object}
+     */
+    get params() {
+        return this.__params
+    }
+
+    /**
+     * Установить новые параметры. Параметры накладыываются на существующие.
+     * Осуществляется неглубокое копирование.
+     *
+     * @param {Object} params значения параметров
+     */
+    updateParams(params) {
+        Object.assign(this.__params, params)
     }
 
 }
