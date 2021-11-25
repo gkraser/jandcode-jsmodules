@@ -22,7 +22,7 @@ export function nextId(prefix) {
 
 /**
  * Рекурсивное объедиенени объектов src в dest.
- * @return {Object} dest с наложенными рекурсивно свойствами из srs
+ * @return {Object} dest с наложенными рекурсивно свойствами из src
  */
 export function mergeDeep(dest, ...src) {
     return lodashMerge(dest, ...src)

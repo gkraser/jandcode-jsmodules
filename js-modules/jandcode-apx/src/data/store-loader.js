@@ -1,20 +1,34 @@
 import {Store} from './store'
-import {jcBase} from '../vendor'
+import {jcBase, Vue} from '../vendor'
+import {BaseState} from './state'
+
+let {reactive} = Vue
 
 /**
  * Загрузчик store
  */
-export class StoreLoader {
+export class StoreLoader extends BaseState {
 
     constructor(options) {
+        super()
+
         // опции конструктора
         this.options = Object.assign({}, options)
 
         // по умолчанию - собственное store
-        this.store = new Store()
+        this.__store = new Store()
 
         // присваиваем все
         Object.assign(this, this.options)
+
+        //
+        this.updateState()
+    }
+
+    grabState() {
+        let state = super.grabState();
+        jcBase.mergeDeep(state, this.store.state)
+        return state
     }
 
     /**
@@ -41,6 +55,18 @@ export class StoreLoader {
 
         // присваиваем все в store
         Object.assign(this.store, storeData)
+
+        // обновляем состояние
+        this.store.updateState()
+        this.updateState()
+    }
+
+    /**
+     * Связанное Store
+     * @return {Store}
+     */
+    get store() {
+        return this.__store
     }
 
 }

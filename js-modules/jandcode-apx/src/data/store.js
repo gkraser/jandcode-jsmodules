@@ -1,12 +1,17 @@
-import {jcBase} from '../vendor'
+import {jcBase, Vue} from '../vendor'
 import {Dictdata} from './dictdata'
+import {BaseState} from './state'
+
+let {reactive} = Vue
 
 /**
  * store - табличные данные
  */
-export class Store {
+export class Store extends BaseState {
 
     constructor(data) {
+        super()
+
         this.__records = []
         this.__dictdata = new Dictdata()
 
@@ -23,6 +28,17 @@ export class Store {
                 Object.assign(this, data)
             }
         }
+
+        // обновляем состояние
+        this.updateState()
+    }
+
+    grabState() {
+        let state = super.grabState();
+        jcBase.mergeDeep(state, {
+            countRecords: this.records.length
+        })
+        return state
     }
 
     /**

@@ -12,7 +12,9 @@ describe(module.id, function() {
     })
 
     it("custom", async function() {
-        let st = await daoApi.invoke('store/custom', [20, 20])
+        let st = await daoApi.invoke('store/custom', [{
+            countRecords: 20, countFields: 20
+        }])
         console.info("custom", st);
     })
 
