@@ -54,7 +54,7 @@ export class AgDatagridDriver extends DatagridDriver {
         // свойство store.state.recordsChange меняется, когда меняется состав записей
         let agApi = this.agGrid.gridOptions.api
         let store = this.datagrid.store
-        this.__unwatch_recordsChange = apx.Vue.watch(() => store.state.recordsChange, () => {
+        this.__unwatch_recordsChange = apx.Vue.watch(() => store.state.marker.records_change, () => {
             agApi.setRowData(store.records)
         })
     }

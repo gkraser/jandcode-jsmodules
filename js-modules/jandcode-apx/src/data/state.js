@@ -36,6 +36,25 @@ export class BaseState {
     }
 
     /**
+     * Изменить маркер, имитируя изменение соответствующего свойства в marker.
+     * Изменения маркера можно использовать для отслеживания какой-то группы изменений в
+     * объекте.
+     *
+     * @param {Object} markerName имя маркера, это свойство в state.marker
+     */
+    touchStateMarker(markerName) {
+        let newValue = 1
+        if (this.state.marker) {
+            newValue = jcBase.toInt(this.state.marker[markerName]) + 1
+        }
+        this.updateState({
+            marker: {
+                [markerName]: newValue
+            }
+        })
+    }
+
+    /**
      * Собирает объект-состояние по свойствам объекта.
      * Результат можно передавать в updateState
      * @return {Object} подмножество состояния
