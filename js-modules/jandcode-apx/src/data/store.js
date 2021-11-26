@@ -14,6 +14,11 @@ export class Store extends BaseState {
 
         this.__records = []
         this.__dictdata = new Dictdata()
+        this.__paginate = {
+            offset: 0,
+            limit: 0,
+            total: 0,
+        }
 
         if (data) {
             if (jcBase.isArray(data)) {
@@ -40,7 +45,8 @@ export class Store extends BaseState {
     grabState() {
         let state = super.grabState();
         jcBase.mergeDeep(state, {
-            countRecords: this.records.length
+            countRecords: this.records.length,
+            paginate: this.paginate,
         })
         return state
     }
@@ -82,6 +88,18 @@ export class Store extends BaseState {
         if (value) {
             this.__dictdata.updateData(value)
         }
+    }
+
+    /**
+     * Информация о пагинации
+     * @return {*|{total: number, offset: number, limit: number}}
+     */
+    get paginate() {
+        return this.__paginate
+    }
+
+    set paginate(value) {
+        Object.assign(this.__paginate, value)
     }
 
 }

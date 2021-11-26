@@ -26,5 +26,21 @@ describe(module.id, function() {
         console.info("new store", st2);
     })
 
+    it("paginate", async function() {
+        let st = await daoApi.invoke('store/customPaginate', {
+            config: {
+                countRecords: 100, countFields: 1
+            },
+            filter: {
+                // text1: 'q'
+            },
+            paginate: {
+                offset: 15,
+                limit: 3
+            }
+        })
+        console.info("paginate", st);
+    })
+
 })
 
