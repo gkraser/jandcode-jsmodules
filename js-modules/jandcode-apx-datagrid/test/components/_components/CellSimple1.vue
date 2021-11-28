@@ -1,6 +1,10 @@
 <template>
     <div>
-        <div>cell:{{ text }} = <b>{{ text2 }}</b></div>
+        <div>cell:{{ text }} = <b>{{ text2 }}</b>
+            <q-tooltip>
+                tooltip работает: {{ text2 }}
+            </q-tooltip>
+        </div>
     </div>
 </template>
 
