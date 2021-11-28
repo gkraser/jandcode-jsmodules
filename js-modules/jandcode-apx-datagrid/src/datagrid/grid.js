@@ -42,6 +42,23 @@ function expandColumns(columns, leaf) {
     return res
 }
 
+/**
+ * Посчитать сколько уровней в заголовках
+ */
+function calcLevels(columns) {
+    let res = 1
+    let step = (columns, level) => {
+        for (let col of columns) {
+            if (apx.jcBase.isArray(col.columns)) {
+                res = Math.max(res, level + 1)
+                step(col.columns, level + 1)
+            }
+        }
+    }
+    step(columns, 1)
+    return res
+}
+
 let events = ['rowSelect', 'clickCell']
 
 /**
@@ -161,6 +178,13 @@ export class Datagrid {
      */
     exportData(options) {
         return this.getDriver().exportData(options)
+    }
+
+    /**
+     * Сколько уровней в заголовке
+     */
+    getHeaderCountLevels() {
+        return calcLevels(this.columns)
     }
 
 }

@@ -26,7 +26,29 @@ export default {
             type: Object,
             default: null,
             required: true,
-        }
+        },
+
+        /**
+         * Высота гриды. Можно указывать css размеры.
+         * Дополнительно: можно указать размер в строках данных в виде 'Nrow',
+         * тогда размер подберется так, что бы были видимы N-строк.
+         *
+         * Если не указано, размер определяется контейнером или явными css-свойствами.
+         */
+        gridHeight: {
+            type: String,
+            default: null,
+        },
+
+        /**
+         * Ширина гриды. Можно указывать css размеры.
+
+         * Если не указано, размер определяется контейнером или явными css-свойствами.
+         */
+        gridWidth: {
+            type: String,
+            default: null,
+        },
 
     },
     beforeCreate() {
@@ -37,7 +59,12 @@ export default {
         }
     },
     mounted() {
-        this.__driver = new AgDatagridDriver({el: this.$refs.table, vueApp: this})
+        this.__driver = new AgDatagridDriver({
+            el: this.$refs.table,
+            vueApp: this,
+            gridHeight: this.gridHeight,
+            gridWidth: this.gridWidth,
+        })
         this.getDatagrid().setDriver(this.__driver)
     },
     beforeUnmount() {

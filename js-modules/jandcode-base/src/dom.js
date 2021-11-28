@@ -28,6 +28,9 @@ let _currentMousePos = {
     y: 0
 }
 
+// размеры scrollbar {width:x, height:x}
+let _scrollbarSize = null
+
 /**
  * Текущая позиция мыши {x,y} относительно окна.
  * @return {DomPoint}
@@ -423,6 +426,39 @@ export class PixelCalc {
 
     }
 
+}
+
+//////
+
+function calculateScrollbarSize() {
+    const outer = createTmpElement()
+    outer.style.overflow = 'scroll'
+
+    const inner = document.createElement('div')
+    outer.appendChild(inner)
+
+    let res = {
+        width: outer.offsetWidth - inner.offsetWidth,
+        height: outer.offsetHeight - inner.offsetHeight,
+    }
+
+    outer.remove()
+
+    return res;
+}
+
+/**
+ * Возвращает размер scrollbar
+ * @return {{width, height}}
+ */
+export function getScrollbarSize() {
+    if (!_scrollbarSize) {
+        _scrollbarSize = calculateScrollbarSize()
+    }
+    return {
+        width: _scrollbarSize.width,
+        height: _scrollbarSize.height,
+    }
 }
 
 //////

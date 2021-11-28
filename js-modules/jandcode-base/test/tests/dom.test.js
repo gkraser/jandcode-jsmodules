@@ -1,5 +1,3 @@
-import {tst, apx} from './vendor'
-
 import * as m from '../../src/dom'
 
 describe(module.id, function() {
@@ -27,6 +25,11 @@ describe(module.id, function() {
 
         a = z.getWidth("10char")
         console.info("a", a);
+    })
+
+    it("scrollbar size", function() {
+        let z = m.getScrollbarSize()
+        console.info("scrollbar size", z);
     })
 
 })

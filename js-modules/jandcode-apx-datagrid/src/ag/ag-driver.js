@@ -48,7 +48,33 @@ export class AgDatagridDriver extends DatagridDriver {
     init(datagrid) {
         super.init(datagrid);
         //
-        this.agGrid = new AgGrid(this.el, this.makeOptions())
+        let agOpts = this.makeOptions()
+        this.agGrid = new AgGrid(this.el, agOpts)
+
+        // width
+        if (this.options.gridWidth) {
+            this.el.style.width = this.options.gridWidth
+        }
+
+        // height
+        if (this.options.gridHeight) {
+            let h = this.options.gridHeight
+            if (h.endsWith('row')) {
+                let cntRow = apx.jcBase.toInt(h.substring(0, h.length - 3))
+                let rowHeaderHeight = agOpts.headerHeight || 25
+                let rowHeight = agOpts.rowHeight || 25
+                let cntHeaderRow = this.datagrid.getHeaderCountLevels()
+                let scrollbarSize = apx.jcBase.dom.getScrollbarSize()
+
+                let h1 = cntHeaderRow * rowHeaderHeight +
+                    cntRow * rowHeight +
+                    (scrollbarSize.height + 1)
+
+                h = '' + h1 + 'px'
+            }
+            this.el.style.height = h
+        }
+
 
         // отслеживание изменений в store
         // свойство store.state.recordsChange меняется, когда меняется состав записей
@@ -75,6 +101,9 @@ export class AgDatagridDriver extends DatagridDriver {
             // что бы текст в ячейках выделялся как обычный текст
             enableCellTextSelection: true,
             ensureDomOrder: true,
+
+            alwaysShowHorizontalScroll: true,
+            alwaysShowVerticalScroll: true,
         }
 
         // высота строки
