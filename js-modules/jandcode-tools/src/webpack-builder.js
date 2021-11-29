@@ -95,6 +95,13 @@ class WebpackBuilder {
         this.isProd = process.env.NODE_ENV === 'production'
 
         /**
+         * Режим debug, если true. Автоматом определяется по JC_NODE_DEBUG.
+         * В этом режиме можно для production сборки включать отладочную информацию.
+         * @type {boolean}
+         */
+        this.isDebug = process.env.JC_NODE_DEBUG === 'true'
+
+        /**
          * В какой каталог внутри _gen будет генерироватся бандл
          * @type {string}
          */
@@ -125,7 +132,8 @@ class WebpackBuilder {
      */
     build() {
         if (this.isProd) {
-            console.info(`webpack PRODUCTION build in ${this.basedir}`);
+            let debugMark = this.isDebug ? ' (DEBUG)' : ''
+            console.info(`webpack PRODUCTION${debugMark} build in ${this.basedir}`);
         }
 
         // сначала инициализация, состав плагинов может изменится
@@ -207,6 +215,7 @@ class WebpackBuilder {
      */
     buildStdConfig() {
         let isProd = this.isProd
+        let isDebug = this.isDebug
         let basedir = this.basedir
 
         let cleanCssLoader = {
@@ -253,7 +262,7 @@ class WebpackBuilder {
 
         let config = {
             mode: isProd ? 'production' : 'development',
-            devtool: isProd ? false : 'eval-source-map',
+            devtool: isProd ? (isDebug ? 'eval' : false) : 'eval-source-map',
             stats: 'minimal',
             context: basedir,
             entry: {
@@ -275,7 +284,10 @@ class WebpackBuilder {
             },
             optimization: {
                 splitChunks: {},
-                minimize: isProd,
+                minimize: isProd && !isDebug,
+            },
+            performance: {
+                hints: false,
             },
             watchOptions: {
                 ignored: /node_modules/,

@@ -44,7 +44,7 @@ class WpbApxPlugin extends jcTools.WebpackBuilderPlugin {
         let opts = this.options
 
         // нужно ли включать tst
-        this.isTst = jcTools.envFlag('JC_NODE_TST', !builder.isProd)
+        this.isTst = builder.isDebug || jcTools.envFlag('JC_NODE_TST', !builder.isProd)
 
         // подключаем tst
         if (this.isTst) {
