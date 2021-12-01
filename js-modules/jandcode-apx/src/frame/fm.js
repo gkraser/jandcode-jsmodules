@@ -229,7 +229,7 @@ export class FrameManager {
             if (jcBase.cfg.envDev) {
                 console.info("|--> frameWrapper", frameWrapper.id, frameWrapper)
             }
-            
+
             // монтируем
             frameWrapper.vueMountEl = jcBase.dom.createTmpElement()
             frameWrapper.vueInst = vueApp.mount(frameWrapper.vueMountEl)
