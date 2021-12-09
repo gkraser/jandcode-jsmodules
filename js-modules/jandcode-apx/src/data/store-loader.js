@@ -67,6 +67,7 @@ export class StoreLoader extends BaseState {
 
         //
         this.updateState()
+        this.updateState({loading: false})
     }
 
     grabState() {
@@ -93,33 +94,46 @@ export class StoreLoader extends BaseState {
     }
 
     /**
-     * Загрузка данных в store
+     * Реализация загрузки данных в store
+     */
+    async __doLoad() {
+        this.updateState({loading: true})
+        try {
+            let storeData = await this.onLoad()
+
+            if (!jcBase.isObject(storeData)) {
+                throw new Error("Данные для store должны быть объектом")
+            }
+
+            // присваиваем все в store
+            Object.assign(this.store, storeData)
+
+            // обновляем состояние
+            this.store.updateState()
+            this.updateState()
+        } finally {
+            this.updateState({loading: false})
+        }
+    }
+
+    /**
+     * Загрузка данных в store.
      */
     async load() {
-        let storeData = await this.onLoad()
-
-        if (!jcBase.isObject(storeData)) {
-            throw new Error("Данные для store должны быть объектом")
-        }
-
-        // присваиваем все в store
-        Object.assign(this.store, storeData)
-
-        // обновляем состояние
-        this.store.updateState()
-        this.updateState()
+        this.__offset = getOffset(0, this.limit)
+        await this.__doLoad()
     }
 
     /**
      * Загрузить указанную страницу, если разрешена пагинация.
-     * Если пагинация не разрешена, грузит все.
+     * Если пагинация не разрешена, то рабатоает аналогично load
      *
      * @param pageNum номер страницы (с 1)
      * @return {Promise<void>}
      */
     async loadPage(pageNum) {
         this.__offset = getOffset(pageNum, this.limit)
-        await this.load()
+        await this.__doLoad()
     }
 
     /**
