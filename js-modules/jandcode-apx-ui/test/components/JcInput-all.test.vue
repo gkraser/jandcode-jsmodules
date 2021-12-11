@@ -80,6 +80,21 @@
             <div>model:[{{ date1 }}]</div>
         </div>
 
+        <div class="row items-start q-gutter-x-md q-mb-lg">
+            <jc-input-select v-model="select1" v-bind="bindAttrs"
+                             :options="select1_options" style="width:9rem">
+                <template #before-options>
+                    <jc-btn label="hello!"/>
+                    <q-separator/>
+                </template>
+            </jc-input-select>
+            <jc-input-select v-model="select1" v-bind="bindAttrs"
+                             :options="select1_options"/>
+            <jc-btn label="change model" @click="select1=3"/>
+            <div>jc-input-select</div>
+            <div>model:[{{ select1 }}]</div>
+        </div>
+
     </tst-panel>
 </template>
 
@@ -103,7 +118,13 @@ export default {
             str1: 'Это строка',
             passwd1: '',
             date1: '1999-12-23',
-            bindAttrs: {}
+            bindAttrs: {},
+            select1: 2,
+            select1_options: [
+                {value: 1, label: 'text1'},
+                {value: 2, label: 'text2'},
+                {value: 3, label: 'text3'},
+            ]
         }
     },
     methods: {
