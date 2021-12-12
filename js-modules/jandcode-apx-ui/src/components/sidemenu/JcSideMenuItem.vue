@@ -9,7 +9,7 @@
             :href="href_calc"
             :target="target"
             :tag="tag_calc">
-        <q-item-section avatar>
+        <q-item-section side top>
             <q-icon :name="iconValue"/>
         </q-item-section>
         <q-item-section>
@@ -24,7 +24,7 @@
                       :headerStyle="style"
                       :headerClass="classes">
         <template v-slot:header>
-            <q-item-section avatar>
+            <q-item-section side top>
                 <q-icon :name="iconValue"/>
             </q-item-section>
             <q-item-section>
@@ -44,7 +44,7 @@ let nm = 'jc-side-menu-item'
 
 export let cfg = {
     insetPaddingStart: 1,
-    insetPaddingLevel: 2,
+    insetPaddingLevel: 1.8,
 }
 
 export default {

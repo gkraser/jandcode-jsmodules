@@ -66,14 +66,54 @@
 /* q-item
 ----------------------------------------------------------------------------- */
 
+.q-item {
+
+  min-height: 0.1em;
+  padding: 0.5em 1em;
+
+  &__section--side {
+    padding-right: 0.6em;
+  }
+
+  &__section--side > .q-icon {
+    font-size: 1em * @icon-font-size-kfc;
+  }
+
+  &__section--avatar {
+    min-width: 1em;
+    align-self: flex-start;
+  }
+
+  &__section--side:last-of-type {
+    padding-right: 0;
+  }
+
+}
 
 /* q-checkbox
 ----------------------------------------------------------------------------- */
 
-.q-checkbox__inner {
-  font-size: 1em;
-  width: @button-height;
-  height: @button-height;
+.q-checkbox {
+
+  &__bg {
+    border-width: 1px;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+  }
+
+  &__inner {
+    font-size: 1em;
+    width: 1em * @icon-font-size-kfc;
+    height: 1em * @icon-font-size-kfc;
+  }
+
+  &__label {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+
 }
 
 /* q-dialog
