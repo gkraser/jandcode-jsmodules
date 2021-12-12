@@ -1,6 +1,6 @@
 import {jcBase, Vue} from '../vendor'
 
-let {reactive} = Vue
+let {reactive, markRaw} = Vue
 
 /**
  * Объект с явно выделенныем состоянием в свойстве state
@@ -8,6 +8,9 @@ let {reactive} = Vue
 export class BaseState {
 
     constructor() {
+        // объекты со сотоянием сами не реактивны
+        markRaw(this)
+
         // состояние, реактивное свойство
         this.__state = reactive({})
     }
