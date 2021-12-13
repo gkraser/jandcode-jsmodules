@@ -8,7 +8,7 @@
             :label="label"
             :icon="leftIcon"
             :icon-right="rightIcon">
-        <q-tooltip v-if="tooltip">{{ tooltip }}</q-tooltip>
+        <jc-tooltip v-if="tooltip">{{ tooltip }}</jc-tooltip>
         <slot name="content"></slot>
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
