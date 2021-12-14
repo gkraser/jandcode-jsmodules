@@ -46,7 +46,7 @@ export default {
     render() {
         let QInput = resolveComponent('q-input')
         let QIcon = resolveComponent('q-icon')
-        let QMenu = resolveComponent('q-menu')
+        let JcPopup = resolveComponent('jc-popup')
         let QDate = resolveComponent('q-date')
 
         let attrs = adaptInput(this)
@@ -67,9 +67,7 @@ export default {
             modelValue: this.inpValue,
             'onUpdate:modelValue': value => this.inpValue = value
         })
-        let nMenu = h(QMenu, {
-            transitionShow: null,
-            transitionHide: null,
+        let nMenu = h(JcPopup, {
             anchor: "bottom left",
             self: "top left",
             noParentEvent: true,

@@ -77,9 +77,9 @@
                 <jc-action label="Action"/>
             </jc-action>
             <jc-btn class="jc-action" flat icon="mail" label="Button">
-                <q-menu>
+                <jc-popup>
                     <jc-action label="Action"/>
-                </q-menu>
+                </jc-popup>
             </jc-btn>
         </template>
 
@@ -103,9 +103,9 @@
                 <jc-action label="Action"/>
             </jc-action>
             <jc-btn icon="mail" label="Button">
-                <q-menu>
+                <jc-popup>
                     <jc-action label="Action"/>
-                </q-menu>
+                </jc-popup>
             </jc-btn>
         </template>
 

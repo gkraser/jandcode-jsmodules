@@ -11,15 +11,13 @@
         <jc-tooltip v-if="tooltip">{{ tooltip }}</jc-tooltip>
         <slot name="content"></slot>
         <template v-if="hasSubMenu">
-            <q-menu content-class="jc-action--menu"
-                    :anchor="isMenuItem?'top right':null"
-                    square
-                    :transition-show="null"
-                    :transition-hide="null">
+            <jc-popup content-class="jc-action--menu"
+                      :anchor="isMenuItem?'top right':null"
+                      square>
                 <div class="column">
                     <slot name="default"></slot>
                 </div>
-            </q-menu>
+            </jc-popup>
         </template>
     </jc-btn>
 </template>
