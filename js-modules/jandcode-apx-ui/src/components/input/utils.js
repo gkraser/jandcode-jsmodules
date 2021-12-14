@@ -4,7 +4,11 @@ let {h, resolveComponent} = apx.Vue
 
 /**
  * Адаптировать input к общим правилам
- * @param th
+ *
+ * Дополнительные атрибуты:
+ * - width: css-ширина внутреннего input, например можно задавать размер в символах '20ch'
+ *
+ * @param th экземпляр компонента (this из render)
  * @return {*}
  */
 export function adaptInput(th) {
@@ -30,6 +34,13 @@ export function adaptInput(th) {
     }
 
     attrs.class.push('jc-input')
+
+    if (attrs.width != null) {
+        let width = attrs.width
+        delete attrs.width
+        apx.vueUtils.adaptPropSC(attrs, 'inputStyle')
+        attrs.inputStyle.push({width: width})
+    }
 
     return attrs
 }
