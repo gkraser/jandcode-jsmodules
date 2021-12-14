@@ -82,11 +82,9 @@ export default {
             attrs.href = apx.jcBase.url.ref(attrs.href)
         }
 
-        // если тип явно не установлен, и нет click - ставим 'a'
+        // если тип явно не установлен, ставим 'a' (для button при disable не работают tooltip!)
         if (!attrs.type) {
-            if (!attrs.onClick) {
-                attrs.type = 'a'
-            }
+            attrs.type = 'a'
         }
 
         return h(QBtn, attrs, this.$slots)

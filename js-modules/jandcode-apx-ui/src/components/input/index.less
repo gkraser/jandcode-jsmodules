@@ -37,10 +37,18 @@
     padding-right: 0.3em;
   }
 
+  &.q-field--outlined.q-field--readonly .q-field__control:before {
+    border-style: solid;
+  }
+
   ////// select
 
-  &.q-field--auto-height .q-field__native,  &.q-field--auto-height .q-field__control {
+  &.q-field--auto-height .q-field__native, &.q-field--auto-height .q-field__control {
     min-height: @button-height;
+  }
+
+  &.q-field--auto-height.q-field--labeled .q-field__control-container {
+    padding-top: 0;
   }
 
 }

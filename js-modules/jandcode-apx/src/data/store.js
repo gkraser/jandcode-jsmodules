@@ -13,6 +13,7 @@ export class Store extends BaseState {
         super()
 
         this.__records = []
+        this.__recordsById = null
         this.__dictdata = new Dictdata()
         this.__paginate = {
             offset: 0,
@@ -65,6 +66,7 @@ export class Store extends BaseState {
             records = []
         }
         this.__records = records
+        this.__recordsById = null
         this.touchStateMarker('records_change')
     }
 
@@ -95,6 +97,30 @@ export class Store extends BaseState {
 
     set paginate(value) {
         Object.assign(this.__paginate, value)
+    }
+
+    //////
+
+    __getRecordsById() {
+        if (!this.__recordsById) {
+            let res = {}
+            for (let rec of this.__records) {
+                let key = '' + rec.id
+                res[key] = rec
+            }
+            this.__recordsById = res
+        }
+        return this.__recordsById
+    }
+
+    /**
+     * Возвращает запись по id
+     * @param id значение поля id
+     * @return {Object}
+     */
+    findById(id) {
+        let key = '' + id
+        return this.__getRecordsById()[key]
     }
 
 }
