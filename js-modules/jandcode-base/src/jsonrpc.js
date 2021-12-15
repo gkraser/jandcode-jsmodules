@@ -79,20 +79,32 @@ export class JsonRpcClient {
         }
         //
         let promise = new Promise(function(resolve, reject) {
+            let data = {
+                id: id,
+                method: methodName,
+                params: methodParams,
+            }
+
+            // уведомляем
+            th.onBeforeInvoke(data)
+
             ajax.request({
                 url: th.url,
                 params: params,
-                data: {
-                    id: id,
-                    method: methodName,
-                    params: methodParams,
-                }
+                data: data
             }).then((resp) => {
-                if (Jc.cfg.envDev) {
-                    console.info(`result:`, resp.data)
-                    console.timeEnd("time")
-                    console.groupEnd()
+                try {
+                    // уведомляем
+                    th.onAfterInvoke(resp.data)
+                } finally {
+                    if (Jc.cfg.envDev) {
+                        console.info(`result:`, resp.data.result)
+                        console.info(`  resp:`, resp.data)
+                        console.timeEnd("time")
+                        console.groupEnd()
+                    }
                 }
+                // готово
                 resolve(resp.data.result)
             }).catch((resp) => {
                 if (Jc.cfg.envDev) {
@@ -114,6 +126,20 @@ export class JsonRpcClient {
         promise.jsonRpcId = id
 
         return promise
+    }
+
+    /**
+     * Метод вызывается перед выполнением invoke.
+     * @param data данные запроса, полные, по спецификации json-rpc.
+     */
+    onBeforeInvoke(data) {
+    }
+
+    /**
+     * Метод вызывается после получение результатов invoke.
+     * @param data данные ответа, полные, по спецификации json-rpc.
+     */
+    onAfterInvoke(data) {
     }
 }
 

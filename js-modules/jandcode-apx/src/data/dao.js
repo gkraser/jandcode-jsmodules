@@ -9,5 +9,10 @@ import {jcBase} from '../vendor'
  */
 export class ApxJsonRpcClient extends jcBase.jsonrpc.JsonRpcClient {
 
+    constructor(options) {
+        super(options)
+    }
+
+    
 }
 
