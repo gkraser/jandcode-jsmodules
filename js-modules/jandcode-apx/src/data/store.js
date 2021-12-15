@@ -2,8 +2,6 @@ import {jcBase, Vue} from '../vendor'
 import {Dictdata} from './dictdata'
 import {BaseState} from './state'
 
-let {reactive} = Vue
-
 /**
  * store - табличные данные
  */
