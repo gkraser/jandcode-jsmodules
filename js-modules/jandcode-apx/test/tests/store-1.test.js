@@ -4,7 +4,7 @@ import {apx} from './vendor'
 
 describe(module.id, function() {
 
-    let daoApi = new apx.jcBase.jsonrpc.JsonRpcClient({url: '_tst/tst-api'})
+    let daoApi = new apx.ApxJsonRpcClient({url: '_tst/tst-api'})
 
     it("small", async function() {
         let st = await daoApi.invoke('store/small', [])

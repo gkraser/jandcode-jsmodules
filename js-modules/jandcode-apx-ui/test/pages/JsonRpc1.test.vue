@@ -12,7 +12,7 @@ import {apx} from '../vendor'
 
 export default {
     created() {
-        this.daoApi = new apx.jcBase.jsonrpc.JsonRpcClient({url: '_tst/tst-api'})
+        this.daoApi = new apx.ApxJsonRpcClient({url: '_tst/tst-api'})
     },
     methods: {
         async invokePos() {
