@@ -236,6 +236,7 @@ export class PixelCalc {
     constructor(options) {
         this.options = Object.assign({}, options)
         this.tmpEl = createTmpElement()
+        this.tmpEl.dataset['pixelCalc'] = '1'
 
         let elements = this.__makeEl(this.options.parentElements)
         this.el = elements.el
@@ -361,6 +362,10 @@ export class PixelCalc {
             n.style.minHeight = 'auto'
             n.style.maxHeight = 'auto'
             n.style.position = 'static'
+
+            if (n.id) {
+                n.id = base.nextId('pixel-calc-') + '--' + n.id
+            }
 
             return n
         }
