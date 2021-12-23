@@ -104,6 +104,8 @@ export class AgDatagridDriver extends DatagridDriver {
 
             alwaysShowHorizontalScroll: true,
             alwaysShowVerticalScroll: true,
+
+            rowBuffer: 25,
         }
 
         // высота строки
