@@ -1,4 +1,4 @@
-import {jcBase, Vue} from '../vendor'
+import {jcBase} from '../vendor'
 import {Dictdata} from './dictdata'
 import {BaseState} from './state'
 
@@ -13,6 +13,7 @@ export class Store extends BaseState {
         this.__records = []
         this.__recordsById = null
         this.__dictdata = new Dictdata()
+        this.__dictfields = {}
         this.__paginate = {
             offset: 0,
             limit: 0,
@@ -86,6 +87,21 @@ export class Store extends BaseState {
     }
 
     /**
+     * Имена словарей для полей (формат: {имя_поля:имя_словаря})
+     * @type {Object}
+     */
+    get dictfields() {
+        return this.__dictfields
+    }
+
+    /**
+     * Установить имена словарей для полей
+     */
+    set dictfields(value) {
+        this.__dictfields = Object.assign({}, value)
+    }
+
+    /**
      * Информация о пагинации
      * @return {*|{total: number, offset: number, limit: number}}
      */
@@ -119,6 +135,72 @@ export class Store extends BaseState {
     findById(id) {
         let key = '' + id
         return this.__getRecordsById()[key]
+    }
+
+    /**
+     * Создает экземпляр записи {@link StoreRecord}.
+     * В store ничего не добавляется!
+     * @param data данные записи
+     * @return {StoreRecord}
+     */
+    createRecord(data) {
+        return new StoreRecord(this, data)
+    }
+
+    /**
+     * Возвращает новый экземпляр {@link StoreRecord} для записи с индексом index.
+     * @param index индекс записи
+     * @return {StoreRecord}
+     */
+    getRecord(index) {
+        return this.createRecord(this.records[index])
+    }
+
+}
+
+/**
+ * Представление записи данных в store.
+ * Можно взять некий объект, например запись из store, и работать с ним в контекте
+ * store, считая что это запись.
+ */
+export class StoreRecord {
+
+    constructor(store, data) {
+        /**
+         * Для какого store
+         * @type {Store}
+         */
+        this.store = store
+
+        /**
+         * Данные записи
+         * @type {Object}
+         */
+        this.data = data || {}
+    }
+
+    /**
+     * Значение поля
+     * @param field имя поля
+     * @return {*}
+     */
+    getValue(field) {
+        return this.data[field]
+    }
+
+    /**
+     * Значение словарного поля для значения поля
+     * @param field имя поля
+     * @param dictName имя словаря, если не указано то берется словарь для поля из store.dictfields
+     * @param dictFieldName имя поля из словар, если не указано то берется первое поле из списка ['text', 'name']
+     * @return {*}
+     */
+    getDictValue(field, dictName = null, dictFieldName = '') {
+        let v = this.getValue(field)
+        if (!dictName) {
+            dictName = this.store.dictfields[field]
+        }
+        return this.store.dictdata.getValue(dictName, v, dictFieldName)
     }
 
 }

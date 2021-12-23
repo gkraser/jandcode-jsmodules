@@ -27,7 +27,22 @@ export class ApxJsonRpcClient extends jcBase.jsonrpc.JsonRpcClient {
     }
 
     /**
+     * Выполняет {@link ApxJsonRpcClient.invoke} и возвращает результат в виде StoreRecord.
+     * Считает, что dao возвращает store. Из этого store берется первая запись.
+     *
+     * @param methodName
+     * @param methodParams
+     * @return {StoreRecord}
+     */
+    async loadStoreRecord(methodName, methodParams) {
+        let res = await this.invoke(methodName, methodParams)
+        let store = new Store(res)
+        return store.getRecord(0)
+    }
+
+    /**
      * Выполняет {@link ApxJsonRpcClient.invoke} и возвращает результат в виде Store.
+     *
      * Если для этого метода разрешено кеширование, то возможно вернет кешиованный
      * экземпляр.
      *
@@ -37,6 +52,21 @@ export class ApxJsonRpcClient extends jcBase.jsonrpc.JsonRpcClient {
      */
     async getStore(methodName, methodParams) {
         return this.loadStore(methodName, methodParams)
+    }
+
+    /**
+     * Выполняет {@link ApxJsonRpcClient.invoke} и возвращает результат в виде StoreRecord.
+     * Считает, что dao возвращает store. Из этого store берется первая запись.
+     *
+     * Если для этого метода разрешено кеширование, то возможно вернет кешиованный
+     * экземпляр.
+     *
+     * @param methodName
+     * @param methodParams
+     * @return {StoreRecord}
+     */
+    async getStoreRecord(methodName, methodParams) {
+        return this.loadStoreRecord(methodName, methodParams)
     }
 
 }
